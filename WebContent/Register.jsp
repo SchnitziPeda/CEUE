@@ -41,7 +41,7 @@ checken ob xml file leer
 			
 Daten + ID in xml schreiben
 */
-
+s
 
 if(request.getParameter("submit")!=null){
 	String part1 = request.getParameter("part1");
