@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="InquiryOrderPlattformServiceService" targetNamespace="http://ue.ce.jku.at/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://ue.ce.jku.at/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+    <xs:schema elementFormDefault="unqualified" targetNamespace="http://ue.ce.jku.at/" version="1.0" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://ue.ce.jku.at/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<xs:element name="getAllPartsByProducer" type="tns:getAllPartsByProducer"/>
+<xs:element name="getAllPartsByProducerResponse" type="tns:getAllPartsByProducerResponse"/>
+<xs:element name="getAllPartsOnPlattform" type="tns:getAllPartsOnPlattform"/>
+<xs:element name="getAllPartsOnPlattformResponse" type="tns:getAllPartsOnPlattformResponse"/>
+<xs:element name="getAllProducersForPart" type="tns:getAllProducersForPart"/>
+<xs:element name="getAllProducersForPartResponse" type="tns:getAllProducersForPartResponse"/>
+<xs:element name="getAllProducersOnPlattform" type="tns:getAllProducersOnPlattform"/>
+<xs:element name="getAllProducersOnPlattformResponse" type="tns:getAllProducersOnPlattformResponse"/>
+<xs:element name="getPrice" type="tns:getPrice"/>
+<xs:element name="getPriceResponse" type="tns:getPriceResponse"/>
+<xs:element name="placeOrder" type="tns:placeOrder"/>
+<xs:element name="placeOrderResponse" type="tns:placeOrderResponse"/>
+<xs:complexType name="getPrice">
+<xs:sequence>
+<xs:element minOccurs="0" name="customerid" type="xs:string"/>
+<xs:element minOccurs="0" name="producerid" type="xs:string"/>
+<xs:element minOccurs="0" name="partid" type="xs:string"/>
+<xs:element minOccurs="0" name="inquiryid" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getPriceResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getAllPartsByProducer">
+<xs:sequence>
+<xs:element minOccurs="0" name="producerid" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getAllPartsByProducerResponse">
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getAllPartsOnPlattform">
+<xs:sequence/>
+</xs:complexType>
+<xs:complexType name="getAllPartsOnPlattformResponse">
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="placeOrder">
+<xs:sequence>
+<xs:element minOccurs="0" name="customerid" type="xs:string"/>
+<xs:element minOccurs="0" name="producerid" type="xs:string"/>
+<xs:element minOccurs="0" name="partid" type="xs:string"/>
+<xs:element minOccurs="0" name="inquiryid" type="xs:string"/>
+<xs:element name="price" type="xs:int"/>
+<xs:element minOccurs="0" name="orderid" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="placeOrderResponse">
+<xs:sequence/>
+</xs:complexType>
+<xs:complexType name="getAllProducersForPart">
+<xs:sequence>
+<xs:element minOccurs="0" name="partid" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getAllProducersForPartResponse">
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getAllProducersOnPlattform">
+<xs:sequence/>
+</xs:complexType>
+<xs:complexType name="getAllProducersOnPlattformResponse">
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getAllPartsOnPlattform">
+    <wsdl:part name="parameters" element="tns:getAllPartsOnPlattform">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="placeOrderResponse">
+    <wsdl:part name="parameters" element="tns:placeOrderResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAllProducersOnPlattformResponse">
+    <wsdl:part name="parameters" element="tns:getAllProducersOnPlattformResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAllPartsByProducerResponse">
+    <wsdl:part name="parameters" element="tns:getAllPartsByProducerResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAllProducersOnPlattform">
+    <wsdl:part name="parameters" element="tns:getAllProducersOnPlattform">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAllProducersForPartResponse">
+    <wsdl:part name="parameters" element="tns:getAllProducersForPartResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAllPartsOnPlattformResponse">
+    <wsdl:part name="parameters" element="tns:getAllPartsOnPlattformResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPriceResponse">
+    <wsdl:part name="parameters" element="tns:getPriceResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="placeOrder">
+    <wsdl:part name="parameters" element="tns:placeOrder">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAllPartsByProducer">
+    <wsdl:part name="parameters" element="tns:getAllPartsByProducer">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAllProducersForPart">
+    <wsdl:part name="parameters" element="tns:getAllProducersForPart">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPrice">
+    <wsdl:part name="parameters" element="tns:getPrice">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="InquiryOrderPlattformService">
+    <wsdl:operation name="getPrice">
+      <wsdl:input name="getPrice" message="tns:getPrice">
+    </wsdl:input>
+      <wsdl:output name="getPriceResponse" message="tns:getPriceResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllPartsByProducer">
+      <wsdl:input name="getAllPartsByProducer" message="tns:getAllPartsByProducer">
+    </wsdl:input>
+      <wsdl:output name="getAllPartsByProducerResponse" message="tns:getAllPartsByProducerResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllPartsOnPlattform">
+      <wsdl:input name="getAllPartsOnPlattform" message="tns:getAllPartsOnPlattform">
+    </wsdl:input>
+      <wsdl:output name="getAllPartsOnPlattformResponse" message="tns:getAllPartsOnPlattformResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="placeOrder">
+      <wsdl:input name="placeOrder" message="tns:placeOrder">
+    </wsdl:input>
+      <wsdl:output name="placeOrderResponse" message="tns:placeOrderResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllProducersForPart">
+      <wsdl:input name="getAllProducersForPart" message="tns:getAllProducersForPart">
+    </wsdl:input>
+      <wsdl:output name="getAllProducersForPartResponse" message="tns:getAllProducersForPartResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllProducersOnPlattform">
+      <wsdl:input name="getAllProducersOnPlattform" message="tns:getAllProducersOnPlattform">
+    </wsdl:input>
+      <wsdl:output name="getAllProducersOnPlattformResponse" message="tns:getAllProducersOnPlattformResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="InquiryOrderPlattformServiceServiceSoapBinding" type="tns:InquiryOrderPlattformService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getPrice">
+      <soap:operation soapAction="urn:GetPrice" style="document"/>
+      <wsdl:input name="getPrice">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPriceResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllPartsByProducer">
+      <soap:operation soapAction="urn:GetAllPartsByProducer" style="document"/>
+      <wsdl:input name="getAllPartsByProducer">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getAllPartsByProducerResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllPartsOnPlattform">
+      <soap:operation soapAction="urn:GetAllPartsOnPlattform" style="document"/>
+      <wsdl:input name="getAllPartsOnPlattform">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getAllPartsOnPlattformResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="placeOrder">
+      <soap:operation soapAction="urn:PlaceOrder" style="document"/>
+      <wsdl:input name="placeOrder">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="placeOrderResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllProducersForPart">
+      <soap:operation soapAction="urn:GetAllProducersForPart" style="document"/>
+      <wsdl:input name="getAllProducersForPart">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getAllProducersForPartResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllProducersOnPlattform">
+      <soap:operation soapAction="urn:GetAllProducersOnPlattform" style="document"/>
+      <wsdl:input name="getAllProducersOnPlattform">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getAllProducersOnPlattformResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="InquiryOrderPlattformServiceService">
+    <wsdl:port name="InquiryOrderPlattformServicePort" binding="tns:InquiryOrderPlattformServiceServiceSoapBinding">
+      <soap:address location="http://localhost:8080/GW01/services/InquiryOrderPlattformServicePort"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
