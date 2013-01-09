@@ -9,7 +9,7 @@ import java.util.List;
  * @author Schnitzi
  *
  */
-public class Supplier extends Role {
+public class Producer extends Role {
 	
 	private int id;
 	private String name;
@@ -20,7 +20,7 @@ public class Supplier extends Role {
 	 * @param name
 	 * @param adress
 	 */
-	public Supplier(int roleId, String name, String adress) {
+	public Producer(int roleId, String name, String adress) {
 		super(roleId, true, name, adress);
 	}
 	

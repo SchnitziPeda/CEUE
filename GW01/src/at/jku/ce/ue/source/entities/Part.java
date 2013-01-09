@@ -13,7 +13,7 @@ public class Part {
 
 	private int id;
 	private String name;
-	private Supplier offeredBy;
+	private Producer offeredBy;
 	private List<Part> subParts;
 	
 	/**
@@ -22,7 +22,7 @@ public class Part {
 	 * @param offeredBy
 	 * @param subParts
 	 */
-	public Part(int id, String name, Supplier offeredBy, List<Part> subParts) {
+	public Part(int id, String name, Producer offeredBy, List<Part> subParts) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -61,14 +61,14 @@ public class Part {
 	/**
 	 * @return the offeredBy
 	 */
-	public Supplier getOfferedBy() {
+	public Producer getOfferedBy() {
 		return offeredBy;
 	}
 
 	/**
 	 * @param offeredBy the offeredBy to set
 	 */
-	public void setOfferedBy(Supplier offeredBy) {
+	public void setOfferedBy(Producer offeredBy) {
 		this.offeredBy = offeredBy;
 	}
 

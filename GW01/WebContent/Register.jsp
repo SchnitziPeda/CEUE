@@ -43,6 +43,7 @@ Daten + ID in xml schreiben
 */
 
 
+
 if(request.getParameter("submit")!=null){
 	String part1 = request.getParameter("part1");
 	part1 = part1.trim();
