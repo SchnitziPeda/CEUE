@@ -9,5 +9,10 @@
 <body>
 ToDo: 
 Possibility to offer products
+<%
+
+
+
+%>
 </body>
 </html> 
