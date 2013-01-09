@@ -27,7 +27,9 @@ public class SupplierServiceImpl implements SupplierService {
 
 	@Override
 	public Producer getProducer(String producerID) {
-		// TODO Auto-generated method stub
+
+		
+		
 		return null;
 	}
 
