@@ -38,7 +38,7 @@ public class RegisterSupplier extends HttpServlet {
 
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response){
-		
+		// do something with data
 		
 	}
 	

@@ -7,17 +7,22 @@ import java.rmi.RemoteException;
 import java.util.List;
 import java.util.logging.Logger;
 
+import org.apache.juddi.model.BindingTemplate;
 import org.apache.juddi.v3.client.ClassUtil;
 import org.apache.juddi.v3.client.config.UDDIClerkManager;
 import org.apache.juddi.v3.client.config.UDDIClientContainer;
 import org.apache.juddi.v3.client.transport.Transport;
 import org.uddi.api_v3.BusinessEntity;
 import org.uddi.api_v3.BusinessList;
+import org.uddi.api_v3.Description;
+import org.uddi.api_v3.DiscoveryURL;
+import org.uddi.api_v3.FindBinding;
 import org.uddi.api_v3.FindBusiness;
 import org.uddi.api_v3.GetAuthToken;
 import org.uddi.api_v3.GetServiceDetail;
 import org.uddi.api_v3.Name;
 import org.uddi.api_v3.SaveBusiness;
+import org.uddi.api_v3.SaveTModel;
 import org.uddi.v3_service.DispositionReportFaultMessage;
 import org.uddi.v3_service.UDDIInquiryPortType;
 import org.uddi.v3_service.UDDIPublicationPortType;
@@ -85,7 +90,7 @@ public class UddiApp {
 	public String getAuth() throws DispositionReportFaultMessage,
 			RemoteException {
 		GetAuthToken gat = new GetAuthToken();
-		gat.setUserID("gruppe2");
+		gat.setUserID("gruppe1");
 		gat.setCred("");
 		return security.getAuthToken(gat).getAuthInfo();
 	}
@@ -100,7 +105,13 @@ public class UddiApp {
 			BusinessEntity businessEntity = new BusinessEntity();
 			Name myName = new Name();
 			myName.setValue(namestr);
+			
+			Description desc = new Description();
+			desc.setValue("Webservice for some products");
+						
 			businessEntity.getName().add(myName);
+			businessEntity.getDescription().add(desc);
+			 			
 			saveB.getBusinessEntity().add(businessEntity);
 			if (publish.saveBusiness(saveB).getBusinessEntity().size() > 0)
 				return publish.saveBusiness(saveB).getBusinessEntity().get(0)
@@ -114,11 +125,10 @@ public class UddiApp {
 	
 		
 		try {
-//			System.out.println("RESULT: " + app.publish("hi there!"));
-			System.out.println("RESULT: " + app.isRegistered("hi there!"));
+//			System.out.println("RESULT: " + app.publish("gruppe 1 publisher"));
+//			System.out.println("RESULT: " + app.isRegistered("hi there!"));
 			
-			String namestring = "gruppe4";
-//			String test = app.isRegistered("hi there!");
+			String namestring = "gruppe4"; // for testing
 			
 			FindBusiness fb = new FindBusiness();
 			// fb.setAuthInfo(myAuth);
@@ -128,8 +138,11 @@ public class UddiApp {
 			// fb.setFindQualifiers(value)
 			BusinessList bl = app.inquiry.findBusiness(fb);
 			
+			System.out.println(bl.getBusinessInfos().getBusinessInfo().get(0).getServiceInfos().getServiceInfo().get(0));
+			System.out.println(bl.getBusinessInfos().getBusinessInfo().get(0).getServiceInfos().getServiceInfo().get(0).getName().get(0).getValue());
 			
-			System.out.println(bl.getBusinessInfos().getBusinessInfo().get(0));
+			
+			
 			
 		} catch (DispositionReportFaultMessage e) {
 			e.printStackTrace();
