@@ -13,6 +13,7 @@ page language="java"
 	import="org.w3c.dom.NodeList"
 	import="org.w3c.dom.Node"
 	import="org.w3c.dom.Element"
+	import="at.jku.ce.ue.source.RegisterSupplier"
  %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -42,8 +43,13 @@ checken ob xml file leer
 Daten + ID in xml schreiben
 */
 
-
-
+// forward data to RegisterSupplier
+/*
+if(request.getParameter("submit")!=null){
+	RegisterSupplier regSub = new RegisterSupplier();
+	regSub.doPost(request, response);
+}
+/*
 if(request.getParameter("submit")!=null){
 	String part1 = request.getParameter("part1");
 	part1 = part1.trim();
@@ -183,7 +189,7 @@ if(request.getParameter("submit")!=null){
 		out.println("Bitte Angaben vollständig ausfüllen!");
 	}
 }
-else {
+else {*/
 %>
 Lieferant hinzufügen:<br> 
 <form name="supplierData" method="post" action="Register.jsp">
@@ -205,11 +211,19 @@ Lieferant hinzufügen:<br>
 		<td><input type="text" name="part3"></td>
 	</tr>
 	<tr>
+		<td>Nur Kunde?</td>
+		<td><input type="checkbox" name="customer"></td>
+	</tr>
+	<tr>
+		<td>Adresse:</td>
+		<td><input type="text" name="address"></td>
+	</tr>
+	<tr>
 		<td><input type="submit" name="submit" value="Hinzufügen"></td>
 	</tr>
 </table>
 <%
-}
+// }
 %>
 </form>
 </body>

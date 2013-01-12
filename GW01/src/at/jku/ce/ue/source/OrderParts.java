@@ -5,6 +5,8 @@ import java.util.List;
 
 import at.jku.ce.ue.bom.BOMService;
 import at.jku.ce.ue.bom.BOMServiceService;
+import at.jku.ce.ue.service.InquiryOrderPlattformService;
+import at.jku.ce.ue.service.InquiryOrderPlattformServiceService;
 
 public class OrderParts {
 	
@@ -17,6 +19,19 @@ public class OrderParts {
 		//String output = port.getAllParts().toString();
 		list.addAll(port.getAllParts());
 		return list;
+	
 	}
+	
+	public List<String> testInqiury(){
+		InquiryOrderPlattformServiceService ss = new InquiryOrderPlattformServiceService(InquiryOrderPlattformServiceService.WSDL_LOCATION, InquiryOrderPlattformServiceService.SERVICE);
+		InquiryOrderPlattformService test = ss.getInquiryOrderPlattformServicePort();
+
+		
+		list.addAll(test.getAllProducersOnPlattform());
+		return list;
+		
+	}
+	
+	
 
 }

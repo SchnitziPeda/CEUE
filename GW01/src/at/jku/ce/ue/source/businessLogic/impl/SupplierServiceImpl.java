@@ -6,6 +6,7 @@ package at.jku.ce.ue.source.businessLogic.impl;
 import java.util.List;
 
 import at.jku.ce.ue.source.businessLogic.SupplierService;
+import at.jku.ce.ue.source.entities.Database;
 import at.jku.ce.ue.source.entities.Producer;
 
 /**
@@ -20,7 +21,9 @@ public class SupplierServiceImpl implements SupplierService {
 	@Override
 	public List<String> getAllPartsByProducer(String producerid) {
 		
+		
 		Producer producer = getProducer(producerid);
+		
 		
 		return null;
 	}

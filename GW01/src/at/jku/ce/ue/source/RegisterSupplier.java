@@ -4,6 +4,10 @@
 package at.jku.ce.ue.source;
 
 import java.io.*;
+
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.transform.Transformer;
@@ -19,7 +23,8 @@ import org.w3c.dom.Element;
  * @author Schnitzi
  * 
  */
-public class RegisterSupplier {
+@SuppressWarnings("serial")
+public class RegisterSupplier extends HttpServlet {
 
 	/**
 	 * @param part1
@@ -29,9 +34,14 @@ public class RegisterSupplier {
 	 */
 	public RegisterSupplier() {
 		super();
-		
 	}
 
+	
+	public void doPost(HttpServletRequest request, HttpServletResponse response){
+		
+		
+	}
+	
 	public void registerSupplier() {
 //		String part1 = request.getParameter("part1");
 //		part1 = part1.trim();

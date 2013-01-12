@@ -5,6 +5,7 @@ page language="java"
 import="at.jku.ce.ue.source.*"
 import="java.util.List"
 import="java.util.ListIterator"
+import="at.jku.ce.ue.uddi.*"
 
  %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -25,8 +26,9 @@ if(request.getParameter("submit") != null){
 }
 
 OrderParts availableParts = new OrderParts();
-List<String> list = availableParts.testBom();
+List<String> list = availableParts.testInqiury();
 ListIterator iter1 = list.listIterator();
+
 
 %>
 <form name="selectedParts" method="post" action="Order.jsp">
