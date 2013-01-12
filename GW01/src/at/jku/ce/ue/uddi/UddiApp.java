@@ -4,19 +4,24 @@ import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.util.List;
 import java.util.logging.Logger;
 
 import org.apache.juddi.v3.client.ClassUtil;
 import org.apache.juddi.v3.client.config.UDDIClerkManager;
 import org.apache.juddi.v3.client.config.UDDIClientContainer;
 import org.apache.juddi.v3.client.transport.Transport;
+import org.uddi.api_v3.AccessPoint;
 import org.uddi.api_v3.BusinessEntity;
 import org.uddi.api_v3.BusinessList;
+import org.uddi.api_v3.BusinessService;
 import org.uddi.api_v3.Description;
 import org.uddi.api_v3.FindBusiness;
 import org.uddi.api_v3.GetAuthToken;
+import org.uddi.api_v3.GetServiceDetail;
 import org.uddi.api_v3.Name;
 import org.uddi.api_v3.SaveBusiness;
+import org.uddi.api_v3.ServiceDetail;
 import org.uddi.v3_service.DispositionReportFaultMessage;
 import org.uddi.v3_service.UDDIInquiryPortType;
 import org.uddi.v3_service.UDDIPublicationPortType;
@@ -133,9 +138,43 @@ public class UddiApp {
 			BusinessList bl = app.inquiry.findBusiness(fb);
 						
 			
+			String servicekey = bl.getBusinessInfos().getBusinessInfo().get(0).getServiceInfos().getServiceInfo().get(0).getServiceKey();
 			
-			System.out.println(bl.getBusinessInfos().getBusinessInfo().get(0).getServiceInfos().getServiceInfo().get(0));
-			System.out.println(bl.getBusinessInfos().getBusinessInfo().get(0).getServiceInfos().getServiceInfo().get(0).getName().get(0).getValue());
+//			System.out.println(bl.getBusinessInfos().getBusinessInfo().get(0).getServiceInfos().getServiceInfo().get(0));
+//			System.out.println(bl.getBusinessInfos().getBusinessInfo().get(0).getServiceInfos().getServiceInfo().get(0).getName().get(0).getValue());
+			
+			GetServiceDetail service = new GetServiceDetail();
+			service.setAuthInfo(app.getAuth());
+			service.getServiceKey().add(servicekey);
+			ServiceDetail serviceInfo = app.inquiry.getServiceDetail(service);
+			List<BusinessService> services = serviceInfo.getBusinessService();
+			String endpoint = null;
+			if(services.size()>0){
+				BusinessService bs = services.get(0);
+				AccessPoint ap = bs.getBindingTemplates().getBindingTemplate().get(0).getAccessPoint();
+				endpoint = ap.getValue();
+				System.out.print(endpoint);
+			}
+
+			
+//			der methoden aufruf konkret geht ungefähr so:
+//
+//			servicekey ... ist der unique key / die id des services....
+
+//			 GetServiceDetail service = new GetServiceDetail();
+//			 service.setAuthInfo(tokenPublish.getAuthInfo());
+//			 service.getServiceKey().add(servicekey);
+//			 ServiceDetail serviceInfo = inquiry.getServiceDetail(service);
+//			 List<BusinessService> services = serviceInfo.getBusinessService();
+//			 String endpoint = null;
+//			 if (services.size() > 0) {
+//			 BusinessService businessS = services.get(0);
+//			 AccessPoint ap = businessS.getBindingTemplates()
+//			    .getBindingTemplate().get(0).getAccessPoint();
+//			 endpoint = ap.getValue();
+//			
+//			 }
+			
 			
 			
 			
