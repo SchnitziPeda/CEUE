@@ -4,10 +4,8 @@ import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.rmi.RemoteException;
-import java.util.List;
 import java.util.logging.Logger;
 
-import org.apache.juddi.model.BindingTemplate;
 import org.apache.juddi.v3.client.ClassUtil;
 import org.apache.juddi.v3.client.config.UDDIClerkManager;
 import org.apache.juddi.v3.client.config.UDDIClientContainer;
@@ -15,14 +13,10 @@ import org.apache.juddi.v3.client.transport.Transport;
 import org.uddi.api_v3.BusinessEntity;
 import org.uddi.api_v3.BusinessList;
 import org.uddi.api_v3.Description;
-import org.uddi.api_v3.DiscoveryURL;
-import org.uddi.api_v3.FindBinding;
 import org.uddi.api_v3.FindBusiness;
 import org.uddi.api_v3.GetAuthToken;
-import org.uddi.api_v3.GetServiceDetail;
 import org.uddi.api_v3.Name;
 import org.uddi.api_v3.SaveBusiness;
-import org.uddi.api_v3.SaveTModel;
 import org.uddi.v3_service.DispositionReportFaultMessage;
 import org.uddi.v3_service.UDDIInquiryPortType;
 import org.uddi.v3_service.UDDIPublicationPortType;
@@ -137,6 +131,8 @@ public class UddiApp {
 			fb.getName().add(name);
 			// fb.setFindQualifiers(value)
 			BusinessList bl = app.inquiry.findBusiness(fb);
+						
+			
 			
 			System.out.println(bl.getBusinessInfos().getBusinessInfo().get(0).getServiceInfos().getServiceInfo().get(0));
 			System.out.println(bl.getBusinessInfos().getBusinessInfo().get(0).getServiceInfos().getServiceInfo().get(0).getName().get(0).getValue());
