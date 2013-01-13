@@ -122,39 +122,41 @@ public class UddiApp {
 	public static void main(String[] args) {
 		UddiApp app = new UddiApp();
 	
+		String plattformName = "gruppe4"; // for testing
+		app.getWsdlFile(plattformName);
 		
-		try {
+//		try {
 //			System.out.println("RESULT: " + app.publish("gruppe 1 publisher"));
 //			System.out.println("RESULT: " + app.isRegistered("hi there!"));
 			
-			String namestring = "gruppe4"; // for testing
-			
-			FindBusiness fb = new FindBusiness();
-			// fb.setAuthInfo(myAuth);
-			Name name = new Name();
-			name.setValue(namestring);
-			fb.getName().add(name);
-			// fb.setFindQualifiers(value)
-			BusinessList bl = app.inquiry.findBusiness(fb);
-						
-			
-			String servicekey = bl.getBusinessInfos().getBusinessInfo().get(0).getServiceInfos().getServiceInfo().get(0).getServiceKey();
-			
-//			System.out.println(bl.getBusinessInfos().getBusinessInfo().get(0).getServiceInfos().getServiceInfo().get(0));
-//			System.out.println(bl.getBusinessInfos().getBusinessInfo().get(0).getServiceInfos().getServiceInfo().get(0).getName().get(0).getValue());
-			
-			GetServiceDetail service = new GetServiceDetail();
-			service.setAuthInfo(app.getAuth());
-			service.getServiceKey().add(servicekey);
-			ServiceDetail serviceInfo = app.inquiry.getServiceDetail(service);
-			List<BusinessService> services = serviceInfo.getBusinessService();
-			String endpoint = null;
-			if(services.size()>0){
-				BusinessService bs = services.get(0);
-				AccessPoint ap = bs.getBindingTemplates().getBindingTemplate().get(0).getAccessPoint();
-				endpoint = ap.getValue();
-				System.out.print(endpoint);
-			}
+//			String namestring = "gruppe4"; // for testing
+//			
+//			FindBusiness fb = new FindBusiness();
+//			// fb.setAuthInfo(myAuth);
+//			Name name = new Name();
+//			name.setValue(namestring);
+//			fb.getName().add(name);
+//			// fb.setFindQualifiers(value)
+//			BusinessList bl = app.inquiry.findBusiness(fb);
+//						
+//			
+//			String servicekey = bl.getBusinessInfos().getBusinessInfo().get(0).getServiceInfos().getServiceInfo().get(0).getServiceKey();
+//			
+////			System.out.println(bl.getBusinessInfos().getBusinessInfo().get(0).getServiceInfos().getServiceInfo().get(0));
+////			System.out.println(bl.getBusinessInfos().getBusinessInfo().get(0).getServiceInfos().getServiceInfo().get(0).getName().get(0).getValue());
+//			
+//			GetServiceDetail service = new GetServiceDetail();
+//			service.setAuthInfo(app.getAuth());
+//			service.getServiceKey().add(servicekey);
+//			ServiceDetail serviceInfo = app.inquiry.getServiceDetail(service);
+//			List<BusinessService> services = serviceInfo.getBusinessService();
+//			String endpoint = null;
+//			if(services.size()>0){
+//				BusinessService bs = services.get(0);
+//				AccessPoint ap = bs.getBindingTemplates().getBindingTemplate().get(0).getAccessPoint();
+//				endpoint = ap.getValue();
+//				System.out.print(endpoint);
+//			}
 
 			
 //			der methoden aufruf konkret geht ungefähr so:
@@ -174,9 +176,50 @@ public class UddiApp {
 //			 endpoint = ap.getValue();
 //			
 //			 }
+//			
+//		} catch (DispositionReportFaultMessage e) {
+//			e.printStackTrace();
+//		} catch (RemoteException e) {
+//			e.printStackTrace();
+//		}
+	}
+	
+//	returns a list of registered plattforms
+	public List<String> getListOfPlattforms(){
+		List<String> elements = null;
+		return elements;
+	}
+	
+//	returns plattform depending WSDL file
+	public String getWsdlFile(String plattformName){
+
+		plattformName = "gruppe4"; // for testing
+		
+		FindBusiness fb = new FindBusiness();
+		// fb.setAuthInfo(myAuth);
+		Name name = new Name();
+		name.setValue(plattformName);
+		fb.getName().add(name);
+		// fb.setFindQualifiers(value)
+		BusinessList bl = null;
+		String serviceKey = null;
+		String endpoint = null;
+		try {
+			bl = inquiry.findBusiness(fb);
+			serviceKey = bl.getBusinessInfos().getBusinessInfo().get(0).getServiceInfos().getServiceInfo().get(0).getServiceKey();
 			
-			
-			
+			GetServiceDetail service = new GetServiceDetail();
+			service.setAuthInfo(getAuth());
+			service.getServiceKey().add(serviceKey);
+			ServiceDetail serviceInfo = inquiry.getServiceDetail(service);
+			List<BusinessService> services = serviceInfo.getBusinessService();
+			endpoint = null;
+			if(services.size()>0){
+				BusinessService bs = services.get(0);
+				AccessPoint ap = bs.getBindingTemplates().getBindingTemplate().get(0).getAccessPoint();
+				endpoint = ap.getValue();
+			}
+//			return endpoint;
 			
 			
 		} catch (DispositionReportFaultMessage e) {
@@ -184,6 +227,13 @@ public class UddiApp {
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
+		
+		// check, if "wsdl" is at the end
+		if(!endpoint.endsWith("?wsdl"))
+				endpoint = endpoint+"?wsdl";
+				
+		return endpoint;
+
 	}
 
 	public String getResource(String name) {
