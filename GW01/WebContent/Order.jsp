@@ -29,9 +29,10 @@ OrderParts availableParts = new OrderParts();
 List<String> list = availableParts.testInqiury();
 ListIterator iter1 = list.listIterator();
 
-UddiRegistration reg = new UddiRegistration();
 String plattformName = "gruppe4";
-System.out.print(reg.getWsdlOfPlattform(plattformName));
+System.out.print(Init.getUddiReg().getWsdlOfPlattform(plattformName));
+
+
 
 %>
 <form name="selectedParts" method="post" action="Order.jsp">

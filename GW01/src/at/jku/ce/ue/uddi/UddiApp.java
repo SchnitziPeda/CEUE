@@ -219,7 +219,6 @@ public class UddiApp {
 				AccessPoint ap = bs.getBindingTemplates().getBindingTemplate().get(0).getAccessPoint();
 				endpoint = ap.getValue();
 			}
-//			return endpoint;
 			
 			
 		} catch (DispositionReportFaultMessage e) {
