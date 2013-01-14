@@ -4,7 +4,9 @@ import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import org.apache.juddi.v3.client.ClassUtil;
@@ -42,8 +44,10 @@ public class UddiApp {
 
 	public static final String MY_HOSTER = "140.78.73.87";
 	public static final String MY_PORT = "8090";
+	
+	public static final String APPROXIMATE_MATCH = "approximateMatch";
 
-	private String wsdlLocation = "http://" + MY_HOSTER + ":" + MY_PORT + "/GW01/services/BOMServicePort?wsdl";
+	private String wsdlLocation = "http://" + MY_HOSTER + ":" + MY_PORT + "/GW01/services/InquiryOrderPlattformServicePort?wsdl";
 	private String serviceName = "Gruppe 1 Services";
 	private String serviceID = "gruppe1";
 	private String serviceDescription = "Webservice for managing prices of offered parts and retrieving price information.";
@@ -232,13 +236,105 @@ public class UddiApp {
 
 	}
 
+	
 	public void getListofEndpoints() {
 		
-		String plattformName = "GW01"; // for testing
-
+//		String plattformName = "GW01"; // for testing
+		
 		FindBusiness fb = new FindBusiness();
+		BusinessList bl = null;
+		String serviceKey = null; 
+//		List<String> endpoints = null;
+		Map<String, String> endpoints = new HashMap<String, String>();
+
 		try {
+			
 			fb.setAuthInfo(this.getAuth());			
+			
+			Name name = new Name();
+			name.setValue("%");
+			
+			FindQualifiers fq = new FindQualifiers();
+			fq.getFindQualifier().add(this.APPROXIMATE_MATCH);
+			
+			fb.getName().add(name);
+			fb.setFindQualifiers(fq);
+			
+			// get all businesses
+			bl = inquiry.findBusiness(fb);
+			
+			bl.getBusinessInfos().getBusinessInfo().iterator();
+			for(int i=0;i<bl.getBusinessInfos().getBusinessInfo().size();i++){ 
+				
+				if(bl != null && bl.getBusinessInfos() != null && bl.getBusinessInfos().getBusinessInfo().size() > 0 && bl.getBusinessInfos().getBusinessInfo().get(i).getName().size() > 0){
+					String publisherName = bl.getBusinessInfos().getBusinessInfo().get(i).getName().get(0).getValue();
+					
+					/*
+					 * Only "gruppe % publisher" should be used! 
+					 */
+//					Pattern pat = Pattern.compile("gruppe % publisher");
+//					Matcher match = pat.matcher(publisherName);
+//					if(match.find()){
+//					if(publisherName.contains("gruppe % publisher")){
+//						System.out.println(""+bl.getBusinessInfos().getBusinessInfo().get(i).getName().get(0).getValue());
+						
+						if(bl.getBusinessInfos().getBusinessInfo().get(i).getServiceInfos() != null && bl.getBusinessInfos().getBusinessInfo().get(i).getServiceInfos().getServiceInfo().size() > 0){
+							serviceKey = bl.getBusinessInfos().getBusinessInfo().get(i).getServiceInfos().getServiceInfo().get(0).getServiceKey();	
+							
+							GetServiceDetail service = new GetServiceDetail();
+							service.setAuthInfo(getAuth());
+							service.getServiceKey().add(serviceKey);
+							ServiceDetail serviceInfo = inquiry.getServiceDetail(service);
+							List<BusinessService> services = serviceInfo.getBusinessService();
+							if (services.size() > 0) {
+								BusinessService bs = services.get(0);
+								if(bs != null && bs.getBindingTemplates() != null && bs.getBindingTemplates().getBindingTemplate().size() > 0 
+										&& bs.getBindingTemplates().getBindingTemplate().get(0).getAccessPoint() != null){
+										
+										AccessPoint ap = bs.getBindingTemplates().getBindingTemplate().get(0).getAccessPoint();
+										String wsdlFile = ap.getValue();
+										
+										System.out.println(wsdlFile);
+		//								endpoints.add(ap.getValue());
+										
+										endpoints.put(publisherName, wsdlFile);
+								}
+							}
+						}
+//					} else 
+//						System.out.println("wrong "+publisherName);
+					
+				}
+				
+				
+				
+//				if (bl != null
+//						&& bl.getBusinessInfos() != null
+//						&& bl.getBusinessInfos().getBusinessInfo().size() > 0
+//						&& bl.getBusinessInfos().getBusinessInfo().get(0).getName()
+//								.size() > 0)
+//					return bl.getBusinessInfos().getBusinessInfo().get(0).getName()
+//							.get(0).getValue();
+				
+//				serviceKey = bl.getBusinessInfos().getBusinessInfo().get(i).getServiceInfos().getServiceInfo().get(0).getServiceKey();
+//				
+//				GetServiceDetail service = new GetServiceDetail();
+//				service.setAuthInfo(getAuth());
+//				service.getServiceKey().add(serviceKey);
+//				ServiceDetail serviceInfo = inquiry.getServiceDetail(service);
+//				List<BusinessService> services = serviceInfo.getBusinessService();
+//				if (services.size() > 0) {
+//					BusinessService bs = services.get(0);
+//					AccessPoint ap = bs.getBindingTemplates().getBindingTemplate()
+//							.get(0).getAccessPoint();
+//					
+//					endpoints.add(ap.getValue());
+//					
+//				}
+			}
+			
+			
+			
 		} catch (DispositionReportFaultMessage e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -246,110 +342,6 @@ public class UddiApp {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		Name name = new Name();
-		name.setValue(plattformName);
-		fb.getName().add(name);
-		
-		
-		BusinessList bl = null;
-		String serviceKey = null;
-		String endpoint = null;
-		try {
-			bl = inquiry.findBusiness(fb);
-			
-			System.out.print(""+bl.getBusinessInfos().getBusinessInfo().size());
-//			System.out.print(""+bl.getBusinessInfos().getBusinessInfo().get(0).getServiceInfos().getServiceInfo().size());
-			
-			
-//			serviceKey = bl.getBusinessInfos().getBusinessInfo().get(0)
-//					.getServiceInfos().getServiceInfo().get(0).getServiceKey();
-//
-//			GetServiceDetail service = new GetServiceDetail();
-//			service.setAuthInfo(getAuth());
-//			service.getServiceKey().add(serviceKey);
-//			ServiceDetail serviceInfo = inquiry.getServiceDetail(service);
-//			List<BusinessService> services = serviceInfo.getBusinessService();
-//			endpoint = null;
-//			if (services.size() > 0) {
-//				BusinessService bs = services.get(0);
-//				AccessPoint ap = bs.getBindingTemplates().getBindingTemplate()
-//						.get(0).getAccessPoint();
-//				endpoint = ap.getValue();
-//			}
-
-		} catch (DispositionReportFaultMessage e) {
-			e.printStackTrace();
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		}
-		
-		
-//		List<EndpointInfo> endpoints = new ArrayList<EndpointInfo>();
-//		EndpointInfo ep = null;
-//
-//		String output = "";
-//		
-//		try {
-//			String token = this.getAuth();
-//
-////			System.out.print("Number of services: "	+ foundList.getServiceInfos().getServiceInfo());
-//
-//			if (foundList != null && foundList.getServiceInfos() != null) {
-//				if (foundList.getServiceInfos().getServiceInfo() != null) {
-//
-//					for (ServiceInfo info : foundList.getServiceInfos()
-//							.getServiceInfo()) {
-//						for (Name name : info.getName()) {
-//							System.out.print("Name: " + name.getValue());
-//						}
-//
-//						// retrieve endpoint
-//						String serviceKey = info.getServiceKey();
-//						GetServiceDetail getServiceDetail = new GetServiceDetail();
-//						getServiceDetail.setAuthInfo(token);
-//						getServiceDetail.getServiceKey().add(serviceKey);
-//						ServiceDetail serviceDetail = inquiry
-//								.getServiceDetail(getServiceDetail);
-//
-//						BusinessService businessS = serviceDetail
-//								.getBusinessService().get(0);
-//						AccessPoint ap = businessS.getBindingTemplates()
-//								.getBindingTemplate().get(0).getAccessPoint();
-//
-//						// retrieve business entity name
-//						String busineessKey = info.getBusinessKey();
-//						GetBusinessDetail getBusinessDetail = new GetBusinessDetail();
-//						getBusinessDetail.setAuthInfo(token);
-//						getBusinessDetail.getBusinessKey().add(busineessKey);
-//						BusinessDetail businessDetail = inquiry
-//								.getBusinessDetail(getBusinessDetail);
-//
-//						BusinessEntity businessE = businessDetail
-//								.getBusinessEntity().get(0);
-//						String beName = businessE.getName().get(0).getValue();
-//
-//						System.out.print("Business: "+businessE.getName().get(0).getValue());
-//						System.out.print("Name: "+ap.getValue());
-//
-//						output += ap.getValue();
-//						
-////						ep = new EndpointInfo(beName, ap.getValue());
-//						endpoints.add(ep);
-//
-//					}
-//
-//				}
-//			}
-////			System.out.print(output);
-//
-//		} catch (DispositionReportFaultMessage e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (RemoteException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-
 	}
 
 	public static void main(String[] args) {
