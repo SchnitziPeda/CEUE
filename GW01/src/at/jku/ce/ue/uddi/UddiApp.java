@@ -421,14 +421,10 @@ public class UddiApp {
 	// returns plattform depending WSDL file
 	public String getWsdlFile(String plattformName) {
 
-		plattformName = "gruppe4"; // for testing
-
 		FindBusiness fb = new FindBusiness();
-		// fb.setAuthInfo(myAuth);
 		Name name = new Name();
 		name.setValue(plattformName);
 		fb.getName().add(name);
-		// fb.setFindQualifiers(value)
 		BusinessList bl = null;
 		String serviceKey = null;
 		String endpoint = null;
