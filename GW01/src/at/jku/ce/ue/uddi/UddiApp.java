@@ -4,11 +4,9 @@ import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-import org.apache.cxf.service.model.EndpointInfo;
 import org.apache.juddi.v3.client.ClassUtil;
 import org.apache.juddi.v3.client.config.UDDIClerkManager;
 import org.apache.juddi.v3.client.config.UDDIClientContainer;
@@ -17,23 +15,21 @@ import org.uddi.api_v3.AccessPoint;
 import org.uddi.api_v3.AuthToken;
 import org.uddi.api_v3.BindingTemplate;
 import org.uddi.api_v3.BindingTemplates;
-import org.uddi.api_v3.BusinessDetail;
 import org.uddi.api_v3.BusinessEntity;
 import org.uddi.api_v3.BusinessList;
 import org.uddi.api_v3.BusinessService;
 import org.uddi.api_v3.Description;
 import org.uddi.api_v3.FindBusiness;
+import org.uddi.api_v3.FindQualifiers;
 import org.uddi.api_v3.FindService;
 import org.uddi.api_v3.FindTModel;
 import org.uddi.api_v3.GetAuthToken;
-import org.uddi.api_v3.GetBusinessDetail;
 import org.uddi.api_v3.GetServiceDetail;
 import org.uddi.api_v3.Name;
 import org.uddi.api_v3.SaveBinding;
 import org.uddi.api_v3.SaveBusiness;
 import org.uddi.api_v3.SaveService;
 import org.uddi.api_v3.ServiceDetail;
-import org.uddi.api_v3.ServiceInfo;
 import org.uddi.api_v3.ServiceList;
 import org.uddi.v3_service.DispositionReportFaultMessage;
 import org.uddi.v3_service.UDDIInquiryPortType;
@@ -42,7 +38,7 @@ import org.uddi.v3_service.UDDISecurityPortType;
 
 public class UddiApp {
 
-	private String userID = "GW01";
+	private String userID = "gruppe1";
 
 	public static final String MY_HOSTER = "140.78.73.87";
 	public static final String MY_PORT = "8090";
@@ -112,7 +108,7 @@ public class UddiApp {
 	public String getAuth() throws DispositionReportFaultMessage,
 			RemoteException {
 		GetAuthToken gat = new GetAuthToken();
-		gat.setUserID(serviceID);
+		gat.setUserID(userID);
 		gat.setCred("");
 		return security.getAuthToken(gat).getAuthInfo();
 	}
@@ -218,10 +214,15 @@ public class UddiApp {
 
 		FindService find = new FindService();
 		FindTModel findModel = new FindTModel();
+		
+		GetAuthToken getAuthTokenMyPub = new GetAuthToken();
+		getAuthTokenMyPub.setUserID(userID);
+		getAuthTokenMyPub.setCred("");
+		AuthToken tokenPublish = security.getAuthToken(getAuthTokenMyPub);
 
 		Name name = new Name();
 		name.setValue(tModelName);
-		findModel.setAuthInfo(this.getAuth());
+		findModel.setAuthInfo(tokenPublish.getAuthInfo());
 		findModel.setName(name);
 
 		find.setFindTModel(findModel);
@@ -231,71 +232,123 @@ public class UddiApp {
 
 	}
 
-	public void getListofEndpoints(ServiceList foundList) {
-		List<EndpointInfo> endpoints = new ArrayList<EndpointInfo>();
-		EndpointInfo ep = null;
-
-		String output = "";
+	public void getListofEndpoints() {
 		
+		String plattformName = "GW01"; // for testing
+
+		FindBusiness fb = new FindBusiness();
 		try {
-			String token = this.getAuth();
-
-//			System.out.print("Number of services: "	+ foundList.getServiceInfos().getServiceInfo());
-
-			if (foundList != null && foundList.getServiceInfos() != null) {
-				if (foundList.getServiceInfos().getServiceInfo() != null) {
-
-					for (ServiceInfo info : foundList.getServiceInfos()
-							.getServiceInfo()) {
-						for (Name name : info.getName()) {
-							System.out.print("Name: " + name.getValue());
-						}
-
-						// retrieve endpoint
-						String serviceKey = info.getServiceKey();
-						GetServiceDetail getServiceDetail = new GetServiceDetail();
-						getServiceDetail.setAuthInfo(token);
-						getServiceDetail.getServiceKey().add(serviceKey);
-						ServiceDetail serviceDetail = inquiry
-								.getServiceDetail(getServiceDetail);
-
-						BusinessService businessS = serviceDetail
-								.getBusinessService().get(0);
-						AccessPoint ap = businessS.getBindingTemplates()
-								.getBindingTemplate().get(0).getAccessPoint();
-
-						// retrieve business entity name
-						String busineessKey = info.getBusinessKey();
-						GetBusinessDetail getBusinessDetail = new GetBusinessDetail();
-						getBusinessDetail.setAuthInfo(token);
-						getBusinessDetail.getBusinessKey().add(busineessKey);
-						BusinessDetail businessDetail = inquiry
-								.getBusinessDetail(getBusinessDetail);
-
-						BusinessEntity businessE = businessDetail
-								.getBusinessEntity().get(0);
-						String beName = businessE.getName().get(0).getValue();
-
-						System.out.print("Name: "+ap.getValue());
-
-						output += ap.getValue();
-						
-//						ep = new EndpointInfo(beName, ap.getValue());
-						endpoints.add(ep);
-
-					}
-
-				}
-			}
-//			System.out.print(output);
+			fb.setAuthInfo(this.getAuth());			
+		} catch (DispositionReportFaultMessage e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (RemoteException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		Name name = new Name();
+		name.setValue(plattformName);
+		fb.getName().add(name);
+		
+		
+		BusinessList bl = null;
+		String serviceKey = null;
+		String endpoint = null;
+		try {
+			bl = inquiry.findBusiness(fb);
+			
+			System.out.print(""+bl.getBusinessInfos().getBusinessInfo().size());
+//			System.out.print(""+bl.getBusinessInfos().getBusinessInfo().get(0).getServiceInfos().getServiceInfo().size());
+			
+			
+//			serviceKey = bl.getBusinessInfos().getBusinessInfo().get(0)
+//					.getServiceInfos().getServiceInfo().get(0).getServiceKey();
+//
+//			GetServiceDetail service = new GetServiceDetail();
+//			service.setAuthInfo(getAuth());
+//			service.getServiceKey().add(serviceKey);
+//			ServiceDetail serviceInfo = inquiry.getServiceDetail(service);
+//			List<BusinessService> services = serviceInfo.getBusinessService();
+//			endpoint = null;
+//			if (services.size() > 0) {
+//				BusinessService bs = services.get(0);
+//				AccessPoint ap = bs.getBindingTemplates().getBindingTemplate()
+//						.get(0).getAccessPoint();
+//				endpoint = ap.getValue();
+//			}
 
 		} catch (DispositionReportFaultMessage e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		
+//		List<EndpointInfo> endpoints = new ArrayList<EndpointInfo>();
+//		EndpointInfo ep = null;
+//
+//		String output = "";
+//		
+//		try {
+//			String token = this.getAuth();
+//
+////			System.out.print("Number of services: "	+ foundList.getServiceInfos().getServiceInfo());
+//
+//			if (foundList != null && foundList.getServiceInfos() != null) {
+//				if (foundList.getServiceInfos().getServiceInfo() != null) {
+//
+//					for (ServiceInfo info : foundList.getServiceInfos()
+//							.getServiceInfo()) {
+//						for (Name name : info.getName()) {
+//							System.out.print("Name: " + name.getValue());
+//						}
+//
+//						// retrieve endpoint
+//						String serviceKey = info.getServiceKey();
+//						GetServiceDetail getServiceDetail = new GetServiceDetail();
+//						getServiceDetail.setAuthInfo(token);
+//						getServiceDetail.getServiceKey().add(serviceKey);
+//						ServiceDetail serviceDetail = inquiry
+//								.getServiceDetail(getServiceDetail);
+//
+//						BusinessService businessS = serviceDetail
+//								.getBusinessService().get(0);
+//						AccessPoint ap = businessS.getBindingTemplates()
+//								.getBindingTemplate().get(0).getAccessPoint();
+//
+//						// retrieve business entity name
+//						String busineessKey = info.getBusinessKey();
+//						GetBusinessDetail getBusinessDetail = new GetBusinessDetail();
+//						getBusinessDetail.setAuthInfo(token);
+//						getBusinessDetail.getBusinessKey().add(busineessKey);
+//						BusinessDetail businessDetail = inquiry
+//								.getBusinessDetail(getBusinessDetail);
+//
+//						BusinessEntity businessE = businessDetail
+//								.getBusinessEntity().get(0);
+//						String beName = businessE.getName().get(0).getValue();
+//
+//						System.out.print("Business: "+businessE.getName().get(0).getValue());
+//						System.out.print("Name: "+ap.getValue());
+//
+//						output += ap.getValue();
+//						
+////						ep = new EndpointInfo(beName, ap.getValue());
+//						endpoints.add(ep);
+//
+//					}
+//
+//				}
+//			}
+////			System.out.print(output);
+//
+//		} catch (DispositionReportFaultMessage e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (RemoteException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 
 	}
 

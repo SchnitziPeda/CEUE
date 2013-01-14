@@ -45,15 +45,7 @@ public class UddiRegistration {
 	
 //	returns list of registered plattforms
 	public void generateListofEndpoints(){
-		try {
-			app.getListofEndpoints(app.findServicesBy("BOMServiceService"));
-		} catch (DispositionReportFaultMessage e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		app.getListofEndpoints();
 	}
 
 	public List<String> getPlattforms() {
