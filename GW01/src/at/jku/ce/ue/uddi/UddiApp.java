@@ -48,8 +48,8 @@ public class UddiApp {
 	public static final String APPROXIMATE_MATCH = "approximateMatch";
 
 	private String wsdlLocation = "http://" + MY_HOSTER + ":" + MY_PORT + "/GW01/services/InquiryOrderPlattformServicePort?wsdl";
-	private String serviceName = "Gruppe 1 Services";
-	private String serviceID = "gruppe1";
+	private String serviceName = "gruppe 1 Services";
+	private String serviceID = "gruppe 1 publisher";
 	private String serviceDescription = "Webservice for managing prices of offered parts and retrieving price information.";
 
 	private static final Logger log = Logger.getLogger(UddiApp.class.getName());
@@ -128,7 +128,7 @@ public class UddiApp {
 			Name myName = new Name();
 			myName.setValue(namestr);
 
-			businessEntity.getName().add(myName);
+			businessEntity.getName().add(myName);			
 
 			saveB.getBusinessEntity().add(businessEntity);
 			if (publish.saveBusiness(saveB).getBusinessEntity().size() > 0)
@@ -146,7 +146,7 @@ public class UddiApp {
 	public String publishService() {
 		try {
 			String businessKey = this.publish(userID);
-			System.out.print(businessKey);
+//			System.out.print(businessKey);
 			if (businessKey != null) {
 
 				BusinessService myService = new BusinessService();
@@ -165,7 +165,7 @@ public class UddiApp {
 				BindingTemplate bindingTemp = new BindingTemplate();
 				bindingTemp.getDescription().add(serviceDesc);
 
-				// set acces point
+				// set access point / wsdl file
 				AccessPoint accessPoint = new AccessPoint();
 				accessPoint.setUseType("wsdlDeployment");
 				accessPoint.setValue(wsdlLocation);
@@ -177,7 +177,7 @@ public class UddiApp {
 
 				SaveService ss = new SaveService();
 				ss.getBusinessService().add(myService);
-				ss.setAuthInfo(getAuth());
+				ss.setAuthInfo(this.getAuth());
 				ServiceDetail sd = publish.saveService(ss);
 				String myServKey = sd.getBusinessService().get(0)
 						.getServiceKey();
@@ -185,21 +185,12 @@ public class UddiApp {
 				// save our binding
 				bindingTemp.setServiceKey(myServKey);
 
-				// TModelInstanceInfo tmodelinstanceinfo = new
-				// TModelInstanceInfo();
-				// tmodelinstanceinfo.setTModelKey(tModelKey);
-				//
-				// TModelInstanceDetails tmodeldetails = new
-				// TModelInstanceDetails();
-				// tmodeldetails.getTModelInstanceInfo().add(tmodelinstanceinfo);
-				// bindingTemplate.setTModelInstanceDetails(tmodeldetails);
-
 				SaveBinding saveBinding = new SaveBinding();
 				saveBinding.setAuthInfo(getAuth());
 				saveBinding.getBindingTemplate().add(bindingTemp);
 				publish.saveBinding(saveBinding);
 
-				return "plattform published";
+				return "plattform+ "+userID+" published";
 			}
 			return "already published";
 		} catch (DispositionReportFaultMessage e) {

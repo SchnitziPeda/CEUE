@@ -31,7 +31,7 @@ Possibility to order some parts:
 
 String plattformName = "gruppe 1 publisher";
 UddiRegistration uddiReg = new UddiRegistration();
-uddiReg.generateListofEndpoints();
+uddiReg.publishPlattformAndService();
 
 // System.out.print(Init.getUddiReg().isRegistered(plattformName));
 // System.out.print(Init.getUddiReg().getWsdlOfPlattform(plattformName));

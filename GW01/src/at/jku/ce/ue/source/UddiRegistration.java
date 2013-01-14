@@ -24,17 +24,10 @@ public class UddiRegistration {
 	}
 		
 //	publishes own plattform
-	public String publishPlattform(String plattformName){
+	public String publishPlattformAndService(){
 		String var = null;
-		try {
-			var = app.publish(plattformName);
-		} catch (DispositionReportFaultMessage e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		var = app.publishService();
+
 		return var;
 	}
 	
