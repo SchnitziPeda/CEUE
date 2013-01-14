@@ -3,6 +3,7 @@
  */
 package at.jku.ce.ue.source.businessLogic.impl;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import at.jku.ce.ue.source.businessLogic.SupplierService;
@@ -29,5 +30,13 @@ public class SupplierServiceImpl implements SupplierService {
 		}
 		
 		return prod;
+	}
+
+
+
+	@Override
+	public List<Producer> getAllProducers() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
