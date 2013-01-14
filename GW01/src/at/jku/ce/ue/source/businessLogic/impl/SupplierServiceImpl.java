@@ -3,7 +3,7 @@
  */
 package at.jku.ce.ue.source.businessLogic.impl;
 
-import java.util.List;
+import java.util.logging.Logger;
 
 import at.jku.ce.ue.source.businessLogic.SupplierService;
 import at.jku.ce.ue.source.entities.Database;
@@ -11,29 +11,23 @@ import at.jku.ce.ue.source.entities.Producer;
 
 /**
  * @author Schnitzi
- *
+ * 
  */
 public class SupplierServiceImpl implements SupplierService {
 
-	/* (non-Javadoc)
-	 * @see at.jku.ce.ue.source.businessLogic.SupplierService#getAllPartsByProducer(java.lang.String)
-	 */
-	@Override
-	public List<String> getAllPartsByProducer(String producerid) {
-		
-		
-		Producer producer = getProducer(producerid);
-		
-		
-		return null;
-	}
+	private static Logger log = Logger.getLogger("SupplierServiceImpl");
 
 	@Override
-	public Producer getProducer(String producerID) {
-
+	public Producer getProducer(int producerID) {
 		
+		Database database = Database.getInstance();
 		
-		return null;
+		Producer prod = database.getProducer(producerID);
+		
+		if(prod == null){
+			log.info("No producer with id: "+producerID+" found!");
+		}
+		
+		return prod;
 	}
-
 }

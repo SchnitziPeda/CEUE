@@ -3,8 +3,6 @@
  */
 package at.jku.ce.ue.source.businessLogic;
 
-import java.util.List;
-
 import at.jku.ce.ue.source.entities.Producer;
 
 /**
@@ -13,9 +11,6 @@ import at.jku.ce.ue.source.entities.Producer;
  */
 public interface SupplierService {
 
-	public List<String> getAllPartsByProducer(String producerid);
-	
-	public Producer getProducer(String producerID);
-	
+	public Producer getProducer(int producerID);
 	
 }
