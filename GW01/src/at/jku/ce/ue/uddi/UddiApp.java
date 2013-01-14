@@ -4,28 +4,37 @@ import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import org.apache.cxf.service.model.EndpointInfo;
 import org.apache.juddi.v3.client.ClassUtil;
 import org.apache.juddi.v3.client.config.UDDIClerkManager;
 import org.apache.juddi.v3.client.config.UDDIClientContainer;
 import org.apache.juddi.v3.client.transport.Transport;
 import org.uddi.api_v3.AccessPoint;
+import org.uddi.api_v3.AuthToken;
 import org.uddi.api_v3.BindingTemplate;
 import org.uddi.api_v3.BindingTemplates;
+import org.uddi.api_v3.BusinessDetail;
 import org.uddi.api_v3.BusinessEntity;
 import org.uddi.api_v3.BusinessList;
 import org.uddi.api_v3.BusinessService;
 import org.uddi.api_v3.Description;
 import org.uddi.api_v3.FindBusiness;
+import org.uddi.api_v3.FindService;
+import org.uddi.api_v3.FindTModel;
 import org.uddi.api_v3.GetAuthToken;
+import org.uddi.api_v3.GetBusinessDetail;
 import org.uddi.api_v3.GetServiceDetail;
 import org.uddi.api_v3.Name;
 import org.uddi.api_v3.SaveBinding;
 import org.uddi.api_v3.SaveBusiness;
 import org.uddi.api_v3.SaveService;
 import org.uddi.api_v3.ServiceDetail;
+import org.uddi.api_v3.ServiceInfo;
+import org.uddi.api_v3.ServiceList;
 import org.uddi.v3_service.DispositionReportFaultMessage;
 import org.uddi.v3_service.UDDIInquiryPortType;
 import org.uddi.v3_service.UDDIPublicationPortType;
@@ -38,8 +47,7 @@ public class UddiApp {
 	public static final String MY_HOSTER = "140.78.73.87";
 	public static final String MY_PORT = "8090";
 
-	private String wsdlLocation = "http://" + MY_HOSTER + ":" + MY_PORT
-			+ "/GW01/services/ProductsAndServicesImplPort?wsdl";
+	private String wsdlLocation = "http://" + MY_HOSTER + ":" + MY_PORT + "/GW01/services/BOMServicePort?wsdl";
 	private String serviceName = "Gruppe 1 Services";
 	private String serviceID = "gruppe1";
 	private String serviceDescription = "Webservice for managing prices of offered parts and retrieving price information.";
@@ -132,6 +140,7 @@ public class UddiApp {
 
 	/**
 	 * publish service including wsdl file
+	 * 
 	 * @return
 	 */
 	public String publishService() {
@@ -189,7 +198,7 @@ public class UddiApp {
 				saveBinding.setAuthInfo(getAuth());
 				saveBinding.getBindingTemplate().add(bindingTemp);
 				publish.saveBinding(saveBinding);
-				
+
 				return "plattform published";
 			}
 			return "already published";
@@ -203,10 +212,91 @@ public class UddiApp {
 		return null;
 
 	}
-	
-	public void getListofEndpoints(){
+
+	public ServiceList findServicesBy(String tModelName)
+			throws DispositionReportFaultMessage, RemoteException {
+
+		FindService find = new FindService();
+		FindTModel findModel = new FindTModel();
+
+		Name name = new Name();
+		name.setValue(tModelName);
+		findModel.setAuthInfo(this.getAuth());
+		findModel.setName(name);
+
+		find.setFindTModel(findModel);
+		ServiceList foundList = inquiry.findService(find);
 		
+		return foundList;
+
+	}
+
+	public void getListofEndpoints(ServiceList foundList) {
+		List<EndpointInfo> endpoints = new ArrayList<EndpointInfo>();
+		EndpointInfo ep = null;
+
+		String output = "";
 		
+		try {
+			String token = this.getAuth();
+
+//			System.out.print("Number of services: "	+ foundList.getServiceInfos().getServiceInfo());
+
+			if (foundList != null && foundList.getServiceInfos() != null) {
+				if (foundList.getServiceInfos().getServiceInfo() != null) {
+
+					for (ServiceInfo info : foundList.getServiceInfos()
+							.getServiceInfo()) {
+						for (Name name : info.getName()) {
+							System.out.print("Name: " + name.getValue());
+						}
+
+						// retrieve endpoint
+						String serviceKey = info.getServiceKey();
+						GetServiceDetail getServiceDetail = new GetServiceDetail();
+						getServiceDetail.setAuthInfo(token);
+						getServiceDetail.getServiceKey().add(serviceKey);
+						ServiceDetail serviceDetail = inquiry
+								.getServiceDetail(getServiceDetail);
+
+						BusinessService businessS = serviceDetail
+								.getBusinessService().get(0);
+						AccessPoint ap = businessS.getBindingTemplates()
+								.getBindingTemplate().get(0).getAccessPoint();
+
+						// retrieve business entity name
+						String busineessKey = info.getBusinessKey();
+						GetBusinessDetail getBusinessDetail = new GetBusinessDetail();
+						getBusinessDetail.setAuthInfo(token);
+						getBusinessDetail.getBusinessKey().add(busineessKey);
+						BusinessDetail businessDetail = inquiry
+								.getBusinessDetail(getBusinessDetail);
+
+						BusinessEntity businessE = businessDetail
+								.getBusinessEntity().get(0);
+						String beName = businessE.getName().get(0).getValue();
+
+						System.out.print("Name: "+ap.getValue());
+
+						output += ap.getValue();
+						
+//						ep = new EndpointInfo(beName, ap.getValue());
+						endpoints.add(ep);
+
+					}
+
+				}
+			}
+//			System.out.print(output);
+
+		} catch (DispositionReportFaultMessage e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	public static void main(String[] args) {

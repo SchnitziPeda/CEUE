@@ -31,7 +31,7 @@ ListIterator iter1 = list.listIterator();
 
 String plattformName = "gruppe 1 publisher";
 UddiRegistration uddiReg = new UddiRegistration();
-uddiReg.publishService();
+uddiReg.generateListofEndpoints();
 
 // System.out.print(Init.getUddiReg().isRegistered(plattformName));
 // System.out.print(Init.getUddiReg().getWsdlOfPlattform(plattformName));

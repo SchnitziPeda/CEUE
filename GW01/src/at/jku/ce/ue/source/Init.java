@@ -11,7 +11,7 @@ public class Init {
 		db = new Database();
 		uddiReg = new UddiRegistration();
 		
-		uddiReg.generateListOfPlattforms();
+//		uddiReg.generateListOfPlattforms();
 	}
 
 	public static Database getDb() {
