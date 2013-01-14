@@ -29,10 +29,12 @@ OrderParts availableParts = new OrderParts();
 List<String> list = availableParts.testBom();
 ListIterator iter1 = list.listIterator();
 
-// String plattformName = "gruppe 1 publisher";
+String plattformName = "gruppe 1 publisher";
+UddiRegistration uddiReg = new UddiRegistration();
+uddiReg.publishService();
+
 // System.out.print(Init.getUddiReg().isRegistered(plattformName));
 // System.out.print(Init.getUddiReg().getWsdlOfPlattform(plattformName));
-
 
 
 %>

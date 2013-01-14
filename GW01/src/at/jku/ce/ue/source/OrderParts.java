@@ -19,7 +19,6 @@ public class OrderParts {
 //		String output = port.getAllParts().toString();
 		list.addAll(port.getAllParts());
 		return list;
-	
 	}
 	
 	public List<String> testInqiury(){

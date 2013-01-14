@@ -4,36 +4,45 @@ import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-import org.apache.cxf.service.model.EndpointInfo;
 import org.apache.juddi.v3.client.ClassUtil;
 import org.apache.juddi.v3.client.config.UDDIClerkManager;
 import org.apache.juddi.v3.client.config.UDDIClientContainer;
 import org.apache.juddi.v3.client.transport.Transport;
 import org.uddi.api_v3.AccessPoint;
-import org.uddi.api_v3.BusinessDetail;
+import org.uddi.api_v3.BindingTemplate;
+import org.uddi.api_v3.BindingTemplates;
 import org.uddi.api_v3.BusinessEntity;
 import org.uddi.api_v3.BusinessList;
 import org.uddi.api_v3.BusinessService;
 import org.uddi.api_v3.Description;
 import org.uddi.api_v3.FindBusiness;
 import org.uddi.api_v3.GetAuthToken;
-import org.uddi.api_v3.GetBusinessDetail;
 import org.uddi.api_v3.GetServiceDetail;
 import org.uddi.api_v3.Name;
+import org.uddi.api_v3.SaveBinding;
 import org.uddi.api_v3.SaveBusiness;
+import org.uddi.api_v3.SaveService;
 import org.uddi.api_v3.ServiceDetail;
-import org.uddi.api_v3.ServiceInfo;
-import org.uddi.api_v3.ServiceList;
 import org.uddi.v3_service.DispositionReportFaultMessage;
 import org.uddi.v3_service.UDDIInquiryPortType;
 import org.uddi.v3_service.UDDIPublicationPortType;
 import org.uddi.v3_service.UDDISecurityPortType;
 
 public class UddiApp {
+
+	private String userID = "GW01";
+
+	public static final String MY_HOSTER = "140.78.73.87";
+	public static final String MY_PORT = "8090";
+
+	private String wsdlLocation = "http://" + MY_HOSTER + ":" + MY_PORT
+			+ "/GW01/services/ProductsAndServicesImplPort?wsdl";
+	private String serviceName = "Gruppe 1 Services";
+	private String serviceID = "gruppe1";
+	private String serviceDescription = "Webservice for managing prices of offered parts and retrieving price information.";
 
 	private static final Logger log = Logger.getLogger(UddiApp.class.getName());
 
@@ -95,7 +104,7 @@ public class UddiApp {
 	public String getAuth() throws DispositionReportFaultMessage,
 			RemoteException {
 		GetAuthToken gat = new GetAuthToken();
-		gat.setUserID("gruppe1");
+		gat.setUserID(serviceID);
 		gat.setCred("");
 		return security.getAuthToken(gat).getAuthInfo();
 	}
@@ -111,11 +120,7 @@ public class UddiApp {
 			Name myName = new Name();
 			myName.setValue(namestr);
 
-			Description desc = new Description();
-			desc.setValue("Webservice for some products");
-
 			businessEntity.getName().add(myName);
-			businessEntity.getDescription().add(desc);
 
 			saveB.getBusinessEntity().add(businessEntity);
 			if (publish.saveBusiness(saveB).getBusinessEntity().size() > 0)
@@ -125,6 +130,85 @@ public class UddiApp {
 		return null;
 	}
 
+	/**
+	 * publish service including wsdl file
+	 * @return
+	 */
+	public String publishService() {
+		try {
+			String businessKey = this.publish(userID);
+			System.out.print(businessKey);
+			if (businessKey != null) {
+
+				BusinessService myService = new BusinessService();
+				myService.setBusinessKey(businessKey);
+				Name myServiceName = new Name();
+				myServiceName.setValue(serviceName);
+				myService.getName().add(myServiceName);
+
+				// description
+				Description serviceDesc = new Description();
+				serviceDesc.setValue(serviceDescription);
+				myService.getDescription().add(serviceDesc);
+
+				// binding template
+				BindingTemplates templates = new BindingTemplates();
+				BindingTemplate bindingTemp = new BindingTemplate();
+				bindingTemp.getDescription().add(serviceDesc);
+
+				// set acces point
+				AccessPoint accessPoint = new AccessPoint();
+				accessPoint.setUseType("wsdlDeployment");
+				accessPoint.setValue(wsdlLocation);
+
+				bindingTemp.setAccessPoint(accessPoint);
+				templates.getBindingTemplate().add(bindingTemp);
+
+				myService.setBindingTemplates(templates);
+
+				SaveService ss = new SaveService();
+				ss.getBusinessService().add(myService);
+				ss.setAuthInfo(getAuth());
+				ServiceDetail sd = publish.saveService(ss);
+				String myServKey = sd.getBusinessService().get(0)
+						.getServiceKey();
+
+				// save our binding
+				bindingTemp.setServiceKey(myServKey);
+
+				// TModelInstanceInfo tmodelinstanceinfo = new
+				// TModelInstanceInfo();
+				// tmodelinstanceinfo.setTModelKey(tModelKey);
+				//
+				// TModelInstanceDetails tmodeldetails = new
+				// TModelInstanceDetails();
+				// tmodeldetails.getTModelInstanceInfo().add(tmodelinstanceinfo);
+				// bindingTemplate.setTModelInstanceDetails(tmodeldetails);
+
+				SaveBinding saveBinding = new SaveBinding();
+				saveBinding.setAuthInfo(getAuth());
+				saveBinding.getBindingTemplate().add(bindingTemp);
+				publish.saveBinding(saveBinding);
+				
+				return "plattform published";
+			}
+			return "already published";
+		} catch (DispositionReportFaultMessage e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+
+	}
+	
+	public void getListofEndpoints(){
+		
+		
+	}
+
 	public static void main(String[] args) {
 		UddiApp app = new UddiApp();
 
@@ -132,7 +216,7 @@ public class UddiApp {
 		app.getWsdlFile(plattformName);
 
 		// try {
-//		 System.out.println("RESULT: " + app.publish("gruppe 1 publisher"));
+		// System.out.println("RESULT: " + app.publish("gruppe 1 publisher"));
 		// System.out.println("RESULT: " + app.isRegistered("hi there!"));
 
 		// String namestring = "gruppe4"; // for testing
@@ -198,9 +282,6 @@ public class UddiApp {
 		List<String> elements = null;
 		return elements;
 	}
-
-
-	
 
 	// returns plattform depending WSDL file
 	public String getWsdlFile(String plattformName) {
