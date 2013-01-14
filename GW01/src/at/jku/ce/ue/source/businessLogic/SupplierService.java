@@ -9,7 +9,7 @@ import at.jku.ce.ue.source.entities.Producer;
 
 /**
  * @author Schnitzi
- *
+ * 
  */
 public interface SupplierService {
 
@@ -20,7 +20,8 @@ public interface SupplierService {
 	 * @return
 	 */
 	public Producer getProducer(int producerID);
-	
+
 	public List<Producer> getAllProducers();
 
+	public List<String> getAllProducerKeys();
 }

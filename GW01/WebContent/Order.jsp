@@ -20,29 +20,29 @@ Possibility to order some parts:
 <br>
 <br>
 <% 
-if(request.getParameter("submit") != null){
-	String part = request.getParameter("parts");
-	out.print("You have selected the following part: "+part);
-}
+// if(request.getParameter("submit") != null){
+// 	String part = request.getParameter("parts");
+// 	out.print("You have selected the following part: "+part);
+// }
 
-OrderParts availableParts = new OrderParts();
-List<String> list = availableParts.testInqiury();
-ListIterator iter1 = list.listIterator();
+// OrderParts availableParts = new OrderParts();
+// List<String> list = availableParts.testInqiury();
+// ListIterator iter1 = list.listIterator();
 
-String plattformName = "gruppe4";
-System.out.print(Init.getUddiReg().getWsdlOfPlattform(plattformName));
+// String plattformName = "gruppe4";
+// System.out.print(Init.getUddiReg().getWsdlOfPlattform(plattformName));
 
 
 
 %>
 <form name="selectedParts" method="post" action="Order.jsp">
 <%
-out.print("<select name='parts'>");
-while(iter1.hasNext()){
-	String text = iter1.next().toString();
-	out.print("<option value="+text+">"+text+"</option>");
-}
-out.print("</select>");
+// out.print("<select name='parts'>");
+// while(iter1.hasNext()){
+// 	String text = iter1.next().toString();
+// 	out.print("<option value="+text+">"+text+"</option>");
+// }
+// out.print("</select>");
 %>
 <input type="submit" name="submit" value="Select">
 </form>

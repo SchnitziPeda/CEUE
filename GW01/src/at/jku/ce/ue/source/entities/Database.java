@@ -6,6 +6,9 @@ package at.jku.ce.ue.source.entities;
 import java.util.LinkedList;
 import java.util.List;
 
+import at.jku.ce.ue.bom.BOMService;
+import at.jku.ce.ue.bom.BOMServiceService;
+
 /**
  * @author Schnitzi
  * 
@@ -60,34 +63,45 @@ public class Database {
 
 		LinkedList<Part> parts = new LinkedList<Part>();
 
-		for (int i = 0; i < PART_COUNT; i++) {
-			Part schlauch = new Part(i, "gw01SchlauchPR" + i, getProducers().get(i));
-			Part motor = new Part(i, "gw01MotorPR" + i, getProducers().get(i));
+		BOMServiceService ss = new BOMServiceService(
+				BOMServiceService.WSDL_LOCATION, BOMServiceService.SERVICE);
+		BOMService port = ss.getBOMServicePort();
 
-			Part pumpe = new Part(i, "gw01PumpePR" + i, getProducers().get(i));
-
-			Part tank = new Part(i, "gw01TankPR" + i, getProducers().get(i));
-
-			Part wassertank = new Part(i, "gw01WassertankPR" + i,
-					getProducers().get(i));
-
-			// Building pumpe
-			pumpe.getSubParts().add(schlauch);
-			pumpe.getSubParts().add(motor);
-
-			// Building wassertank
-			wassertank.getSubParts().add(pumpe);
-			wassertank.getSubParts().add(tank);
-
-			// Put into
-			parts.add(schlauch);
-			parts.add(motor);
-			parts.add(pumpe);
-			parts.add(tank);
-			parts.add(wassertank);
+		// String output = port.getAllParts().toString();
+		List<String> productList = port.getAllParts();
+		
+		for(String partName : productList){
+			port.getDirectSubPartsOf(partName);
 		}
-
+		
 	}
+		// for (int i = 0; i < PART_COUNT; i++) {
+		// Part schlauch = new Part(i, "gw01SchlauchPR" + i,
+		// getProducers().get(i));
+		// Part motor = new Part(i, "gw01MotorPR" + i, getProducers().get(i));
+		//
+		// Part pumpe = new Part(i, "gw01PumpePR" + i, getProducers().get(i));
+		//
+		// Part tank = new Part(i, "gw01TankPR" + i, getProducers().get(i));
+		//
+		// Part wassertank = new Part(i, "gw01WassertankPR" + i,
+		// getProducers().get(i));
+		//
+		// // Building pumpe
+		// pumpe.getSubParts().add(schlauch);
+		// pumpe.getSubParts().add(motor);
+		//
+		// // Building wassertank
+		// wassertank.getSubParts().add(pumpe);
+		// wassertank.getSubParts().add(tank);
+		//
+		// // Put into
+		// parts.add(schlauch);
+		// parts.add(motor);
+		// parts.add(pumpe);
+		// parts.add(tank);
+		// parts.add(wassertank);
+		// }
 
 	/**
 	 * @return the parts
@@ -97,7 +111,8 @@ public class Database {
 	}
 
 	/**
-	 * @param parts the parts to set
+	 * @param parts
+	 *            the parts to set
 	 */
 	public void setParts(List<Part> parts) {
 		Database.parts = parts;
@@ -111,12 +126,13 @@ public class Database {
 	}
 
 	/**
-	 * @param producers the producers to set
+	 * @param producers
+	 *            the producers to set
 	 */
 	public void setProducers(List<Producer> producers) {
 		Database.producers = producers;
 	}
-	
+
 	/**
 	 * @param producerID
 	 * @return
@@ -124,9 +140,9 @@ public class Database {
 	public Producer getProducer(int producerID) {
 		return producers.get(producerID);
 	}
-	
+
 	public Producer getPart(int partID) {
 		return producers.get(partID);
 	}
-	
+
 }
