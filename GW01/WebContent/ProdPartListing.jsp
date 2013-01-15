@@ -20,7 +20,11 @@
 
 	for (int i = 0; i < prodList.size(); i++) {
 		Producer prod = prodList.get(i);
-		out.println("Producer: " + prod.toString()+"<br />");
+		out.println("Producer: " + prod.getName()+"<br />");
+		List<Part> partsOfProd = prod.getParts();
+		for(Part part : partsOfProd){
+			out.println("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+part.getName()+"<br />");
+		}
 	}
 %>
 </body>

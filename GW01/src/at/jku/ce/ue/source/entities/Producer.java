@@ -3,6 +3,7 @@
  */
 package at.jku.ce.ue.source.entities;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -25,6 +26,7 @@ public class Producer {
 		this.id = roleId;
 		this.name = name;
 		this.adress = adress;
+		this.parts = new LinkedList<Part>();
 	}
 	
 //	@Override
