@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import at.jku.ce.ue.source.businessLogic.SupplierService;
+import at.jku.ce.ue.source.entities.Database;
 import at.jku.ce.ue.source.entities.Producer;
 
 /**

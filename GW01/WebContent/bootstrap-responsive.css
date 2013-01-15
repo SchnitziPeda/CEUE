@@ -16,6 +16,10 @@
   *zoom: 1;
 }
 
+.menu{
+	color: red;
+}
+
 .clearfix:before,
 .clearfix:after {
   display: table;
