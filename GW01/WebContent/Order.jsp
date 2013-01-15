@@ -3,6 +3,7 @@
 <%@
 page language="java"
 import="at.jku.ce.ue.source.*"
+import="at.jku.ce.ue.service.*"
 import="java.util.List"
 import="java.util.ListIterator"
 import="at.jku.ce.ue.uddi.*"
@@ -26,15 +27,16 @@ Possibility to order some parts:
 // }
 
 OrderParts availableParts = new OrderParts();
-List<String> list = availableParts.testInqiury();
-ListIterator iter1 = list.listIterator();
+// List<String> list = availableParts.testInqiury();
+// ListIterator iter1 = list.listIterator();
 
 // String plattformName = "gruppe4";
 // System.out.print(Init.getUddiReg().getWsdlOfPlattform(plattformName));
 // String plattformName = "gruppe 1 publisher";
 UddiRegistration uddiReg = new UddiRegistration();
-// uddiReg.generateListofEndpoints();
-System.out.print(uddiReg.publishPlattformAndService());
+List<InquiryOrderPlattformService> list = uddiReg.generateListofEndpoints();
+ListIterator iter1 = list.listIterator();
+// System.out.print(uddiReg.publishPlattformAndService());
 
 // System.out.print(Init.getUddiReg().isRegistered(plattformName));
 // System.out.print(Init.getUddiReg().getWsdlOfPlattform(plattformName));

@@ -324,9 +324,11 @@ public class UddiApp {
 							.getBusinessInfo().get(i).getName().get(0)
 							.getValue();
 
+					
 					if (publisherName.matches("gruppe\\s+[0-9]*\\s+publisher")) {
 						// System.out.println(""+bl.getBusinessInfos().getBusinessInfo().get(i).getName().get(0).getValue());
-
+//						System.out.print(publisherName);
+						
 						if (bl.getBusinessInfos().getBusinessInfo().get(i)
 								.getServiceInfos() != null
 								&& bl.getBusinessInfos().getBusinessInfo()
@@ -358,15 +360,16 @@ public class UddiApp {
 											.getAccessPoint();
 									String wsdlFile = ap.getValue();
 									
-									System.out.println(wsdlFile);
+//									System.out.println(wsdlFile);
+
 									// endpoints.add(ap.getValue());
 
 									endpoints.put(publisherName, wsdlFile);
 								}
 							}
 						}
-					} else
-						System.out.println("wrong " + publisherName);
+					} //else
+//						System.out.println("wrong " + publisherName);
 				}
 
 			}

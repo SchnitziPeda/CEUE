@@ -26,7 +26,7 @@ public class OrderParts {
 	}
 	
 	public List<String> testInqiury() throws MalformedURLException{
-		URL wsdlLocation = new URL("http://140.78.73.87:8085/PS24/services/InquiryOrderPlattformServicePort?wsdl");
+		URL wsdlLocation = new URL("http://140.78.73.87:8085/GW01/services/InquiryOrderPlattformServicePort?wsdl");
 		QName service = new QName("http://ue.ce.jku.at/", "InquiryOrderPlattformServiceService");
 		InquiryOrderPlattformServiceService ss = new InquiryOrderPlattformServiceService(wsdlLocation, service);
 		InquiryOrderPlattformService test = ss.getInquiryOrderPlattformServicePort();
