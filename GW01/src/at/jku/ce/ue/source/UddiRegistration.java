@@ -20,8 +20,8 @@ public class UddiRegistration {
 //	publishes own plattform
 	public String publishPlattformAndService(){
 		String var = null;
-		var = app.publishService();
-//		var = app.publishServiceAnyway();
+//		var = app.publishService();
+		var = app.publishServiceAnyway();
 
 		return var;
 	}

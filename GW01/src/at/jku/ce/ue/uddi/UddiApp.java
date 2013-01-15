@@ -45,14 +45,14 @@ public class UddiApp {
 	private String userName = "gruppe 1 publisher";
 
 	public static final String MY_HOSTER = "140.78.73.87";
-	public static final String MY_PORT = "8090";
+	public static final String MY_PORT = "8085";
 
 	public static final String APPROXIMATE_MATCH = "approximateMatch";
 
 	private String wsdlLocation = "http://" + MY_HOSTER + ":" + MY_PORT
 			+ "/GW01/services/InquiryOrderPlattformServicePort?wsdl";
 	private String serviceName = "Gruppe 1 Services";
-	private String serviceID = "gruppe 1 publisher";
+	private String serviceID = "GW01";
 	private String serviceDescription = "Webservice for managing prices of offered parts and retrieving price information.";
 
 	private static final Logger log = Logger.getLogger(UddiApp.class.getName());
@@ -357,7 +357,7 @@ public class UddiApp {
 											.getBindingTemplate().get(0)
 											.getAccessPoint();
 									String wsdlFile = ap.getValue();
-
+									
 									System.out.println(wsdlFile);
 									// endpoints.add(ap.getValue());
 

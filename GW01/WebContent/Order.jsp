@@ -32,9 +32,9 @@ ListIterator iter1 = list.listIterator();
 // String plattformName = "gruppe4";
 // System.out.print(Init.getUddiReg().getWsdlOfPlattform(plattformName));
 // String plattformName = "gruppe 1 publisher";
-// UddiRegistration uddiReg = new UddiRegistration();
+UddiRegistration uddiReg = new UddiRegistration();
 // uddiReg.generateListofEndpoints();
-// System.out.print(uddiReg.publishPlattformAndService());
+System.out.print(uddiReg.publishPlattformAndService());
 
 // System.out.print(Init.getUddiReg().isRegistered(plattformName));
 // System.out.print(Init.getUddiReg().getWsdlOfPlattform(plattformName));
