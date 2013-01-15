@@ -11,34 +11,34 @@ public class UddiRegistration {
 	
 	UddiApp app;
 	private List<String> plattforms;
+	public String plattformName;
+
 
 	public UddiRegistration() {
 		app = new UddiApp();
+	}
+	
+//	publishes service inlcuding wsdl file 
+	public String publishService(){
+		return app.publishService();
+	}
 		
-	}
-	
-//	returns list of registered plattforms
-	public void generateListOfPlattforms(){
-		setPlattforms(app.getListOfPlattforms());
-	}
-	
 //	publishes own plattform
-	public String publishPlattform(String plattformName){
-		try {
-			return app.publish(plattformName);
-		} catch (DispositionReportFaultMessage e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return plattformName;
+	public String publishPlattformAndService(){
+		String var = null;
+		var = app.publishService();
+
+		return var;
 	}
 	
 //	returns wsdl file for a given plattform
 	public String getWsdlOfPlattform(String plattformName){
 		return app.getWsdlFile(plattformName);
+	}
+	
+//	returns list of registered plattforms
+	public void generateListofEndpoints(){
+		app.getListofEndpoints();
 	}
 
 	public List<String> getPlattforms() {
@@ -48,6 +48,7 @@ public class UddiRegistration {
 	public void setPlattforms(List<String> plattforms) {
 		this.plattforms = plattforms;
 	}
+
 	
 	
 
