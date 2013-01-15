@@ -34,7 +34,9 @@ OrderParts availableParts = new OrderParts();
 // System.out.print(Init.getUddiReg().getWsdlOfPlattform(plattformName));
 // String plattformName = "gruppe 1 publisher";
 UddiRegistration uddiReg = new UddiRegistration();
-uddiReg.generateListofEndpoints();
+uddiReg.deleteService();
+// uddiReg.publishPlattformAndService();
+// uddiReg.generateListofEndpoints();
 // ListIterator iter1 = list.listIterator();
 // System.out.print(uddiReg.publishPlattformAndService());
 
