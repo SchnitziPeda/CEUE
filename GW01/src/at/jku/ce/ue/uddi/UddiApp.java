@@ -146,7 +146,6 @@ public class UddiApp {
 	public String publishService() {
 		try {
 			String businessKey = this.publish(userID);
-//			System.out.print(businessKey);
 			if (businessKey != null) {
 
 				BusinessService myService = new BusinessService();
