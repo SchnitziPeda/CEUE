@@ -3,6 +3,7 @@
 <%@
 page language="java"
 import="at.jku.ce.ue.source.*"
+import="at.jku.ce.ue.service.*"
 import="java.util.List"
 import="java.util.ListIterator"
 import="at.jku.ce.ue.uddi.*"
@@ -25,16 +26,17 @@ Possibility to order some parts:
 // 	out.print("You have selected the following part: "+part);
 // }
 
-// OrderParts availableParts = new OrderParts();
+OrderParts availableParts = new OrderParts();
 // List<String> list = availableParts.testInqiury();
-// List<String> list = availableParts.testBom();
 // ListIterator iter1 = list.listIterator();
 
 // String plattformName = "gruppe4";
 // System.out.print(Init.getUddiReg().getWsdlOfPlattform(plattformName));
-String plattformName = "gruppe 1 publisher";
+// String plattformName = "gruppe 1 publisher";
 UddiRegistration uddiReg = new UddiRegistration();
-uddiReg.publishPlattformAndService();
+uddiReg.generateListofEndpoints();
+// ListIterator iter1 = list.listIterator();
+// System.out.print(uddiReg.publishPlattformAndService());
 
 // System.out.print(Init.getUddiReg().isRegistered(plattformName));
 // System.out.print(Init.getUddiReg().getWsdlOfPlattform(plattformName));
@@ -50,14 +52,14 @@ uddiReg.publishPlattformAndService();
 // }
 // out.print("</select>");
 %>
-<%-- <% --%>
-<!-- // out.print("<select name='parts'>"); -->
-<!-- // while(iter1.hasNext()){ -->
-<!-- // 	String text = iter1.next().toString(); -->
-<!-- // 	out.print("<option value="+text+">"+text+"</option>"); -->
-<!-- // } -->
-<!-- // out.print("</select>"); -->
-<%-- <%-- <%-- %> --%>
+<%
+// out.print("<select name='parts'>");
+// while(iter1.hasNext()){
+// 	String text = iter1.next().toString();
+// 	out.print("<option value="+text+">"+text+"</option>");
+// }
+// out.print("</select>");
+%>
 <input type="submit" name="submit" value="Select">
 </form>
 </body>
