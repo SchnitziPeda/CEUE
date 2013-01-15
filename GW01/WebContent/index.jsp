@@ -19,6 +19,8 @@ Init initialize = new Init();
 
 <a href="Register.jsp">Register</a>
 <br>
+<a href="ProdPartListing.jsp">List of all Producers and their parts on this platform</a>
+<br>
 <a href="Order.jsp">Orders</a>
 <br>
 <a href="Offer.jsp">Offers</a>

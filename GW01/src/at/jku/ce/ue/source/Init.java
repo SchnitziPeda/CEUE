@@ -9,7 +9,7 @@ public class Init {
 
 	public Init() {
 		db = new Database();
-		uddiReg = new UddiRegistration();
+//		uddiReg = new UddiRegistration();
 		
 //		uddiReg.generateListOfPlattforms();
 	}

@@ -9,13 +9,19 @@ import at.jku.ce.ue.source.entities.Producer;
 
 /**
  * @author Schnitzi
- *
+ * 
  */
 public interface SupplierService {
 
-	public List<String> getAllPartsByProducer(String producerid);
-	
-	public Producer getProducer(String producerID);
-	
-	
+	/**
+	 * 
+	 * 
+	 * @param producerID
+	 * @return
+	 */
+	public Producer getProducer(int producerID);
+
+	public List<Producer> getAllProducers();
+
+	public List<String> getAllProducerKeys();
 }

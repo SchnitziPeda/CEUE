@@ -26,9 +26,12 @@ Possibility to order some parts:
 // }
 
 // OrderParts availableParts = new OrderParts();
+// List<String> list = availableParts.testInqiury();
 // List<String> list = availableParts.testBom();
 // ListIterator iter1 = list.listIterator();
 
+// String plattformName = "gruppe4";
+// System.out.print(Init.getUddiReg().getWsdlOfPlattform(plattformName));
 String plattformName = "gruppe 1 publisher";
 UddiRegistration uddiReg = new UddiRegistration();
 uddiReg.publishPlattformAndService();
@@ -39,6 +42,14 @@ uddiReg.publishPlattformAndService();
 
 %>
 <form name="selectedParts" method="post" action="Order.jsp">
+<%
+// out.print("<select name='parts'>");
+// while(iter1.hasNext()){
+// 	String text = iter1.next().toString();
+// 	out.print("<option value="+text+">"+text+"</option>");
+// }
+// out.print("</select>");
+%>
 <%-- <% --%>
 <!-- // out.print("<select name='parts'>"); -->
 <!-- // while(iter1.hasNext()){ -->

@@ -16,7 +16,7 @@ public class OrderParts {
 		BOMServiceService ss = new BOMServiceService(BOMServiceService.WSDL_LOCATION, BOMServiceService.SERVICE);
 		BOMService port = ss.getBOMServicePort();
 		
-//		String output = port.getAllParts().toString();
+		//String output = port.getAllParts().toString();
 		list.addAll(port.getAllParts());
 		return list;
 	}
