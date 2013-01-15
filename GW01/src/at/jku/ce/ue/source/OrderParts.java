@@ -1,7 +1,11 @@
 package at.jku.ce.ue.source;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.xml.namespace.QName;
 
 import at.jku.ce.ue.bom.BOMService;
 import at.jku.ce.ue.bom.BOMServiceService;
@@ -21,12 +25,14 @@ public class OrderParts {
 		return list;
 	}
 	
-	public List<String> testInqiury(){
-		InquiryOrderPlattformServiceService ss = new InquiryOrderPlattformServiceService(InquiryOrderPlattformServiceService.WSDL_LOCATION, InquiryOrderPlattformServiceService.SERVICE);
+	public List<String> testInqiury() throws MalformedURLException{
+		URL wsdlLocation = new URL("http://140.78.73.87:8085/PS24/services/InquiryOrderPlattformServicePort?wsdl");
+		QName service = new QName("http://ue.ce.jku.at/", "InquiryOrderPlattformServiceService");
+		InquiryOrderPlattformServiceService ss = new InquiryOrderPlattformServiceService(wsdlLocation, service);
 		InquiryOrderPlattformService test = ss.getInquiryOrderPlattformServicePort();
 
-		
 		list.addAll(test.getAllProducersOnPlattform());
+//		list.addAll(test.getAllPartsOnPlattform());
 		return list;
 		
 	}

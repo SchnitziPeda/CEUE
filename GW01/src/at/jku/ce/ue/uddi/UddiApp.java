@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 import org.apache.juddi.v3.client.ClassUtil;
 import org.apache.juddi.v3.client.config.UDDIClerkManager;
@@ -41,14 +42,16 @@ import org.uddi.v3_service.UDDISecurityPortType;
 public class UddiApp {
 
 	private String userID = "gruppe1";
+	private String userName = "gruppe 1 publisher";
 
 	public static final String MY_HOSTER = "140.78.73.87";
 	public static final String MY_PORT = "8090";
-	
+
 	public static final String APPROXIMATE_MATCH = "approximateMatch";
 
-	private String wsdlLocation = "http://" + MY_HOSTER + ":" + MY_PORT + "/GW01/services/InquiryOrderPlattformServicePort?wsdl";
-	private String serviceName = "gruppe 1 Services";
+	private String wsdlLocation = "http://" + MY_HOSTER + ":" + MY_PORT
+			+ "/GW01/services/InquiryOrderPlattformServicePort?wsdl";
+	private String serviceName = "Gruppe 1 Services";
 	private String serviceID = "gruppe 1 publisher";
 	private String serviceDescription = "Webservice for managing prices of offered parts and retrieving price information.";
 
@@ -117,18 +120,18 @@ public class UddiApp {
 		return security.getAuthToken(gat).getAuthInfo();
 	}
 
-	public String publish(String namestr) throws DispositionReportFaultMessage,
+	public String publish() throws DispositionReportFaultMessage,
 			RemoteException {
-		if (isRegistered(namestr) == null) {
+		if (isRegistered(userName) == null) {
 			SaveBusiness saveB = new SaveBusiness();
 
 			saveB.setAuthInfo(getAuth());
 
 			BusinessEntity businessEntity = new BusinessEntity();
 			Name myName = new Name();
-			myName.setValue(namestr);
+			myName.setValue(userName);
 
-			businessEntity.getName().add(myName);			
+			businessEntity.getName().add(myName);
 
 			saveB.getBusinessEntity().add(businessEntity);
 			if (publish.saveBusiness(saveB).getBusinessEntity().size() > 0)
@@ -139,14 +142,79 @@ public class UddiApp {
 	}
 
 	/**
+	 * Publishes Services Anyway - no matter if already registered
+	 * @return
+	 */
+	public String publishServiceAnyway() {
+		try {
+			String businessKey = null;
+
+			SaveBusiness saveB = new SaveBusiness();
+
+			saveB.setAuthInfo(getAuth());
+
+			BusinessEntity businessEntity = new BusinessEntity();
+			Name myName = new Name();
+			myName.setValue(userName);
+			businessEntity.getName().add(myName);
+
+			saveB.getBusinessEntity().add(businessEntity);
+			if (publish.saveBusiness(saveB).getBusinessEntity().size() > 0)
+				businessKey = publish.saveBusiness(saveB).getBusinessEntity().get(0)
+						.getBusinessKey();
+
+			BusinessService myService = new BusinessService();
+			myService.setBusinessKey(businessKey);
+			Name myServiceName = new Name();
+			myServiceName.setValue(serviceName);
+			myService.getName().add(myServiceName);
+
+			// description
+			Description serviceDesc = new Description();
+			serviceDesc.setValue(serviceDescription);
+			myService.getDescription().add(serviceDesc);
+
+			// binding template
+			BindingTemplates templates = new BindingTemplates();
+			BindingTemplate bindingTemp = new BindingTemplate();
+			bindingTemp.getDescription().add(serviceDesc);
+
+			// set access point / wsdl file
+			AccessPoint accessPoint = new AccessPoint();
+			accessPoint.setUseType("wsdlDeployment");
+			accessPoint.setValue(wsdlLocation);
+
+			bindingTemp.setAccessPoint(accessPoint);
+			templates.getBindingTemplate().add(bindingTemp);
+
+			myService.setBindingTemplates(templates);
+
+			SaveService ss = new SaveService();
+			ss.getBusinessService().add(myService);
+			ss.setAuthInfo(this.getAuth());
+			ServiceDetail sd = publish.saveService(ss);
+			String myServKey = sd.getBusinessService().get(0).getServiceKey();
+
+			return "plattform " + userID + " published";
+		} catch (DispositionReportFaultMessage e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "nope";
+	}
+
+	/**
 	 * publish service including wsdl file
 	 * 
 	 * @return
 	 */
 	public String publishService() {
 		try {
-			String businessKey = this.publish(userID);
-			if (businessKey != null) {
+			String businessKey = null;
+			if ((businessKey = this.publish()) != null) {
 
 				BusinessService myService = new BusinessService();
 				myService.setBusinessKey(businessKey);
@@ -178,20 +246,11 @@ public class UddiApp {
 				ss.getBusinessService().add(myService);
 				ss.setAuthInfo(this.getAuth());
 				ServiceDetail sd = publish.saveService(ss);
-				String myServKey = sd.getBusinessService().get(0)
-						.getServiceKey();
+				String myServKey = sd.getBusinessService().get(0).getServiceKey();
 
-				// save our binding
-				bindingTemp.setServiceKey(myServKey);
-
-				SaveBinding saveBinding = new SaveBinding();
-				saveBinding.setAuthInfo(getAuth());
-				saveBinding.getBindingTemplate().add(bindingTemp);
-				publish.saveBinding(saveBinding);
-
-				return "plattform+ "+userID+" published";
+				return "plattform+ " + userName + " published";
 			}
-			return "already published";
+			return userName+" already published";
 		} catch (DispositionReportFaultMessage e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -208,7 +267,7 @@ public class UddiApp {
 
 		FindService find = new FindService();
 		FindTModel findModel = new FindTModel();
-		
+
 		GetAuthToken getAuthTokenMyPub = new GetAuthToken();
 		getAuthTokenMyPub.setUserID(userID);
 		getAuthTokenMyPub.setCred("");
@@ -221,110 +280,98 @@ public class UddiApp {
 
 		find.setFindTModel(findModel);
 		ServiceList foundList = inquiry.findService(find);
-		
+
 		return foundList;
 
 	}
 
-	
-	public void getListofEndpoints() {
-		
-//		String plattformName = "GW01"; // for testing
-		
+	/**
+	 * returns list of all plattforms and corresponding wsdl files 
+	 * @return
+	 */
+	public Map<String, String> getListofEndpoints() {
+
 		FindBusiness fb = new FindBusiness();
 		BusinessList bl = null;
-		String serviceKey = null; 
-//		List<String> endpoints = null;
+		String serviceKey = null;
 		Map<String, String> endpoints = new HashMap<String, String>();
 
 		try {
-			
-			fb.setAuthInfo(this.getAuth());			
-			
+
+			fb.setAuthInfo(this.getAuth());
+
 			Name name = new Name();
 			name.setValue("%");
-			
+
 			FindQualifiers fq = new FindQualifiers();
 			fq.getFindQualifier().add(this.APPROXIMATE_MATCH);
-			
+
 			fb.getName().add(name);
 			fb.setFindQualifiers(fq);
-			
+
 			// get all businesses
 			bl = inquiry.findBusiness(fb);
-			
+
 			bl.getBusinessInfos().getBusinessInfo().iterator();
-			for(int i=0;i<bl.getBusinessInfos().getBusinessInfo().size();i++){ 
-				
-				if(bl != null && bl.getBusinessInfos() != null && bl.getBusinessInfos().getBusinessInfo().size() > 0 && bl.getBusinessInfos().getBusinessInfo().get(i).getName().size() > 0){
-					String publisherName = bl.getBusinessInfos().getBusinessInfo().get(i).getName().get(0).getValue();
-					
-					/*
-					 * Only "gruppe % publisher" should be used! 
-					 */
-//					Pattern pat = Pattern.compile("gruppe % publisher");
-//					Matcher match = pat.matcher(publisherName);
-//					if(match.find()){
-//					if(publisherName.contains("gruppe % publisher")){
-//						System.out.println(""+bl.getBusinessInfos().getBusinessInfo().get(i).getName().get(0).getValue());
-						
-						if(bl.getBusinessInfos().getBusinessInfo().get(i).getServiceInfos() != null && bl.getBusinessInfos().getBusinessInfo().get(i).getServiceInfos().getServiceInfo().size() > 0){
-							serviceKey = bl.getBusinessInfos().getBusinessInfo().get(i).getServiceInfos().getServiceInfo().get(0).getServiceKey();	
-							
+			for (int i = 0; i < bl.getBusinessInfos().getBusinessInfo().size(); i++) {
+
+				if (bl != null
+						&& bl.getBusinessInfos() != null
+						&& bl.getBusinessInfos().getBusinessInfo().size() > 0
+						&& bl.getBusinessInfos().getBusinessInfo().get(i)
+								.getName().size() > 0) {
+					String publisherName = bl.getBusinessInfos()
+							.getBusinessInfo().get(i).getName().get(0)
+							.getValue();
+
+					if (publisherName.matches("gruppe\\s+[0-9]*\\s+publisher")) {
+						// System.out.println(""+bl.getBusinessInfos().getBusinessInfo().get(i).getName().get(0).getValue());
+
+						if (bl.getBusinessInfos().getBusinessInfo().get(i)
+								.getServiceInfos() != null
+								&& bl.getBusinessInfos().getBusinessInfo()
+										.get(i).getServiceInfos()
+										.getServiceInfo().size() > 0) {
+							serviceKey = bl.getBusinessInfos()
+									.getBusinessInfo().get(i).getServiceInfos()
+									.getServiceInfo().get(0).getServiceKey();
+
 							GetServiceDetail service = new GetServiceDetail();
 							service.setAuthInfo(getAuth());
 							service.getServiceKey().add(serviceKey);
-							ServiceDetail serviceInfo = inquiry.getServiceDetail(service);
-							List<BusinessService> services = serviceInfo.getBusinessService();
+							ServiceDetail serviceInfo = inquiry
+									.getServiceDetail(service);
+							List<BusinessService> services = serviceInfo
+									.getBusinessService();
 							if (services.size() > 0) {
 								BusinessService bs = services.get(0);
-								if(bs != null && bs.getBindingTemplates() != null && bs.getBindingTemplates().getBindingTemplate().size() > 0 
-										&& bs.getBindingTemplates().getBindingTemplate().get(0).getAccessPoint() != null){
-										
-										AccessPoint ap = bs.getBindingTemplates().getBindingTemplate().get(0).getAccessPoint();
-										String wsdlFile = ap.getValue();
-										
-										System.out.println(wsdlFile);
-		//								endpoints.add(ap.getValue());
-										
-										endpoints.put(publisherName, wsdlFile);
+								if (bs != null
+										&& bs.getBindingTemplates() != null
+										&& bs.getBindingTemplates()
+												.getBindingTemplate().size() > 0
+										&& bs.getBindingTemplates()
+												.getBindingTemplate().get(0)
+												.getAccessPoint() != null) {
+
+									AccessPoint ap = bs.getBindingTemplates()
+											.getBindingTemplate().get(0)
+											.getAccessPoint();
+									String wsdlFile = ap.getValue();
+
+									System.out.println(wsdlFile);
+									// endpoints.add(ap.getValue());
+
+									endpoints.put(publisherName, wsdlFile);
 								}
 							}
 						}
-//					} else 
-//						System.out.println("wrong "+publisherName);
-					
+					} else
+						System.out.println("wrong " + publisherName);
 				}
-				
-				
-				
-//				if (bl != null
-//						&& bl.getBusinessInfos() != null
-//						&& bl.getBusinessInfos().getBusinessInfo().size() > 0
-//						&& bl.getBusinessInfos().getBusinessInfo().get(0).getName()
-//								.size() > 0)
-//					return bl.getBusinessInfos().getBusinessInfo().get(0).getName()
-//							.get(0).getValue();
-				
-//				serviceKey = bl.getBusinessInfos().getBusinessInfo().get(i).getServiceInfos().getServiceInfo().get(0).getServiceKey();
-//				
-//				GetServiceDetail service = new GetServiceDetail();
-//				service.setAuthInfo(getAuth());
-//				service.getServiceKey().add(serviceKey);
-//				ServiceDetail serviceInfo = inquiry.getServiceDetail(service);
-//				List<BusinessService> services = serviceInfo.getBusinessService();
-//				if (services.size() > 0) {
-//					BusinessService bs = services.get(0);
-//					AccessPoint ap = bs.getBindingTemplates().getBindingTemplate()
-//							.get(0).getAccessPoint();
-//					
-//					endpoints.add(ap.getValue());
-//					
-//				}
+
 			}
-			
-			
-			
+			return endpoints;
+
 		} catch (DispositionReportFaultMessage e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -332,6 +379,8 @@ public class UddiApp {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+
+		return endpoints;
 	}
 
 	public static void main(String[] args) {
@@ -402,11 +451,6 @@ public class UddiApp {
 		// }
 	}
 
-	// returns a list of registered plattforms
-	public List<String> getListOfPlattforms() {
-		List<String> elements = null;
-		return elements;
-	}
 
 	// returns plattform depending WSDL file
 	public String getWsdlFile(String plattformName) {

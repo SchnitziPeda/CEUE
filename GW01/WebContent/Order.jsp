@@ -25,16 +25,16 @@ Possibility to order some parts:
 // 	out.print("You have selected the following part: "+part);
 // }
 
-// OrderParts availableParts = new OrderParts();
-// List<String> list = availableParts.testInqiury();
-// List<String> list = availableParts.testBom();
-// ListIterator iter1 = list.listIterator();
+OrderParts availableParts = new OrderParts();
+List<String> list = availableParts.testInqiury();
+ListIterator iter1 = list.listIterator();
 
 // String plattformName = "gruppe4";
 // System.out.print(Init.getUddiReg().getWsdlOfPlattform(plattformName));
-String plattformName = "gruppe 1 publisher";
-UddiRegistration uddiReg = new UddiRegistration();
-uddiReg.publishPlattformAndService();
+// String plattformName = "gruppe 1 publisher";
+// UddiRegistration uddiReg = new UddiRegistration();
+// uddiReg.generateListofEndpoints();
+// System.out.print(uddiReg.publishPlattformAndService());
 
 // System.out.print(Init.getUddiReg().isRegistered(plattformName));
 // System.out.print(Init.getUddiReg().getWsdlOfPlattform(plattformName));
@@ -50,14 +50,14 @@ uddiReg.publishPlattformAndService();
 // }
 // out.print("</select>");
 %>
-<%-- <% --%>
-<!-- // out.print("<select name='parts'>"); -->
-<!-- // while(iter1.hasNext()){ -->
-<!-- // 	String text = iter1.next().toString(); -->
-<!-- // 	out.print("<option value="+text+">"+text+"</option>"); -->
-<!-- // } -->
-<!-- // out.print("</select>"); -->
-<%-- <%-- <%-- %> --%>
+<%
+out.print("<select name='parts'>");
+while(iter1.hasNext()){
+	String text = iter1.next().toString();
+	out.print("<option value="+text+">"+text+"</option>");
+}
+out.print("</select>");
+%>
 <input type="submit" name="submit" value="Select">
 </form>
 </body>

@@ -1,16 +1,14 @@
 package at.jku.ce.ue.source;
 
-import java.rmi.RemoteException;
 import java.util.List;
-
-import org.uddi.v3_service.DispositionReportFaultMessage;
+import java.util.Map;
 
 import at.jku.ce.ue.uddi.UddiApp;
 
 public class UddiRegistration {
 	
 	UddiApp app;
-	private List<String> plattforms;
+	private Map<String, String> plattforms;
 	public String plattformName;
 
 
@@ -18,38 +16,35 @@ public class UddiRegistration {
 		app = new UddiApp();
 	}
 	
-//	publishes service inlcuding wsdl file 
-	public String publishService(){
-		return app.publishService();
-	}
 		
 //	publishes own plattform
 	public String publishPlattformAndService(){
 		String var = null;
 		var = app.publishService();
+//		var = app.publishServiceAnyway();
 
 		return var;
+	}
+	
+//	returns list of registered plattforms
+	public Map<String, String> generateListofEndpoints(){
+		this.setPlattforms(app.getListofEndpoints());
+		return this.getPlattforms();
 	}
 	
 //	returns wsdl file for a given plattform
 	public String getWsdlOfPlattform(String plattformName){
 		return app.getWsdlFile(plattformName);
 	}
-	
-//	returns list of registered plattforms
-	public void generateListofEndpoints(){
-		app.getListofEndpoints();
-	}
 
-	public List<String> getPlattforms() {
+
+	public Map<String, String> getPlattforms() {
 		return plattforms;
 	}
 
-	public void setPlattforms(List<String> plattforms) {
+
+	public void setPlattforms(Map<String, String> plattforms) {
 		this.plattforms = plattforms;
 	}
-
-	
-	
 
 }
