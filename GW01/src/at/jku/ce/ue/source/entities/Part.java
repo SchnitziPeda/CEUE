@@ -3,6 +3,7 @@
  */
 package at.jku.ce.ue.source.entities;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -22,12 +23,12 @@ public class Part {
 	 * @param offeredBy
 	 * @param subParts
 	 */
-	public Part(int id, String name, Producer offeredBy, List<Part> subParts) {
+	public Part(int id, String name, Producer offeredBy) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.offeredBy = offeredBy;
-		this.subParts = subParts;
+		this.subParts = new LinkedList<Part>();
 	}
 
 	/**
@@ -85,6 +86,5 @@ public class Part {
 	public void setSubParts(List<Part> subParts) {
 		this.subParts = subParts;
 	}
-	
 	
 }

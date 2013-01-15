@@ -3,17 +3,19 @@
  */
 package at.jku.ce.ue.source.entities;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
  * @author Schnitzi
  *
  */
-public class Producer extends Role {
+public class Producer {
 	
 	private int id;
 	private String name;
 	private List<Part> parts;
+	private final String adress;
 	
 	/**
 	 * @param roleId
@@ -21,12 +23,15 @@ public class Producer extends Role {
 	 * @param adress
 	 */
 	public Producer(int roleId, String name, String adress) {
-		super(roleId, true, name, adress);
+		this.id = roleId;
+		this.name = name;
+		this.adress = adress;
+		this.parts = new LinkedList<Part>();
 	}
 	
-	@Override
-	public boolean storeRole() {
-		
+//	@Override
+//	public boolean storeRole() {
+//		
 //		// add new data to xml file:
 //		if (supplierList != null && supplierList.getLength() > 0) {
 //
@@ -97,8 +102,8 @@ public class Producer extends Role {
 //			fos.flush();
 //			fos.close();
 //		
-		return false;
-	}
+//		return false;
+//	}
 
 	/**
 	 * @return the id
@@ -142,4 +147,13 @@ public class Producer extends Role {
 		this.parts = parts;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Producer [id=" + id + ", name=" + name + ", parts=" + parts
+				+ "]";
+	}
+	
 }

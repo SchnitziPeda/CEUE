@@ -5,13 +5,14 @@ package at.jku.ce.ue.source.businessLogic;
 
 import java.util.List;
 
+import at.jku.ce.ue.source.entities.Part;
 import at.jku.ce.ue.source.entities.Producer;
 
 /**
  * @author Schnitzi
  * 
  */
-public interface SupplierService {
+public interface PartService {
 
 	/**
 	 * Gets a producer by the producerIDof our platform
@@ -19,19 +20,19 @@ public interface SupplierService {
 	 * @param producerID
 	 * @return
 	 */
-	public Producer getProducer(int producerID);
+	public Part getPart(int PartID);
 
 	/**
 	 * Gets all producers of our platform
 	 * 
 	 * @return
 	 */
-	public List<Producer> getAllProducers();
+	public List<Part> getAllParts();
 
 	/**
 	 * @return
 	 */
-	public List<String> getAllProducerKeys();
+	public List<String> getAllPartKeys();
 	
 	
 }
