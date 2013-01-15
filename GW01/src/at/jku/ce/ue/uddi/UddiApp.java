@@ -20,6 +20,8 @@ import org.uddi.api_v3.BindingTemplates;
 import org.uddi.api_v3.BusinessEntity;
 import org.uddi.api_v3.BusinessList;
 import org.uddi.api_v3.BusinessService;
+import org.uddi.api_v3.DeleteBusiness;
+import org.uddi.api_v3.DeleteService;
 import org.uddi.api_v3.Description;
 import org.uddi.api_v3.FindBusiness;
 import org.uddi.api_v3.FindQualifiers;
@@ -109,7 +111,45 @@ public class UddiApp {
 		else
 			return null;
 	}
+	
+	/**
+	 * Deletes a business 
+	 */
+	public void deleteService(){
+		
+		String businessKey = null; 
+		FindBusiness fb = new FindBusiness();
+		Name name = new Name();
+		name.setValue(userName);
+		fb.getName().add(name);
+		BusinessList bl = null;
+		try {
+			bl = inquiry.findBusiness(fb);
+			if (bl != null
+					&& bl.getBusinessInfos() != null
+					&& bl.getBusinessInfos().getBusinessInfo().size() > 0
+					&& bl.getBusinessInfos().getBusinessInfo().get(0).getName()
+							.size() > 0)
+				businessKey = bl.getBusinessInfos().getBusinessInfo().get(0).getBusinessKey();
+				
+			DeleteBusiness db = new DeleteBusiness();
+			db.getBusinessKey().add(businessKey);
 
+			db.setAuthInfo(this.getAuth());
+			publish.deleteBusiness(db);
+			System.out.println("business deleted");
+			System.out.println(businessKey);
+			
+		} catch (DispositionReportFaultMessage e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
 	public String getAuth() throws DispositionReportFaultMessage,
 			RemoteException {
 		GetAuthToken gat = new GetAuthToken();
@@ -259,29 +299,6 @@ public class UddiApp {
 			e.printStackTrace();
 		}
 		return null;
-
-	}
-
-	public ServiceList findServicesBy(String tModelName)
-			throws DispositionReportFaultMessage, RemoteException {
-
-		FindService find = new FindService();
-		FindTModel findModel = new FindTModel();
-
-		GetAuthToken getAuthTokenMyPub = new GetAuthToken();
-		getAuthTokenMyPub.setUserID(userID);
-		getAuthTokenMyPub.setCred("");
-		AuthToken tokenPublish = security.getAuthToken(getAuthTokenMyPub);
-
-		Name name = new Name();
-		name.setValue(tModelName);
-		findModel.setAuthInfo(tokenPublish.getAuthInfo());
-		findModel.setName(name);
-
-		find.setFindTModel(findModel);
-		ServiceList foundList = inquiry.findService(find);
-
-		return foundList;
 
 	}
 

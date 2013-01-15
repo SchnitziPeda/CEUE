@@ -36,6 +36,13 @@ public class UddiRegistration {
 		return var;
 	}
 	
+	/**
+	 * Deletes our business 
+	 */
+	public void deleteService(){
+		app.deleteService();
+	}
+	
 	/*
 	 * returns list of generated plattforms
 	 */
