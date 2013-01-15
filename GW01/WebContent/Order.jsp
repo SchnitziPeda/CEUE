@@ -34,8 +34,8 @@ OrderParts availableParts = new OrderParts();
 // System.out.print(Init.getUddiReg().getWsdlOfPlattform(plattformName));
 // String plattformName = "gruppe 1 publisher";
 UddiRegistration uddiReg = new UddiRegistration();
-List<InquiryOrderPlattformService> list = uddiReg.generateListofEndpoints();
-ListIterator iter1 = list.listIterator();
+uddiReg.generateListofEndpoints();
+// ListIterator iter1 = list.listIterator();
 // System.out.print(uddiReg.publishPlattformAndService());
 
 // System.out.print(Init.getUddiReg().isRegistered(plattformName));
@@ -53,12 +53,12 @@ ListIterator iter1 = list.listIterator();
 // out.print("</select>");
 %>
 <%
-out.print("<select name='parts'>");
-while(iter1.hasNext()){
-	String text = iter1.next().toString();
-	out.print("<option value="+text+">"+text+"</option>");
-}
-out.print("</select>");
+// out.print("<select name='parts'>");
+// while(iter1.hasNext()){
+// 	String text = iter1.next().toString();
+// 	out.print("<option value="+text+">"+text+"</option>");
+// }
+// out.print("</select>");
 %>
 <input type="submit" name="submit" value="Select">
 </form>

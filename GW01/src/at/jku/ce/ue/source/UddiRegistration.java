@@ -39,30 +39,49 @@ public class UddiRegistration {
 	/*
 	 * returns list of generated plattforms
 	 */
-	@SuppressWarnings("null")
 	public List<InquiryOrderPlattformService> generateListofEndpoints(){
 		List<InquiryOrderPlattformService> serviceCollection = null;
 		plattforms = app.getListofEndpoints();
 		URL wsdlLocation = null;
 		
-		
 		for(String key : plattforms.keySet()){
 			String value = plattforms.get(key);
+			
 			try {
 				wsdlLocation = new URL(value);
 			} catch (MalformedURLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			QName service = new QName(QNameURL, QNameName);
-			InquiryOrderPlattformServiceService ss = new InquiryOrderPlattformServiceService(wsdlLocation, service);
-			System.out.print(ss.toString());
-			InquiryOrderPlattformService myService = ss.getInquiryOrderPlattformServicePort();
-		
-			if(myService != null)
-				serviceCollection.add(myService);
-		
+			InquiryOrderPlattformServiceService ss = new InquiryOrderPlattformServiceService(wsdlLocation, new QName("http://ue.ce.jku.at/", "InquiryOrderPlattformServiceService"));
+			if(ss != null){
+				String var = ss.getWSDLDocumentLocation().toString();
+				// TODO: always returns null!! 
+				InquiryOrderPlattformService myService = ss.getInquiryOrderPlattformServicePort();
+				serviceCollection.add(myService); 
+				System.out.println(var);
+			}
+			
 		}
+		
+//		for(String key : plattforms.keySet()){
+//			String value = plattforms.get(key);
+//			try {
+//				wsdlLocation = new URL(value);
+//			} catch (MalformedURLException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			};
+//			InquiryOrderPlattformServiceService ss = new InquiryOrderPlattformServiceService(wsdlLocation, new QName("http://ue.ce.jku.at/", "InquiryOrderPlattformServiceService"));
+//			if(ss != null){				
+//				String var = ss.getWSDLDocumentLocation().toString();
+//				System.out.println(var);
+//				if(var.contains("PS24")){
+//					InquiryOrderPlattformService myService = ss.getInquiryOrderPlattformServicePort();
+//				}
+////				serviceCollection.addAll(myService.getAllProducersOnPlattform());
+//			}
+//		}
 		return serviceCollection;
 //		
 //		

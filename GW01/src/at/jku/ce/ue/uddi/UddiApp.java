@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
-import java.util.regex.Pattern;
 
 import org.apache.juddi.v3.client.ClassUtil;
 import org.apache.juddi.v3.client.config.UDDIClerkManager;
@@ -29,7 +28,6 @@ import org.uddi.api_v3.FindTModel;
 import org.uddi.api_v3.GetAuthToken;
 import org.uddi.api_v3.GetServiceDetail;
 import org.uddi.api_v3.Name;
-import org.uddi.api_v3.SaveBinding;
 import org.uddi.api_v3.SaveBusiness;
 import org.uddi.api_v3.SaveService;
 import org.uddi.api_v3.ServiceDetail;
@@ -143,6 +141,7 @@ public class UddiApp {
 
 	/**
 	 * Publishes Services Anyway - no matter if already registered
+	 * 
 	 * @return
 	 */
 	public String publishServiceAnyway() {
@@ -160,8 +159,8 @@ public class UddiApp {
 
 			saveB.getBusinessEntity().add(businessEntity);
 			if (publish.saveBusiness(saveB).getBusinessEntity().size() > 0)
-				businessKey = publish.saveBusiness(saveB).getBusinessEntity().get(0)
-						.getBusinessKey();
+				businessKey = publish.saveBusiness(saveB).getBusinessEntity()
+						.get(0).getBusinessKey();
 
 			BusinessService myService = new BusinessService();
 			myService.setBusinessKey(businessKey);
@@ -246,11 +245,12 @@ public class UddiApp {
 				ss.getBusinessService().add(myService);
 				ss.setAuthInfo(this.getAuth());
 				ServiceDetail sd = publish.saveService(ss);
-				String myServKey = sd.getBusinessService().get(0).getServiceKey();
+				String myServKey = sd.getBusinessService().get(0)
+						.getServiceKey();
 
 				return "plattform+ " + userName + " published";
 			}
-			return userName+" already published";
+			return userName + " already published";
 		} catch (DispositionReportFaultMessage e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -286,7 +286,8 @@ public class UddiApp {
 	}
 
 	/**
-	 * returns list of all plattforms and corresponding wsdl files 
+	 * returns list of all plattforms and corresponding wsdl files
+	 * 
 	 * @return
 	 */
 	public Map<String, String> getListofEndpoints() {
@@ -324,11 +325,10 @@ public class UddiApp {
 							.getBusinessInfo().get(i).getName().get(0)
 							.getValue();
 
-					
 					if (publisherName.matches("gruppe\\s+[0-9]*\\s+publisher")) {
 						// System.out.println(""+bl.getBusinessInfos().getBusinessInfo().get(i).getName().get(0).getValue());
-//						System.out.print(publisherName);
-						
+//						System.out.println(publisherName);
+
 						if (bl.getBusinessInfos().getBusinessInfo().get(i)
 								.getServiceInfos() != null
 								&& bl.getBusinessInfos().getBusinessInfo()
@@ -359,17 +359,21 @@ public class UddiApp {
 											.getBindingTemplate().get(0)
 											.getAccessPoint();
 									String wsdlFile = ap.getValue();
-									
-//									System.out.println(wsdlFile);
 
-									// endpoints.add(ap.getValue());
+									if (!wsdlFile.contains("localhost")) {
+										if (!wsdlFile.contains("8090")) {
+											if (!wsdlFile.endsWith("?wsdl"))
+												wsdlFile = wsdlFile + "?wsdl";
 
-									endpoints.put(publisherName, wsdlFile);
+											endpoints.put(publisherName,
+													wsdlFile);
+										}
+									}
 								}
 							}
 						}
-					} //else
-//						System.out.println("wrong " + publisherName);
+					} // else
+					// System.out.println("wrong " + publisherName);
 				}
 
 			}
@@ -453,7 +457,6 @@ public class UddiApp {
 		// e.printStackTrace();
 		// }
 	}
-
 
 	// returns plattform depending WSDL file
 	public String getWsdlFile(String plattformName) {
