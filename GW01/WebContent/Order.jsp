@@ -7,11 +7,7 @@ import="at.jku.ce.ue.service.*"
 import="java.util.List"
 import="java.util.ListIterator"
 import="at.jku.ce.ue.uddi.*"
-
  %>
-page language="java" import="at.jku.ce.ue.source.*"
-	import="java.util.List" import="java.util.ListIterator"
-	import="at.jku.ce.ue.uddi.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -36,23 +32,13 @@ page language="java" import="at.jku.ce.ue.source.*"
 				<!-- Be sure to leave the brand out there if you want it shown -->
 				<a class="brand" href="#">PLATFORM GW01 - CE UE WS 2012/2013</a>
 
-OrderParts availableParts = new OrderParts();
-// List<String> list = availableParts.testInqiury();
-// ListIterator iter1 = list.listIterator();
+
 				<!-- Everything you want hidden at 940px or less, place within here -->
 				<div class="nav-collapse collapse">
 					<!-- .nav, .navbar-search, .navbar-form, etc -->
 				</div>
 
-// String plattformName = "gruppe4";
-// System.out.print(Init.getUddiReg().getWsdlOfPlattform(plattformName));
-// String plattformName = "gruppe 1 publisher";
-UddiRegistration uddiReg = new UddiRegistration();
-uddiReg.deleteService();
-// uddiReg.publishPlattformAndService();
-// uddiReg.generateListofEndpoints();
-// ListIterator iter1 = list.listIterator();
-// System.out.print(uddiReg.publishPlattformAndService());
+
 			</div>
 		</div>
 	</div>
@@ -65,12 +51,26 @@ uddiReg.deleteService();
 		</ul>
 	</div>
 	<div>
-		ToDo: Possibility to order some parts: <br> <br>
-		<%
-			// if(request.getParameter("submit") != null){
-			// 	String part = request.getParameter("parts");
-			// 	out.print("You have selected the following part: "+part);
-			// }
+ToDo: Possibility to order some parts: <br> <br>
+<%
+// if(request.getParameter("submit") != null){
+// 	String part = request.getParameter("parts");
+// 	out.print("You have selected the following part: "+part);
+// }
+
+OrderParts availableParts = new OrderParts();
+//List<String> list = availableParts.testInqiury();
+//ListIterator iter1 = list.listIterator();
+
+// String plattformName = "gruppe4";
+// System.out.print(Init.getUddiReg().getWsdlOfPlattform(plattformName));
+// String plattformName = "gruppe 1 publisher";
+UddiRegistration uddiReg = new UddiRegistration();
+uddiReg.deleteService();
+// uddiReg.publishPlattformAndService();
+// uddiReg.generateListofEndpoints();
+// ListIterator iter1 = list.listIterator();
+// System.out.print(uddiReg.publishPlattformAndService());
 
 // System.out.print(Init.getUddiReg().isRegistered(plattformName));
 // System.out.print(Init.getUddiReg().getWsdlOfPlattform(plattformName));
@@ -96,27 +96,5 @@ uddiReg.deleteService();
 %>
 <input type="submit" name="submit" value="Select">
 </form>
-			// System.out.print(Init.getUddiReg().isRegistered(plattformName));
-			// System.out.print(Init.getUddiReg().getWsdlOfPlattform(plattformName));
-		%>
-		<form name="selectedParts" method="post" action="Order.jsp">
-			<%
-				// out.print("<select name='parts'>");
-				// while(iter1.hasNext()){
-				// 	String text = iter1.next().toString();
-				// 	out.print("<option value="+text+">"+text+"</option>");
-				// }
-				// out.print("</select>");
-			%>
-			<%-- <% --%>
-			<!-- // out.print("<select name='parts'>"); -->
-			<!-- // while(iter1.hasNext()){ -->
-			<!-- // 	String text = iter1.next().toString(); -->
-			<!-- // 	out.print("<option value="+text+">"+text+"</option>"); -->
-			<!-- // } -->
-			<!-- // out.print("</select>"); -->
-			<%-- <%-- <%-- %> --%>
-			<input type="submit" name="submit" value="Select">
-		</form>
 </body>
 </html>

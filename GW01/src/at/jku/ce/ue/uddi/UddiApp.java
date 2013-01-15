@@ -184,66 +184,66 @@ public class UddiApp {
 	 * 
 	 * @return
 	 */
-	public String publishServiceAnyway() {
-		try {
-			String businessKey = null;
-
-			SaveBusiness saveB = new SaveBusiness();
-
-			saveB.setAuthInfo(getAuth());
-
-			BusinessEntity businessEntity = new BusinessEntity();
-			Name myName = new Name();
-			myName.setValue(userName);
-			businessEntity.getName().add(myName);
-
-			saveB.getBusinessEntity().add(businessEntity);
-			if (publish.saveBusiness(saveB).getBusinessEntity().size() > 0)
-				businessKey = publish.saveBusiness(saveB).getBusinessEntity()
-						.get(0).getBusinessKey();
-
-			BusinessService myService = new BusinessService();
-			myService.setBusinessKey(businessKey);
-			Name myServiceName = new Name();
-			myServiceName.setValue(serviceName);
-			myService.getName().add(myServiceName);
-
-			// description
-			Description serviceDesc = new Description();
-			serviceDesc.setValue(serviceDescription);
-			myService.getDescription().add(serviceDesc);
-
-			// binding template
-			BindingTemplates templates = new BindingTemplates();
-			BindingTemplate bindingTemp = new BindingTemplate();
-			bindingTemp.getDescription().add(serviceDesc);
-
-			// set access point / wsdl file
-			AccessPoint accessPoint = new AccessPoint();
-			accessPoint.setUseType("wsdlDeployment");
-			accessPoint.setValue(wsdlLocation);
-
-			bindingTemp.setAccessPoint(accessPoint);
-			templates.getBindingTemplate().add(bindingTemp);
-
-			myService.setBindingTemplates(templates);
-
-			SaveService ss = new SaveService();
-			ss.getBusinessService().add(myService);
-			ss.setAuthInfo(this.getAuth());
-			ServiceDetail sd = publish.saveService(ss);
-			String myServKey = sd.getBusinessService().get(0).getServiceKey();
-
-			return "plattform " + userID + " published";
-		} catch (DispositionReportFaultMessage e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return "nope";
-	}
+//	public String publishServiceAnyway() {
+//		try {
+//			String businessKey = null;
+//
+//			SaveBusiness saveB = new SaveBusiness();
+//
+//			saveB.setAuthInfo(getAuth());
+//
+//			BusinessEntity businessEntity = new BusinessEntity();
+//			Name myName = new Name();
+//			myName.setValue(userName);
+//			businessEntity.getName().add(myName);
+//
+//			saveB.getBusinessEntity().add(businessEntity);
+//			if (publish.saveBusiness(saveB).getBusinessEntity().size() > 0)
+//				businessKey = publish.saveBusiness(saveB).getBusinessEntity()
+//						.get(0).getBusinessKey();
+//
+//			BusinessService myService = new BusinessService();
+//			myService.setBusinessKey(businessKey);
+//			Name myServiceName = new Name();
+//			myServiceName.setValue(serviceName);
+//			myService.getName().add(myServiceName);
+//
+//			// description
+//			Description serviceDesc = new Description();
+//			serviceDesc.setValue(serviceDescription);
+//			myService.getDescription().add(serviceDesc);
+//
+//			// binding template
+//			BindingTemplates templates = new BindingTemplates();
+//			BindingTemplate bindingTemp = new BindingTemplate();
+//			bindingTemp.getDescription().add(serviceDesc);
+//
+//			// set access point / wsdl file
+//			AccessPoint accessPoint = new AccessPoint();
+//			accessPoint.setUseType("wsdlDeployment");
+//			accessPoint.setValue(wsdlLocation);
+//
+//			bindingTemp.setAccessPoint(accessPoint);
+//			templates.getBindingTemplate().add(bindingTemp);
+//
+//			myService.setBindingTemplates(templates);
+//
+//			SaveService ss = new SaveService();
+//			ss.getBusinessService().add(myService);
+//			ss.setAuthInfo(this.getAuth());
+//			ServiceDetail sd = publish.saveService(ss);
+//			String myServKey = sd.getBusinessService().get(0).getServiceKey();
+//
+//			return "plattform " + userID + " published";
+//		} catch (DispositionReportFaultMessage e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (RemoteException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return "nope";
+//	}
 
 	/**
 	 * publish service including wsdl file
