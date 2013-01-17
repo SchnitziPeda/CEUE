@@ -3,6 +3,7 @@
  */
 package at.jku.ce.ue.source.businessLogic.clientLogic;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -60,13 +61,23 @@ public class SupplierClientService implements SupplierService {
 
 	@Override
 	public List<String> getAllProducerNames() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Map<String, Producer> producers = getAllProducers();
+		List<Producer> prodList = new LinkedList(producers.values());
+		List<String> prodNames = new LinkedList<String>();
+		
+		for (Producer producer : prodList) {
+			prodNames.add(producer.getName());
+		}
+		
+		return prodNames;
 	}
 
 	@Override
 	public String registerSupplier(String producerName, String password) {
-		// TODO Auto-generated method stub
+		
+		
+		
 		return "-1";
 	}
 
@@ -80,6 +91,12 @@ public class SupplierClientService implements SupplierService {
 	public List<String> getAllProducersForPart(String partId) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public boolean authentificateSupplier(String supplierName) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
