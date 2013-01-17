@@ -22,12 +22,16 @@ public class Database {
 	private static Logger log = Logger.getLogger("Database");
 
 	private static final int PRODUCER_COUNT = 15;
+	
+	private static Database database;
 
 	private Map<String, Producer> producers;
 
-	private static Database database;
-
 	private Map<String, Part> partsOnPlattform;
+	
+	private Map<String, Customer> customerOnPlatform;
+	
+	private List<Offer> offersOfPlatform;
 	
 	public Database() {
 

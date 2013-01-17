@@ -10,10 +10,9 @@ package at.jku.ce.ue.source.entities;
  */
 public abstract class Role {
 
-	private int roleId;
+	private String id;
 	private boolean isSupplier;
 	private String name;
-	private String adress;
 	
 	/**
 	 * @param roleId
@@ -21,14 +20,52 @@ public abstract class Role {
 	 * @param name
 	 * @param adress
 	 */
-	public Role(int roleId, boolean isSupplier, String name, String adress) {
-		super();
-		this.roleId = roleId;
+	public Role(String roleId, boolean isSupplier, String name) {
+		this.id = "GW01Producer"+name;
 		this.isSupplier = isSupplier;
 		this.name = name;
-		this.adress = adress;
 	}
 
-	abstract boolean storeRole();
-	
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the isSupplier
+	 */
+	public boolean isSupplier() {
+		return isSupplier;
+	}
+
+	/**
+	 * @param isSupplier the isSupplier to set
+	 */
+	public void setSupplier(boolean isSupplier) {
+		this.isSupplier = isSupplier;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
 }

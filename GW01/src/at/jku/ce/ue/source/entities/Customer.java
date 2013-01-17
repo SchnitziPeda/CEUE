@@ -3,6 +3,7 @@
  */
 package at.jku.ce.ue.source.entities;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -18,16 +19,9 @@ public class Customer extends Role {
 	 * @param name
 	 * @param adress
 	 */
-	public Customer(int roleId, String name, String adress) {
-		super(roleId, false, name, adress);
-		
-	}
-
-	@Override
-	boolean storeRole() {
-		
-		
-		return false;
+	public Customer(String roleId, String name, String adress) {
+		super(roleId, false, name);
+		this.inquiries = new LinkedList<Inquiry>();
 	}
 
 	/**

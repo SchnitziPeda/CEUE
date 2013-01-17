@@ -9,7 +9,7 @@ package at.jku.ce.ue.source.entities;
  */
 public class Offer {
 
-	private int offerID;
+	private String offerID;
 
 	private Part part;
 	private Role supplierOfOffer;
@@ -26,7 +26,7 @@ public class Offer {
 	 * @param inquiryOfOffer
 	 * @param price
 	 */
-	public Offer(int offerID, Part part, Role supplierOfOffer,
+	public Offer(String offerID, Part part, Role supplierOfOffer,
 			Role customerOfOffer, Inquiry inquiryOfOffer, double price) {
 		super();
 		this.offerID = offerID;
@@ -40,14 +40,14 @@ public class Offer {
 	/**
 	 * @return the offerID
 	 */
-	public int getOfferID() {
+	public String getOfferID() {
 		return offerID;
 	}
 
 	/**
 	 * @param offerID the offerID to set
 	 */
-	public void setOfferID(int offerID) {
+	public void setOfferID(String offerID) {
 		this.offerID = offerID;
 	}
 

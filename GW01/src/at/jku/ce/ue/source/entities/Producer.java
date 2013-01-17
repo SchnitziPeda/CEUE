@@ -10,12 +10,9 @@ import java.util.List;
  * @author Schnitzi
  *
  */
-public class Producer {
+public class Producer extends Role {
 	
-	private String id;
-	private String name;
 	private List<Part> parts;
-	private String adress;
 	private String plattform;
 	
 	/**
@@ -23,9 +20,7 @@ public class Producer {
 	 * @param name
 	 */
 	public Producer(String roleId, String name) {
-		this.id = "GW01Producer"+roleId;
-		this.name = name;
-		this.adress = adress;
+		super(roleId, true, name);
 		this.parts = new LinkedList<Part>();
 	}
 	
@@ -33,28 +28,28 @@ public class Producer {
 	 * @return the id
 	 */
 	public String getId() {
-		return id;
+		return super.getId();
 	}
 
 	/**
 	 * @param id the id to set
 	 */
 	public void setId(String id) {
-		this.id = id;
+		super.setId(id);
 	}
 
 	/**
 	 * @return the name
 	 */
 	public String getName() {
-		return name;
+		return super.getName();
 	}
 
 	/**
 	 * @param name the name to set
 	 */
 	public void setName(String name) {
-		this.name = name;
+		super.setName(name);
 	}
 
 	/**
@@ -76,7 +71,7 @@ public class Producer {
 	 */
 	@Override
 	public String toString() {
-		return "Producer [id=" + id + ", name=" + name + ", parts=" + parts
+		return "Producer [id=" + getId() + ", name=" + getName() + ", parts=" + parts
 				+ "]";
 	}
 	
@@ -87,9 +82,8 @@ public class Producer {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((adress == null) ? 0 : adress.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((getId() == null) ? 0 : getId().hashCode());;
+		result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
 		result = prime * result + ((parts == null) ? 0 : parts.hashCode());
 		return result;
 	}
@@ -106,17 +100,12 @@ public class Producer {
 		if (getClass() != obj.getClass())
 			return false;
 		Producer other = (Producer) obj;
-		if (adress == null) {
-			if (other.adress != null)
-				return false;
-		} else if (!adress.equals(other.adress))
+		if (getId() != other.getId())
 			return false;
-		if (id != other.id)
-			return false;
-		if (name == null) {
-			if (other.name != null)
+		if (getName() == null) {
+			if (other.getName() != null)
 				return false;
-		} else if (!name.equals(other.name))
+		} else if (!getName().equals(other.getName()))
 			return false;
 		if (parts == null) {
 			if (other.parts != null)
