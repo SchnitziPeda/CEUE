@@ -3,8 +3,10 @@
  */
 package at.jku.ce.ue.source.entities;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.logging.Logger;
 
@@ -21,13 +23,13 @@ public class Database {
 
 	private static final int PRODUCER_COUNT = 15;
 
-	private List<Producer> producers;
+	private Map<Integer, Producer> producers;
 
 	private static Database database;
 
 	public Database() {
 
-		this.producers = new LinkedList<Producer>();
+		this.producers = new HashMap<Integer, Producer>();
 
 		fillWithData();
 
@@ -54,7 +56,7 @@ public class Database {
 			Producer prod = new Producer(i, "gw01Producer " + i, "Prod Street "
 					+ i);
 
-			this.producers.add(prod);
+			this.producers.put(i, prod);
 
 		}
 	}
@@ -183,21 +185,6 @@ public class Database {
 	}
 
 	/**
-	 * @return the producers
-	 */
-	public List<Producer> getProducers() {
-		return producers;
-	}
-
-	/**
-	 * @param producers
-	 *            the producers to set
-	 */
-	public void setProducers(List<Producer> producers) {
-		this.producers = producers;
-	}
-
-	/**
 	 * @param producerID
 	 * @return
 	 */
@@ -207,6 +194,39 @@ public class Database {
 
 	public Producer getPart(int partID) {
 		return producers.get(partID);
+	}
+
+	public int addProducer(String producerName, String password, String adress) {
+
+		int prodId = producerName.hashCode();
+
+		Producer producer = new Producer(prodId, producerName, adress);
+
+		if (!producers.containsKey(prodId))
+			producers.put(prodId, producer);
+		else
+			log.info("Producer was not able to be registered!");
+		
+		return prodId;
+
+	}
+
+	public Producer getProducer(String prodId) {
+		return null;
+	}
+
+	/**
+	 * @return the producers
+	 */
+	public Map<Integer, Producer> getProducers() {
+		return producers;
+	}
+
+	/**
+	 * @param producers the producers to set
+	 */
+	public void setProducers(Map<Integer, Producer> producers) {
+		this.producers = producers;
 	}
 
 }

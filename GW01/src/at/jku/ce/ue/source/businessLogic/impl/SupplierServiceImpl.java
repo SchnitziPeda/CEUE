@@ -3,12 +3,16 @@
  */
 package at.jku.ce.ue.source.businessLogic.impl;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import at.jku.ce.ue.source.businessLogic.SupplierService;
 import at.jku.ce.ue.source.entities.Database;
+import at.jku.ce.ue.source.entities.Part;
 import at.jku.ce.ue.source.entities.Producer;
 
 /**
@@ -34,27 +38,74 @@ public class SupplierServiceImpl implements SupplierService {
 	}
 
 	@Override
-	public List<Producer> getAllProducers() {
+	public Map<Integer, Producer> getAllProducers() {
 
 		Database db = Database.getInstance();
 
-		List<Producer> producers = db.getProducers();
-
-		return producers;
+		return db.getProducers();
 	}
 
 	@Override
-	public List<String> getAllProducerKeys() {
+	public List<String> getAllProducerNames() {
 
-		List<Producer> prodList = getAllProducers();
-		List<String> prodListKey = new LinkedList<String>();
+		Map<Integer, Producer> prodList = getAllProducers();
+
+		Collection<Producer> values = prodList.values();
+		List<String> names = new LinkedList<String>();
 		
-		for (Producer prod : prodList) {
-			String key = prod.getName();
-			prodListKey.add(key);
+		for(Producer prod : values){
+			names.add(prod.getName());
 		}
 		
-		return prodListKey;
+		return names;
 
+	}
+
+	@Override
+	public int registerSupplier(String producerName, String password,
+			String adress) {
+
+		int prodId = -1;
+
+		Database db = Database.getInstance();
+		if (producerName != null && producerName != "") {
+			if (password != null && password != "") {
+				prodId = db.addProducer(producerName, password, adress);
+			} else {
+				log.info("Password of producer is empty");
+			}
+		} else {
+			log.info("Name of producer is empty");
+		}
+
+		return prodId;
+	}
+
+	@Override
+	public boolean addPartsToProducer(int producerId, List<Part> parts) {
+		
+		Database db = Database.getInstance();
+		
+		Producer producer = null;
+		
+		if(producerId != 0 && producerId != -1){
+			producer = db.getProducers().get(producerId);
+		}else{
+			log.severe("ProducerID is not valid!");
+			return false;
+		}
+		
+		if(producer == null){
+			log.severe("Producer with id: "+producerId+" was not found!");
+			return false;
+		}
+		
+		List<Part> partsOfProducer = producer.getParts();
+		
+		for(Part part : parts){
+			partsOfProducer.add(part);
+		}
+		
+		return true;
 	}
 }

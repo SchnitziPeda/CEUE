@@ -156,4 +156,50 @@ public class Producer {
 				+ "]";
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((adress == null) ? 0 : adress.hashCode());
+		result = prime * result + id;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((parts == null) ? 0 : parts.hashCode());
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Producer other = (Producer) obj;
+		if (adress == null) {
+			if (other.adress != null)
+				return false;
+		} else if (!adress.equals(other.adress))
+			return false;
+		if (id != other.id)
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (parts == null) {
+			if (other.parts != null)
+				return false;
+		} else if (!parts.equals(other.parts))
+			return false;
+		return true;
+	}
+	
 }
