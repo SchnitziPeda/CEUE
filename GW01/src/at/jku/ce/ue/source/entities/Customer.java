@@ -19,7 +19,7 @@ public class Customer extends Role {
 	 * @param name
 	 * @param adress
 	 */
-	public Customer(String roleId, String name, String adress) {
+	public Customer(String roleId, String name) {
 		super(roleId, false, name);
 		this.inquiries = new LinkedList<Inquiry>();
 	}

@@ -29,10 +29,12 @@ public class Database {
 
 	private Map<String, Part> partsOnPlattform;
 	
-	private Map<String, Customer> customerOnPlatform;
+	private Map<String, Customer> customersOnPlatform;
 	
 	private List<Offer> offersOfPlatform;
 	
+
+
 	public Database() {
 
 		this.producers = new HashMap<String, Producer>();
@@ -193,6 +195,26 @@ public class Database {
 	public Producer getProducer(String prodId) {
 		return null;
 	}
+	
+	/**
+	 * registers a new customer
+	 * @param customerName
+	 * @return
+	 */
+	public String registerCustomer(String customerName){
+		String customerId = customerName;
+		Customer customer = new Customer(customerId, customerName);
+		
+		if(!customersOnPlatform.containsKey(customer.getId()))
+			customersOnPlatform.put(customer.getId(), customer);
+		else{
+			log.info("Customer was not able to be registered!");
+			return "-1";
+		}
+
+		
+		return customer.getId();
+	}
 
 	/**
 	 * @return the producers
@@ -223,6 +245,14 @@ public class Database {
 	 */
 	public void setPartsOnPlattform(Map<String, Part> partsOnPlattform) {
 		this.partsOnPlattform = partsOnPlattform;
+	}
+	
+	public Map<String, Customer> getCustomersOnPlatform() {
+		return customersOnPlatform;
+	}
+
+	public void setCustomersOnPlatform(Map<String, Customer> customersOnPlatform) {
+		this.customersOnPlatform = customersOnPlatform;
 	}
 
 

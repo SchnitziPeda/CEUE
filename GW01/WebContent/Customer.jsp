@@ -37,7 +37,7 @@
 		</div>
 	</div>
 	<div class="page-header">
-		<h1>SUPPLIER REGISTRATION</h1>
+		<h1>CUSTOMER REGISTRATION</h1>
 	</div>
 	<div class="centered">
 		<ul class="pager">
@@ -46,26 +46,41 @@
 	</div>
 	<div class="moved-right">
 		<%
+		if(request.getParameter("submit") != null){
 			RegisterView registerPresenter = new RegisterPresenter();
 
 			String producerName = request.getParameter("inputName");
-			String producerPassword = request.getParameter("inputPassword");
-			String producerAdress = request.getParameter("inputAdress");
 
-			String respond = registerPresenter.registerProducer(producerName,
-					producerPassword);
- 
+			String respond = registerPresenter.registerCustomer(producerName);
+
 			if (!respond.equals("-1")) {
 				out.println("IT WORKED! Your ID: " + respond);
 			} else {
 				out.println("Your registration did not work!");
 			}
 
-			out.println(producerName);
-			out.println(producerPassword);
-			out.println(producerAdress);
-		%>
+			out.println(producerName);	
+		} else {
 
+		%>
+		<form class="form-horizontal" name="customerData" method="post"
+			action="Customer.jsp">
+			<div class="control-group">
+				<label class="control-label" for="inputName">Name of
+					Customer:</label>
+				<div class="controls">
+					<input type="text" name="inputName" placeholder="Name">
+				</div>
+			</div>
+			<div class="control-group">
+				<div class="controls">
+					<button type="submit" name="submit" class="btn">Submit</button>
+				</div>
+			</div>
+		</form>
+		<%
+		}
+		%>
 	</div>
 
 </body>
