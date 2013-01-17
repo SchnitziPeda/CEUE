@@ -52,10 +52,13 @@ import="at.jku.ce.ue.uddi.*"
 		<div>
 			ToDo: Possibility to order some parts: <br> <br>
 			<%
-				// if(request.getParameter("submit") != null){
-				// 	String part = request.getParameter("parts");
-				// 	out.print("You have selected the following part: "+part);
-				// }
+			
+			InquiryOrderPlattformServiceImpl impl = new InquiryOrderPlattformServiceImpl();
+// 			List<String> list = impl.getAllProducersOnPlattform();
+			List<String> list = impl.getAllPartsByProducer("gw01Producer 2");
+			ListIterator iter1 = list.listIterator();
+
+			
 
 				OrderParts availableParts = new OrderParts();
 				// List<String> list = availableParts.testInqiury();
@@ -78,12 +81,12 @@ import="at.jku.ce.ue.uddi.*"
 			%>
 			<form name="selectedParts" method="post" action="Order.jsp">
 				<%
-					// out.print("<select name='parts'>");
-					// while(iter1.hasNext()){
-					// 	String text = iter1.next().toString();
-					// 	out.print("<option value="+text+">"+text+"</option>");
-					// }
-					// out.print("</select>");
+					out.print("<select name='parts'>");
+					while(iter1.hasNext()){
+						String text = iter1.next().toString();
+						out.print("<option value="+text+">"+text+"</option>");
+					}
+					out.print("</select>");
 				%>
 				<input type="submit" name="submit" value="Select">
 			</form>
