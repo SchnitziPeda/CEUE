@@ -56,14 +56,9 @@ public class InquiryOrderPlattformServiceImpl implements InquiryOrderPlattformSe
         LOG.info("Executing operation getAllPartsByProducer");
         System.out.println(producerid);
         try {
-        	
         	PartServiceImpl partService = new PartServiceImpl();
-        	return partService.getAllPartsByProducer(null);
+        	return partService.getAllPartsByProducer(producerid);
         	
-//        	java.util.List<java.lang.String> _return = new java.util.ArrayList<java.lang.String>();
-//            java.lang.String _returnVal1 = "_returnVal1993362333";
-//            _return.add(_returnVal1);
-//            return _return;
         } catch (java.lang.Exception ex) {
             ex.printStackTrace();
             throw new RuntimeException(ex);
@@ -76,14 +71,8 @@ public class InquiryOrderPlattformServiceImpl implements InquiryOrderPlattformSe
     public java.util.List<java.lang.String> getAllPartsOnPlattform() { 
         LOG.info("Executing operation getAllPartsOnPlattform");
         try {
-        	
         	PartServiceImpl partService = new PartServiceImpl();
         	return partService.getAllPartNames();
-//        	
-//            java.util.List<java.lang.String> _return = new java.util.ArrayList<java.lang.String>();
-//            java.lang.String _returnVal1 = "_returnVal336555682";
-//            _return.add(_returnVal1);
-//            return _return;
         } catch (java.lang.Exception ex) {
             ex.printStackTrace();
             throw new RuntimeException(ex);
@@ -97,14 +86,8 @@ public class InquiryOrderPlattformServiceImpl implements InquiryOrderPlattformSe
         LOG.info("Executing operation getAllProducersForPart");
         System.out.println(partid);
         try {
-        	
         	SupplierServiceImpl supService = new SupplierServiceImpl();
         	return supService.getAllProducersForPart(partid);
-
-//            java.util.List<java.lang.String> _return = new java.util.ArrayList<java.lang.String>();
-//            java.lang.String _returnVal1 = "_returnVal911775315";
-//            _return.add(_returnVal1);
-//            return _return;
         } catch (java.lang.Exception ex) {
             ex.printStackTrace();
             throw new RuntimeException(ex);
@@ -135,14 +118,9 @@ public class InquiryOrderPlattformServiceImpl implements InquiryOrderPlattformSe
     public java.util.List<java.lang.String> getAllProducersOnPlattform() { 
         LOG.info("Executing operation getAllProducersOnPlattform");
         try {
-        	
         	SupplierService supplService = new SupplierServiceImpl();
         	List<String> producers = supplService.getAllProducerNames();
         	return producers;
-        	
-//            java.util.List<java.lang.String> _return = new java.util.ArrayList<java.lang.String>();
-//            java.lang.String _returnVal1 = "_returnVal-1487149130";
-//            _return.add(_returnVal1);
         } catch (java.lang.Exception ex) {
             ex.printStackTrace();
             throw new RuntimeException(ex);

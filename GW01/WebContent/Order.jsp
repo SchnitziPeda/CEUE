@@ -56,15 +56,6 @@ import="at.jku.ce.ue.uddi.*"
 			ToDo: Possibility to order some parts: <br> <br>
 			<%
 			
-			SupplierService supplService = new SupplierClientService();
-			
-			Map<Integer, Producer> prods = supplService.getAllProducers();
-			
-				// if(request.getParameter("submit") != null){
-				// 	String part = request.getParameter("parts");
-				// 	out.print("You have selected the following part: "+part);
-				// }
-
 				//OrderParts availableParts = new OrderParts();
 				// List<String> list = availableParts.testInqiury();
 				// ListIterator iter1 = list.listIterator();
@@ -86,12 +77,12 @@ import="at.jku.ce.ue.uddi.*"
 			%>
 			<form name="selectedParts" method="post" action="Order.jsp">
 				<%
-					// out.print("<select name='parts'>");
-					// while(iter1.hasNext()){
-					// 	String text = iter1.next().toString();
-					// 	out.print("<option value="+text+">"+text+"</option>");
-					// }
-					// out.print("</select>");
+					//out.print("<select name='parts'>");
+					//while(iter1.hasNext()){
+					//	String text = iter1.next().toString();
+					//	out.print("<option value="+text+">"+text+"</option>");
+					//}
+					//out.print("</select>");
 					
 				%>
 				<input type="submit" name="submit" value="Select">
