@@ -3,7 +3,6 @@
  */
 package at.jku.ce.ue.source.businessLogic.clientLogic;
 
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +10,6 @@ import java.util.Map;
 import at.jku.ce.ue.service.InquiryOrderPlattformService;
 import at.jku.ce.ue.source.UddiInteraction;
 import at.jku.ce.ue.source.businessLogic.SupplierService;
-import at.jku.ce.ue.source.businessLogic.impl.SupplierServiceImpl;
 import at.jku.ce.ue.source.entities.Database;
 import at.jku.ce.ue.source.entities.Part;
 import at.jku.ce.ue.source.entities.Producer;
