@@ -7,6 +7,7 @@ page language="java"
 import="at.jku.ce.ue.source.*"
 import="at.jku.ce.ue.source.entities.*"
 import="at.jku.ce.ue.service.*"
+import="at.jku.ce.ue.source.clientLogic.*"
 import="java.util.Map"
 import="java.util.ListIterator"
 import="at.jku.ce.ue.uddi.*"
@@ -55,6 +56,10 @@ import="at.jku.ce.ue.uddi.*"
 		<div>
 			ToDo: Possibility to order some parts: <br> <br>
 			<%
+				
+			SupplierService supplService = new SupplierClientService();
+			
+			Map<String, Producer> prods = supplService.getAllProducers();
 			
 				//OrderParts availableParts = new OrderParts();
 				// List<String> list = availableParts.testInqiury();
@@ -77,12 +82,11 @@ import="at.jku.ce.ue.uddi.*"
 			%>
 			<form name="selectedParts" method="post" action="Order.jsp">
 				<%
-					//out.print("<select name='parts'>");
-					//while(iter1.hasNext()){
-					//	String text = iter1.next().toString();
-					//	out.print("<option value="+text+">"+text+"</option>");
-					//}
-					//out.print("</select>");
+					out.print("<select name='parts'>");
+					for(Producer prod : prods.values()){
+						out.print("<option value="+prod.getName()+">"+prod.getName()+"</option>");
+					}
+					out.print("</select>");
 					
 				%>
 				<input type="submit" name="submit" value="Select">

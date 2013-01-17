@@ -91,7 +91,7 @@ public class Database {
 				int prodId = rand.nextInt(PRODUCER_COUNT);
 				part = new Part(count, partName, producers.get(prodId));
 				count += 1;
-				producers.get(prodId).getParts().add(part);
+				producers.get("GW01Producer"+prodId).getParts().add(part);
 			}
 
 			// Get all subParts of actual looked part
@@ -118,7 +118,7 @@ public class Database {
 					subPart = new Part(count, subPartName,
 							producers.get(prodId));
 					count += 1;
-					producers.get(prodId).getParts().add(part);
+					producers.get("GW01Producer"+prodId).getParts().add(part);
 				}
 
 				// Add 'subPart' as subpart of 'part'
