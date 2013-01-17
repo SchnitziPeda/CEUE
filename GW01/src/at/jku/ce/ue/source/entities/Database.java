@@ -23,7 +23,7 @@ public class Database {
 
 	private static final int PRODUCER_COUNT = 15;
 
-	private Map<Integer, Producer> producers;
+	private Map<String, Producer> producers;
 
 	private static Database database;
 
@@ -33,7 +33,7 @@ public class Database {
 
 	public Database() {
 
-		this.producers = new HashMap<Integer, Producer>();
+		this.producers = new HashMap<String, Producer>();
 
 		fillWithData();
 
@@ -61,7 +61,7 @@ public class Database {
 			Producer prod = new Producer(i, "gw01Producer " + i, "Prod Street "
 					+ i);
 
-			this.producers.put(i, prod);
+			this.producers.put("GW01Producer"+i, prod);
 
 		}
 	}
@@ -207,7 +207,7 @@ public class Database {
 		Producer producer = new Producer(prodId, producerName, adress);
 
 		if (!producers.containsKey(prodId))
-			producers.put(prodId, producer);
+			producers.put("GW01Producer"+prodId, producer);
 		else
 			log.info("Producer was not able to be registered!");
 		
@@ -222,14 +222,14 @@ public class Database {
 	/**
 	 * @return the producers
 	 */
-	public Map<Integer, Producer> getProducers() {
+	public Map<String, Producer> getProducers() {
 		return producers;
 	}
 
 	/**
 	 * @param producers the producers to set
 	 */
-	public void setProducers(Map<Integer, Producer> producers) {
+	public void setProducers(Map<String, Producer> producers) {
 		this.producers = producers;
 	}
 

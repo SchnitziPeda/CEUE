@@ -1,10 +1,13 @@
+<%@page import="at.jku.ce.ue.source.businessLogic.clientLogic.SupplierClientService"%>
+<%@page import="at.jku.ce.ue.source.businessLogic.SupplierService"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@
 page language="java"
 import="at.jku.ce.ue.source.*"
+import="at.jku.ce.ue.source.entities.*"
 import="at.jku.ce.ue.service.*"
-import="java.util.List"
+import="java.util.Map"
 import="java.util.ListIterator"
 import="at.jku.ce.ue.uddi.*"
  %>
@@ -52,19 +55,24 @@ import="at.jku.ce.ue.uddi.*"
 		<div>
 			ToDo: Possibility to order some parts: <br> <br>
 			<%
+			
+			SupplierService supplService = new SupplierClientService();
+			
+			Map<Integer, Producer> prods = supplService.getAllProducers();
+			
 				// if(request.getParameter("submit") != null){
 				// 	String part = request.getParameter("parts");
 				// 	out.print("You have selected the following part: "+part);
 				// }
 
-				OrderParts availableParts = new OrderParts();
+				//OrderParts availableParts = new OrderParts();
 				// List<String> list = availableParts.testInqiury();
 				// ListIterator iter1 = list.listIterator();
 
 				// String plattformName = "gruppe4";
 				// System.out.print(Init.getUddiReg().getWsdlOfPlattform(plattformName));
 				// String plattformName = "gruppe 1 publisher";
-				UddiInteraction uddiInter = new UddiInteraction();
+				//UddiInteraction uddiInter = new UddiInteraction();
 				// uddiInter.deleteService();
 				// uddiInter.publishPlattformAndService();
 // 				List<InquiryOrderPlattformService> list = uddiInter
@@ -84,6 +92,7 @@ import="at.jku.ce.ue.uddi.*"
 					// 	out.print("<option value="+text+">"+text+"</option>");
 					// }
 					// out.print("</select>");
+					
 				%>
 				<input type="submit" name="submit" value="Select">
 			</form>

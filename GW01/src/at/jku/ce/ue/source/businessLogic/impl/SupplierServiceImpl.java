@@ -38,7 +38,7 @@ public class SupplierServiceImpl implements SupplierService {
 	}
 
 	@Override
-	public Map<Integer, Producer> getAllProducers() {
+	public Map<String, Producer> getAllProducers() {
 
 		Database db = Database.getInstance();
 
@@ -48,7 +48,7 @@ public class SupplierServiceImpl implements SupplierService {
 	@Override
 	public List<String> getAllProducerNames() {
 
-		Map<Integer, Producer> prodList = getAllProducers();
+		Map<String, Producer> prodList = getAllProducers();
 
 		Collection<Producer> values = prodList.values();
 		List<String> names = new LinkedList<String>();

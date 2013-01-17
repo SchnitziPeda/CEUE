@@ -29,7 +29,7 @@ public interface SupplierService {
 	 * 
 	 * @return
 	 */
-	public Map<Integer, Producer> getAllProducers();
+	public Map<String, Producer> getAllProducers();
 
 	/**
 	 * Returns names of all Producers on our Platform

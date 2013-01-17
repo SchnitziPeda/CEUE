@@ -28,7 +28,7 @@ public class SupplierClientService implements SupplierService {
 	}
 
 	@Override
-	public Map<Integer, Producer> getAllProducers() {
+	public Map<String, Producer> getAllProducers() {
 
 		Database db = Database.getInstance();
 
@@ -47,8 +47,6 @@ public class SupplierClientService implements SupplierService {
 				System.out.println("ProdName: " + name);
 			}
 		}
-
-		SupplierService service = new SupplierServiceImpl();
 
 		return null;
 	}
