@@ -45,8 +45,7 @@ public interface SupplierService {
 	 * 
 	 * @return producerID
 	 */
-	public String registerSupplier(String producerName, String password,
-			String adress);
+	public String registerSupplier(String producerName, String password);
 
 	/**
 	 * Adds offered parts to producer

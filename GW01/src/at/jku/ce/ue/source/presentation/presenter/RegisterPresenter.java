@@ -17,12 +17,11 @@ public class RegisterPresenter implements RegisterView {
 	 * @see at.jku.ce.ue.source.presentation.view.RegisterView#registerProducer(java.lang.String, java.lang.String, java.lang.String)
 	 */
 	@Override
-	public String registerProducer(String producerName, String password,
-			String adress) {
+	public String registerProducer(String producerName, String password) {
 
 		SupplierService supplService = new SupplierServiceImpl();
 		
-		return supplService.registerSupplier(producerName, password, adress);
+		return supplService.registerSupplier(producerName, password);
 		
 	}
 

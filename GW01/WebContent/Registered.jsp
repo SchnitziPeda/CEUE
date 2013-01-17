@@ -61,13 +61,12 @@ page language="java" import="java.io.*"
 			String producerName = request.getParameter("inputName");
 			String producerPassword = request.getParameter("inputPassword");
 			String producerAdress = request.getParameter("inputAdress");
-			
-			System.out.println(producerName + producerPassword);
+
 			String respond = registerPresenter.registerProducer(producerName,
-					producerPassword, producerAdress);
+					producerPassword);
 
 			if (!respond.equals("-1")) {
-				out.println("IT WORKED! Your ID: "+respond);
+				out.println("IT WORKED! Your ID: " + respond);
 			} else {
 				out.println("Your registration did not work!");
 			}

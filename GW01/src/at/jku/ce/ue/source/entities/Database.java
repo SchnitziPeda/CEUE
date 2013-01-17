@@ -169,16 +169,18 @@ public class Database {
 		return partsOnPlattform.get(partID);
 	}
 
-	public String registerProducer(String producerName, String password, String adress) {
+	public String registerProducer(String producerName, String password) {
 
 		String prodId = "GW01Producer"+producerName.hashCode();
 
-		Producer producer = new Producer("GW01Producer"+prodId, producerName);
+		Producer producer = new Producer(prodId, producerName);
 
 		if (!producers.containsKey(prodId))
-			producers.put("GW01Producer"+prodId, producer);
-		else
+			producers.put(prodId, producer);
+		else{
+			prodId = "-1";
 			log.info("Producer was not able to be registered!");
+		}
 		
 		return prodId;
 

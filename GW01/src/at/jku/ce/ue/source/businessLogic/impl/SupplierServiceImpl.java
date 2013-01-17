@@ -62,15 +62,14 @@ public class SupplierServiceImpl implements SupplierService {
 	}
 
 	@Override
-	public String registerSupplier(String producerName, String password,
-			String adress) {
+	public String registerSupplier(String producerName, String password) {
 
 		String prodId = "-1";
 
 		Database db = Database.getInstance();
 		if (producerName != null && producerName != "") {
 			if (password != null && password != "") {
-				prodId = db.registerProducer(producerName, password, adress);
+				prodId = db.registerProducer(producerName, password);
 			} else {
 				log.info("Password of producer is empty");
 			}

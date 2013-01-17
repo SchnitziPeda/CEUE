@@ -65,8 +65,7 @@ public class SupplierClientService implements SupplierService {
 	}
 
 	@Override
-	public String registerSupplier(String producerName, String password,
-			String adress) {
+	public String registerSupplier(String producerName, String password) {
 		// TODO Auto-generated method stub
 		return "-1";
 	}
