@@ -4,8 +4,7 @@
 <%@ page language="java"
 	import="at.jku.ce.ue.source.businessLogic.impl.*"
 	import="at.jku.ce.ue.source.entities.*" import="java.util.List"
-	import="java.util.Map"
-	import="java.util.ListIterator"%>
+	import="java.util.Map" import="java.util.ListIterator"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -41,34 +40,36 @@
 	<div class="page-header">
 		<h1>ALL PRODUCERS AND PARTS ON THIS PLATFORM</h1>
 	</div>
-	<div>
+	<div class="centered">
 		<ul class="pager">
 			<li class="Home"><a href="index.jsp">&larr; Home</a></li>
 		</ul>
 	</div>
-	<div>
+	<div class="moved-right">
+		<div>
 
-		<ul>
-			<%
-				SupplierServiceImpl supplService = new SupplierServiceImpl();
+			<ul>
+				<%
+					SupplierServiceImpl supplService = new SupplierServiceImpl();
 
-				Map<Integer, Producer> prodList = supplService.getAllProducers();
+					Map<Integer, Producer> prodList = supplService.getAllProducers();
 
-				for (Producer prod : prodList.values()) {
-					out.print("<li>");
-					out.println("Producer: " + prod.getName());
-					out.print("</li>");
-					out.print("<ul>");
-					List<Part> partsOfProd = prod.getParts();
-					for (Part part : partsOfProd) {
+					for (Producer prod : prodList.values()) {
 						out.print("<li>");
-						out.println(part.getName());
+						out.println("Producer: " + prod.getName());
 						out.print("</li>");
+						out.print("<ul>");
+						List<Part> partsOfProd = prod.getParts();
+						for (Part part : partsOfProd) {
+							out.print("<li>");
+							out.println(part.getName());
+							out.print("</li>");
+						}
+						out.print("</ul>");
 					}
-					out.print("</ul>");
-				}
-			%>
-		</ul>
+				%>
+			</ul>
+		</div>
 	</div>
 
 </body>

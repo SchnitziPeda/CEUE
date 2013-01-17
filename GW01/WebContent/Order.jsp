@@ -1,13 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@
-page language="java"
-import="at.jku.ce.ue.source.*"
-import="at.jku.ce.ue.service.*"
-import="java.util.List"
-import="java.util.ListIterator"
-import="at.jku.ce.ue.uddi.*"
- %>
+page language="java" import="at.jku.ce.ue.source.*"
+	import="at.jku.ce.ue.service.*" import="java.util.List"
+	import="java.util.ListIterator" import="at.jku.ce.ue.uddi.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -37,57 +33,56 @@ import="at.jku.ce.ue.uddi.*"
 				<div class="nav-collapse collapse">
 					<!-- .nav, .navbar-search, .navbar-form, etc -->
 				</div>
-
-
 			</div>
 		</div>
 	</div>
 	<div class="page-header">
 		<h1>ORDER</h1>
 	</div>
-	<div>
+	<div class="centered">
 		<ul class="pager">
 			<li class="Home"><a href="index.jsp">&larr; Home</a></li>
 		</ul>
 	</div>
-	<div>
-ToDo: Possibility to order some parts: <br> <br>
-<%
-// if(request.getParameter("submit") != null){
-// 	String part = request.getParameter("parts");
-// 	out.print("You have selected the following part: "+part);
-// }
+	<div class="moved-right">
+		<div>
+			ToDo: Possibility to order some parts: <br> <br>
+			<%
+				// if(request.getParameter("submit") != null){
+				// 	String part = request.getParameter("parts");
+				// 	out.print("You have selected the following part: "+part);
+				// }
 
-OrderParts availableParts = new OrderParts();
-// List<String> list = availableParts.testInqiury();
-// ListIterator iter1 = list.listIterator();
+				OrderParts availableParts = new OrderParts();
+				// List<String> list = availableParts.testInqiury();
+				// ListIterator iter1 = list.listIterator();
 
-// String plattformName = "gruppe4";
-// System.out.print(Init.getUddiReg().getWsdlOfPlattform(plattformName));
-// String plattformName = "gruppe 1 publisher";
-UddiInteraction uddiInter = new UddiInteraction();
-// uddiInter.deleteService();
-// uddiInter.publishPlattformAndService();
-List<InquiryOrderPlattformService> list = uddiInter.generateListofEndpoints();
-// ListIterator iter1 = list.listIterator();
-// out.println("size: "+list.size());
-// System.out.print(uddiReg.publishPlattformAndService());
+				// String plattformName = "gruppe4";
+				// System.out.print(Init.getUddiReg().getWsdlOfPlattform(plattformName));
+				// String plattformName = "gruppe 1 publisher";
+				UddiInteraction uddiInter = new UddiInteraction();
+				// uddiInter.deleteService();
+				// uddiInter.publishPlattformAndService();
+				List<InquiryOrderPlattformService> list = uddiInter
+						.generateListofEndpoints();
+				// ListIterator iter1 = list.listIterator();
+				// out.println("size: "+list.size());
+				// System.out.print(uddiReg.publishPlattformAndService());
 
-// System.out.print(Init.getUddiReg().isRegistered(plattformName));
-// System.out.print(Init.getUddiReg().getWsdlOfPlattform(plattformName));
-
-
-%>
-<form name="selectedParts" method="post" action="Order.jsp">
-<%
-// out.print("<select name='parts'>");
-// while(iter1.hasNext()){
-// 	String text = iter1.next().toString();
-// 	out.print("<option value="+text+">"+text+"</option>");
-// }
-// out.print("</select>");
-%>
-<input type="submit" name="submit" value="Select">
-</form>
+				// System.out.print(Init.getUddiReg().isRegistered(plattformName));
+				// System.out.print(Init.getUddiReg().getWsdlOfPlattform(plattformName));
+			%>
+			<form name="selectedParts" method="post" action="Order.jsp">
+				<%
+					// out.print("<select name='parts'>");
+					// while(iter1.hasNext()){
+					// 	String text = iter1.next().toString();
+					// 	out.print("<option value="+text+">"+text+"</option>");
+					// }
+					// out.print("</select>");
+				%>
+				<input type="submit" name="submit" value="Select">
+			</form>
+		</div>
 </body>
 </html>
