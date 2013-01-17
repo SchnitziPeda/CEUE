@@ -27,6 +27,8 @@ public class Database {
 
 	private static Database database;
 
+	private Map<String, Part> partsOnPlattform;
+
 	public Database() {
 
 		this.producers = new HashMap<Integer, Producer>();
@@ -48,6 +50,7 @@ public class Database {
 		createProducers();
 
 		producePartsForProducer();
+		
 	}
 
 	private void createProducers() {
@@ -67,8 +70,7 @@ public class Database {
 
 		BOMServiceUtil bomService = new BOMServiceUtilImpl();
 
-		// Map for all parts with a List of their subParts
-		List<Part> allPartsWithSubParts = new LinkedList<Part>();
+		partsOnPlattform = new HashMap<String, Part>();
 
 		// List of all parts
 		List<String> productList = bomService.getAllPartsOfBOM();
@@ -80,7 +82,7 @@ public class Database {
 			Random rand = new Random();
 
 			Part part = null;
-			for (Part partInList : allPartsWithSubParts) {
+			for (Part partInList : partsOnPlattform.values()) {
 				if (partInList.getName().equals(partName)) {
 					part = partInList;
 				}
@@ -104,7 +106,7 @@ public class Database {
 
 				// Check if 'subPartName' already exists as Part in this
 				// database
-				for (Part partInList : allPartsWithSubParts) {
+				for (Part partInList : partsOnPlattform.values()) {
 
 					if (partInList.getName().equals(subPartName)) {
 						subPart = partInList;
@@ -127,11 +129,11 @@ public class Database {
 			}
 
 			if (part != null)
-				allPartsWithSubParts.add(part);
+				partsOnPlattform.put(part.getIdString(), part);
 
 		}
 
-		printAllParts(allPartsWithSubParts);
+		printAllParts(partsOnPlattform);
 
 	}
 
@@ -163,9 +165,9 @@ public class Database {
 	// parts.add(wassertank);
 	// }
 
-	private void printAllParts(List<Part> allPartsWithSubParts) {
+	private void printAllParts(Map<String, Part> allPartsWithSubParts) {
 
-		for (Part part : allPartsWithSubParts) {
+		for (Part part : allPartsWithSubParts.values()) {
 			String outPut = "Part: No: " + part.getId() + part.getName();
 			// System.out.println("Part: " + part.getName());
 

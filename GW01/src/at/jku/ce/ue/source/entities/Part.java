@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * @author Schnitzi
- *
+ * 
  */
 public class Part {
 
@@ -17,7 +17,7 @@ public class Part {
 	private Producer offeredBy;
 	private List<Part> subParts;
 	private int price;
-	
+
 	/**
 	 * @param id
 	 * @param name
@@ -40,7 +40,8 @@ public class Part {
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(int id) {
 		this.id = id;
@@ -54,7 +55,8 @@ public class Part {
 	}
 
 	/**
-	 * @param name the name to set
+	 * @param name
+	 *            the name to set
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -68,7 +70,8 @@ public class Part {
 	}
 
 	/**
-	 * @param offeredBy the offeredBy to set
+	 * @param offeredBy
+	 *            the offeredBy to set
 	 */
 	public void setOfferedBy(Producer offeredBy) {
 		this.offeredBy = offeredBy;
@@ -82,7 +85,8 @@ public class Part {
 	}
 
 	/**
-	 * @param subParts the subParts to set
+	 * @param subParts
+	 *            the subParts to set
 	 */
 	public void setSubParts(List<Part> subParts) {
 		this.subParts = subParts;
@@ -96,10 +100,15 @@ public class Part {
 	}
 
 	/**
-	 * @param price the price to set
+	 * @param price
+	 *            the price to set
 	 */
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	
+
+	public String getIdString() {
+		return id + "";
+	}
+
 }

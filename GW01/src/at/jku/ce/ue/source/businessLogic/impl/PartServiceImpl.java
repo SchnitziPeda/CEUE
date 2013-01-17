@@ -10,12 +10,8 @@ import at.jku.ce.ue.source.entities.Producer;
 public class PartServiceImpl implements PartService {
 
 	@Override
-	public Part getPart(String PartID) {
+	public Part getPart(int PartID) {
 		// TODO Auto-generated method stub
-
-		Database database = Database.getInstance();
-		database.getPart(partID);		
-		
 		return null;
 	}
 
@@ -30,5 +26,6 @@ public class PartServiceImpl implements PartService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 }
