@@ -56,13 +56,6 @@ page language="java" import="java.io.*"
 	</div>
 	<div class="moved-right">
 		<%
-			RegisterView registerPresenter = new RegisterPresenter();
-
-			String producerName = request.getParameter("inputName");
-
-			int respond = registerPresenter.registerProducer(producerName,
-					password, adress);
-
 			/**
 			 Speicherung der Daten in ein XML File 
 			 - ID anhand des letzten Eintrags hochzählen und somit automatisch bestimmen
@@ -231,7 +224,7 @@ page language="java" import="java.io.*"
 			 else {*/
 		%>
 		<form class="form-horizontal" name="supplierData" method="post"
-			action="Register.jsp">
+			action="Registered.jsp">
 			<div class="control-group">
 				<label class="control-label" for="inputName">Name of
 					Supplier:</label>
@@ -240,35 +233,31 @@ page language="java" import="java.io.*"
 				</div>
 			</div>
 			<div class="control-group">
+				<label class="control-label" for="inputPassword">Your
+					Password:</label>
+				<div class="controls">
+					<input type="text" id="inputPassword" placeholder="Password">
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="inputName">Adress of
+					Supplier:</label>
+				<div class="controls">
+					<input type="text" id="inputAdress" placeholder="Adress">
+				</div>
+			</div>
+			<div class="control-group">
 				<label class="control-label" for="inputParts">Offered Parts:</label>
 				<div class="controls">
 					<input type="text" id="inputPart" placeholder="Part1">
 				</div>
-				<div class="controls">
-					<input type="text" id="inputPart" placeholder="Part2">
-				</div>
-				<div class="controls">
-					<input type="text" id="inputPart" placeholder="Part3">
-				</div>
-			</div>
-			<div class="control-group">
-				<label class="control-label" for="inputAdress">Adress:</label>
-				<div class="controls">
-					<input type="password" id="inputAdress" placeholder="Adress">
-				</div>
 			</div>
 			<div class="control-group">
 				<div class="controls">
-					<label class="checkbox"> <input type="checkbox">
-						I'm just a Client
-					</label>
 					<button type="submit" class="btn">Submit</button>
 				</div>
 			</div>
 		</form>
-		<%
-			// }
-		%>
 	</div>
 
 </body>
