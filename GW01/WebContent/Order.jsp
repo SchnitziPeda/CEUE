@@ -58,6 +58,11 @@ ToDo: Possibility to order some parts: <br> <br>
 // 	out.print("You have selected the following part: "+part);
 // }
 
+InquiryOrderPlattformServiceImpl impl = new InquiryOrderPlattformServiceImpl();
+// List<String> list = impl.getAllPartsOnPlattform();
+// List<String> list = impl.getAllProducersForPart("Schraube7m");
+// ListIterator iter1 = list.listIterator();
+
 OrderParts availableParts = new OrderParts();
 // List<String> list = availableParts.testInqiury();
 // ListIterator iter1 = list.listIterator();
@@ -68,7 +73,7 @@ OrderParts availableParts = new OrderParts();
 UddiInteraction uddiInter = new UddiInteraction();
 // uddiInter.deleteService();
 // uddiInter.publishPlattformAndService();
-List<InquiryOrderPlattformService> list = uddiInter.generateListofEndpoints();
+// List<InquiryOrderPlattformService> list = uddiInter.generateListofEndpoints();
 // ListIterator iter1 = list.listIterator();
 // out.println("size: "+list.size());
 // System.out.print(uddiReg.publishPlattformAndService());

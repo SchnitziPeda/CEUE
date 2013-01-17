@@ -56,6 +56,8 @@ public class InquiryOrderPlattformServiceImpl implements InquiryOrderPlattformSe
         LOG.info("Executing operation getAllPartsByProducer");
         System.out.println(producerid);
         try {
+        	
+        	
             
         	
         	
@@ -97,12 +99,13 @@ public class InquiryOrderPlattformServiceImpl implements InquiryOrderPlattformSe
         System.out.println(partid);
         try {
         	
-        	
+        	SupplierServiceImpl supService = new SupplierServiceImpl();
+        	return supService.getAllProducersForPart(partid);
 
-            java.util.List<java.lang.String> _return = new java.util.ArrayList<java.lang.String>();
-            java.lang.String _returnVal1 = "_returnVal911775315";
-            _return.add(_returnVal1);
-            return _return;
+//            java.util.List<java.lang.String> _return = new java.util.ArrayList<java.lang.String>();
+//            java.lang.String _returnVal1 = "_returnVal911775315";
+//            _return.add(_returnVal1);
+//            return _return;
         } catch (java.lang.Exception ex) {
             ex.printStackTrace();
             throw new RuntimeException(ex);
@@ -135,13 +138,12 @@ public class InquiryOrderPlattformServiceImpl implements InquiryOrderPlattformSe
         try {
         	
         	SupplierService supplService = new SupplierServiceImpl();
-        	
         	List<String> producers = supplService.getAllProducerNames();
+        	return producers;
         	
 //            java.util.List<java.lang.String> _return = new java.util.ArrayList<java.lang.String>();
 //            java.lang.String _returnVal1 = "_returnVal-1487149130";
 //            _return.add(_returnVal1);
-            return producers;
         } catch (java.lang.Exception ex) {
             ex.printStackTrace();
             throw new RuntimeException(ex);
