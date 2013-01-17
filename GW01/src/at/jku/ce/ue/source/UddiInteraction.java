@@ -26,15 +26,13 @@ public class UddiInteraction {
 	public UddiInteraction() {
 		app = new UddiApp();
 	}
-	
 		
-//	publishes own plattform
-	public String publishPlattformAndService(){
-		String var = null;
-		var = app.publishService();
-//		var = app.publishServiceAnyway();
-		System.out.println("service published");
-		return var;
+	/**
+	 * publishes own plattform including wsdl file
+	 * @return void 
+	 */
+	public void publishPlattformAndService(){
+		app.publishService();
 	}
 	
 	/**
@@ -44,8 +42,9 @@ public class UddiInteraction {
 		app.deleteService();
 	}
 	
-	/*
-	 * returns list of generated plattforms
+	/**
+	 * Generates and returns a list of available services 
+	 * @return ServicePorts to call methods directly
 	 */
 	@SuppressWarnings("null")
 	public List<InquiryOrderPlattformService> generateListofEndpoints(){
@@ -59,40 +58,28 @@ public class UddiInteraction {
 			
 			try {
 				wsdlLocation = new URL(value);
-//				System.out.println(wsdlLocation);
 			} catch (MalformedURLException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+//				e.printStackTrace();
 			}
-			try {
-				// TODO: always returns null!! 
+			
+			try { 
 				if(wsdlLocation != null){
-					System.out.println(wsdlLocation);
-					InquiryOrderPlattformServiceService ss = new InquiryOrderPlattformServiceService(wsdlLocation, new QName("http://ue.ce.jku.at/", "InquiryOrderPlattformServiceService"));
-//					System.out.println("SS: "+ss.getWSDLDocumentLocation().toString());
+					InquiryOrderPlattformServiceService ss = new InquiryOrderPlattformServiceService(wsdlLocation, new QName(QNameURL, QNameName));
 					if(ss != null){
 						InquiryOrderPlattformService myService = ss.getInquiryOrderPlattformServicePort();	
-//						System.out.println("myService: "+myService.getAllProducersOnPlattform().toString());
 						if(myService != null){
 							serviceCollection.add(myService);
 						}
 					}
-				}
-				
+				}				
 			} catch (Exception e){
 				System.out.println("error");
-//				e.printStackTrace();
 			}
 		}
-		
-//		System.out.println("grš§e: "+serviceCollection.size());
+
 		return serviceCollection;
 
-	}
-	
-//	returns wsdl file for a given plattform
-	public String getWsdlOfPlattform(String plattformName){
-		return app.getWsdlFile(plattformName);
 	}
 
 

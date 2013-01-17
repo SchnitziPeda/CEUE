@@ -92,6 +92,13 @@ public class UddiApp {
 		log.exiting("UDDI Wrapper", "init<");
 	}
 
+	/**
+	 * check if service & plattform is already registered
+	 * @param namestring
+	 * @return
+	 * @throws DispositionReportFaultMessage
+	 * @throws RemoteException
+	 */
 	public String isRegistered(String namestring)
 			throws DispositionReportFaultMessage, RemoteException {
 		FindBusiness fb = new FindBusiness();
@@ -113,7 +120,7 @@ public class UddiApp {
 	}
 	
 	/**
-	 * Deletes a business 
+	 * deletes own business
 	 */
 	public void deleteService(){
 		
@@ -149,7 +156,12 @@ public class UddiApp {
 		}
 	}
 	
-	
+	/**
+	 * geth Auth
+	 * @return
+	 * @throws DispositionReportFaultMessage
+	 * @throws RemoteException
+	 */
 	public String getAuth() throws DispositionReportFaultMessage,
 			RemoteException {
 		GetAuthToken gat = new GetAuthToken();
@@ -158,6 +170,12 @@ public class UddiApp {
 		return security.getAuthToken(gat).getAuthInfo();
 	}
 
+	/**
+	 * publish plattform and check if already registered
+	 * @return
+	 * @throws DispositionReportFaultMessage
+	 * @throws RemoteException
+	 */
 	public String publish() throws DispositionReportFaultMessage,
 			RemoteException {
 		if (isRegistered(userName) == null) {
@@ -178,72 +196,6 @@ public class UddiApp {
 		}
 		return null;
 	}
-
-	/**
-	 * Publishes Services Anyway - no matter if already registered
-	 * 
-	 * @return
-	 */
-//	public String publishServiceAnyway() {
-//		try {
-//			String businessKey = null;
-//
-//			SaveBusiness saveB = new SaveBusiness();
-//
-//			saveB.setAuthInfo(getAuth());
-//
-//			BusinessEntity businessEntity = new BusinessEntity();
-//			Name myName = new Name();
-//			myName.setValue(userName);
-//			businessEntity.getName().add(myName);
-//
-//			saveB.getBusinessEntity().add(businessEntity);
-//			if (publish.saveBusiness(saveB).getBusinessEntity().size() > 0)
-//				businessKey = publish.saveBusiness(saveB).getBusinessEntity()
-//						.get(0).getBusinessKey();
-//
-//			BusinessService myService = new BusinessService();
-//			myService.setBusinessKey(businessKey);
-//			Name myServiceName = new Name();
-//			myServiceName.setValue(serviceName);
-//			myService.getName().add(myServiceName);
-//
-//			// description
-//			Description serviceDesc = new Description();
-//			serviceDesc.setValue(serviceDescription);
-//			myService.getDescription().add(serviceDesc);
-//
-//			// binding template
-//			BindingTemplates templates = new BindingTemplates();
-//			BindingTemplate bindingTemp = new BindingTemplate();
-//			bindingTemp.getDescription().add(serviceDesc);
-//
-//			// set access point / wsdl file
-//			AccessPoint accessPoint = new AccessPoint();
-//			accessPoint.setUseType("wsdlDeployment");
-//			accessPoint.setValue(wsdlLocation);
-//
-//			bindingTemp.setAccessPoint(accessPoint);
-//			templates.getBindingTemplate().add(bindingTemp);
-//
-//			myService.setBindingTemplates(templates);
-//
-//			SaveService ss = new SaveService();
-//			ss.getBusinessService().add(myService);
-//			ss.setAuthInfo(this.getAuth());
-//			ServiceDetail sd = publish.saveService(ss);
-//			String myServKey = sd.getBusinessService().get(0).getServiceKey();
-//
-//			return "plattform " + userID + " published";
-//		} catch (DispositionReportFaultMessage e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (RemoteException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		return "nope";
-//	}
 
 	/**
 	 * publish service including wsdl file
@@ -413,66 +365,6 @@ public class UddiApp {
 		String plattformName = "gruppe4"; // for testing
 		app.getWsdlFile(plattformName);
 
-		// try {
-		// System.out.println("RESULT: " + app.publish("gruppe 1 publisher"));
-		// System.out.println("RESULT: " + app.isRegistered("hi there!"));
-
-		// String namestring = "gruppe4"; // for testing
-		//
-		// FindBusiness fb = new FindBusiness();
-		// // fb.setAuthInfo(myAuth);
-		// Name name = new Name();
-		// name.setValue(namestring);
-		// fb.getName().add(name);
-		// // fb.setFindQualifiers(value)
-		// BusinessList bl = app.inquiry.findBusiness(fb);
-		//
-		//
-		// String servicekey =
-		// bl.getBusinessInfos().getBusinessInfo().get(0).getServiceInfos().getServiceInfo().get(0).getServiceKey();
-		//
-		// //
-		// System.out.println(bl.getBusinessInfos().getBusinessInfo().get(0).getServiceInfos().getServiceInfo().get(0));
-		// //
-		// System.out.println(bl.getBusinessInfos().getBusinessInfo().get(0).getServiceInfos().getServiceInfo().get(0).getName().get(0).getValue());
-		//
-		// GetServiceDetail service = new GetServiceDetail();
-		// service.setAuthInfo(app.getAuth());
-		// service.getServiceKey().add(servicekey);
-		// ServiceDetail serviceInfo = app.inquiry.getServiceDetail(service);
-		// List<BusinessService> services = serviceInfo.getBusinessService();
-		// String endpoint = null;
-		// if(services.size()>0){
-		// BusinessService bs = services.get(0);
-		// AccessPoint ap =
-		// bs.getBindingTemplates().getBindingTemplate().get(0).getAccessPoint();
-		// endpoint = ap.getValue();
-		// System.out.print(endpoint);
-		// }
-
-		// der methoden aufruf konkret geht ungefähr so:
-		//
-		// servicekey ... ist der unique key / die id des services....
-
-		// GetServiceDetail service = new GetServiceDetail();
-		// service.setAuthInfo(tokenPublish.getAuthInfo());
-		// service.getServiceKey().add(servicekey);
-		// ServiceDetail serviceInfo = inquiry.getServiceDetail(service);
-		// List<BusinessService> services = serviceInfo.getBusinessService();
-		// String endpoint = null;
-		// if (services.size() > 0) {
-		// BusinessService businessS = services.get(0);
-		// AccessPoint ap = businessS.getBindingTemplates()
-		// .getBindingTemplate().get(0).getAccessPoint();
-		// endpoint = ap.getValue();
-		//
-		// }
-		//
-		// } catch (DispositionReportFaultMessage e) {
-		// e.printStackTrace();
-		// } catch (RemoteException e) {
-		// e.printStackTrace();
-		// }
 	}
 
 	// returns plattform depending WSDL file
