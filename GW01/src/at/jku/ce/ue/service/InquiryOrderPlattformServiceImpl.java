@@ -57,16 +57,8 @@ public class InquiryOrderPlattformServiceImpl implements InquiryOrderPlattformSe
         System.out.println(producerid);
         try {
         	PartServiceImpl partService = new PartServiceImpl();
-<<<<<<< HEAD
-        	return partService.getAllPartsByProducer(null);
-        	
-//        	java.util.List<java.lang.String> _return = new java.util.ArrayList<java.lang.String>();
-//            java.lang.String _returnVal1 = "_returnVal1993362333";
-//            _return.add(_returnVal1);
-//            return _return;
-=======
         	return partService.getAllPartsByProducer(producerid);
->>>>>>> refs/remotes/origin/andreas
+        	
         } catch (java.lang.Exception ex) {
             ex.printStackTrace();
             throw new RuntimeException(ex);
