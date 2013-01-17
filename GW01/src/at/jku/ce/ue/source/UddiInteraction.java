@@ -2,8 +2,7 @@ package at.jku.ce.ue.source;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.xml.namespace.QName;
@@ -47,13 +46,14 @@ public class UddiInteraction {
 	 * @return ServicePorts to call methods directly
 	 */
 	@SuppressWarnings("null")
-	public List<InquiryOrderPlattformService> generateListofEndpoints(){
-		List<InquiryOrderPlattformService> serviceCollection = new LinkedList<InquiryOrderPlattformService>();
+	public Map<String, InquiryOrderPlattformService> generateListofEndpoints(){
+		Map<String, InquiryOrderPlattformService> serviceCollection = new HashMap<String, InquiryOrderPlattformService>();
 		plattforms = app.getListofEndpoints();
 		URL wsdlLocation = null;
 		
 		for(String key : plattforms.keySet()){
 			String value = plattforms.get(key);
+//			System.out.println("++"+key.toString());
 			wsdlLocation = null;
 			
 			try {
@@ -69,7 +69,7 @@ public class UddiInteraction {
 					if(ss != null){
 						InquiryOrderPlattformService myService = ss.getInquiryOrderPlattformServicePort();	
 						if(myService != null){
-							serviceCollection.add(myService);
+							serviceCollection.put(key.toString(), myService);
 						}
 					}
 				}				

@@ -40,11 +40,28 @@ public class PartServiceImpl implements PartService {
 	}
 
 	@Override
-	public List<String> getAllPartsByProducer() {
+	public List<String> getAllPartsByProducer(String producerId) {
+		List<String> parts = new LinkedList<String>();
+		
+		
 		
 		
 		
 		return null;
+	}
+	
+	public List<String> getAllProducersForPart(String partId) {
+		List<String> producers = new LinkedList<String>(); 
+		
+		PartServiceImpl partService = new PartServiceImpl();
+		List<Part> list = partService.getAllParts();
+		for(Part part : list){
+			if(part.getName().equals(partId)){
+				producers.add(part.getOfferedBy().getName());
+			}
+		}
+		
+		return producers;
 	}
 
 

@@ -67,8 +67,8 @@ import="at.jku.ce.ue.uddi.*"
 				UddiInteraction uddiInter = new UddiInteraction();
 				// uddiInter.deleteService();
 				// uddiInter.publishPlattformAndService();
-				List<InquiryOrderPlattformService> list = uddiInter
-						.generateListofEndpoints();
+// 				List<InquiryOrderPlattformService> list = uddiInter
+// 						.generateListofEndpoints();
 				// ListIterator iter1 = list.listIterator();
 				// out.println("size: "+list.size());
 				// System.out.print(uddiReg.publishPlattformAndService());

@@ -36,7 +36,7 @@ public interface PartService {
 	
 	public List<String> getAllPartNames();
 	
-	public List<String> getAllPartsByProducer();
+	public List<String> getAllPartsByProducer(String producerId);
 	
 	
 	
