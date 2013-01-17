@@ -169,9 +169,9 @@ public class Database {
 		return partsOnPlattform.get(partID);
 	}
 
-	public int registerProducer(String producerName, String password, String adress) {
+	public String registerProducer(String producerName, String password, String adress) {
 
-		int prodId = producerName.hashCode();
+		String prodId = "GW01Producer"+producerName.hashCode();
 
 		Producer producer = new Producer("GW01Producer"+prodId, producerName);
 

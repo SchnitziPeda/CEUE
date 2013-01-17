@@ -45,7 +45,7 @@ public interface SupplierService {
 	 * 
 	 * @return producerID
 	 */
-	public int registerSupplier(String producerName, String password,
+	public String registerSupplier(String producerName, String password,
 			String adress);
 
 	/**

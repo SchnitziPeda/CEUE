@@ -9,6 +9,6 @@ package at.jku.ce.ue.source.presentation.view;
  */
 public interface RegisterView {
 	
-	public int registerProducer(String producerName, String password, String adress);
+	public String registerProducer(String producerName, String password, String adress);
 	
 }

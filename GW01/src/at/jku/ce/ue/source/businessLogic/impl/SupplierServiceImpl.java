@@ -62,10 +62,10 @@ public class SupplierServiceImpl implements SupplierService {
 	}
 
 	@Override
-	public int registerSupplier(String producerName, String password,
+	public String registerSupplier(String producerName, String password,
 			String adress) {
 
-		int prodId = -1;
+		String prodId = "-1";
 
 		Database db = Database.getInstance();
 		if (producerName != null && producerName != "") {

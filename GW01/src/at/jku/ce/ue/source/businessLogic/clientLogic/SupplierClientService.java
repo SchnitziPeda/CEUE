@@ -40,15 +40,16 @@ public class SupplierClientService implements SupplierService {
 				.generateListofEndpoints();
 
 		// Iterating through all platforms
-		for (InquiryOrderPlattformService plattform : plattforms.values()) {
+		for (String plattformName : plattforms.keySet()) {
 			// Getting all producers of other platforms
-			List<String> prods = plattform.getAllProducersOnPlattform();
+			List<String> prods = plattforms.get(plattformName).getAllProducersOnPlattform();
 			
 			// Iterating through all Producers of platform 'plattform'
 			for (String name : prods) {
 				// If not already stored in our database, store it
 				if(!storedPoducers.containsKey(name)){
 					Producer prod = new Producer(name, name);
+					prod.setPlattform(plattformName);
 					storedPoducers.put(name, prod);
 				}
 			}
@@ -64,10 +65,10 @@ public class SupplierClientService implements SupplierService {
 	}
 
 	@Override
-	public int registerSupplier(String producerName, String password,
+	public String registerSupplier(String producerName, String password,
 			String adress) {
 		// TODO Auto-generated method stub
-		return 0;
+		return "-1";
 	}
 
 	@Override

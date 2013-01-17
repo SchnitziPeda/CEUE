@@ -17,7 +17,7 @@ public class RegisterPresenter implements RegisterView {
 	 * @see at.jku.ce.ue.source.presentation.view.RegisterView#registerProducer(java.lang.String, java.lang.String, java.lang.String)
 	 */
 	@Override
-	public int registerProducer(String producerName, String password,
+	public String registerProducer(String producerName, String password,
 			String adress) {
 
 		SupplierService supplService = new SupplierServiceImpl();
