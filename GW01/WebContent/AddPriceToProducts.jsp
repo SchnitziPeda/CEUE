@@ -60,6 +60,23 @@ page language="java" import="java.io.*"
 	<div class="moved-right">
 		<%
 			AddProductView addProductPresenter = new AddProductPresenter();
+			
+						
+			String producerID = request.getParameter("producers");
+
+			List<String> parts = Arrays.asList(request
+					.getParameterValues("parts"));
+			addProductPresenter. 
+
+			boolean success = addProductPresenter.addProductToProducer(
+					producerID, parts);
+
+			if (success) {
+				out.println("IT WORKED!");
+			} else {
+				out.println("Your parts wer not added!");
+			}
+			AddProductView addProductPresenter = new AddProductPresenter();
 
 			String producerID = request.getParameter("producers");
 
@@ -72,9 +89,10 @@ page language="java" import="java.io.*"
 				for (String p : parts) {
 			%>
 			<div class="control-group">
-				<label class="control-label" for="inputName"><%
-					out.print(p);
-				%>:
+				<label class="control-label" for="inputName">
+					<%
+						out.print(p);
+					%>:
 				</label>
 				<div class="controls">
 					<input type="number" name="<%out.print(p);%>"

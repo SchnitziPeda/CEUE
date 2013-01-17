@@ -7,6 +7,7 @@ import java.util.List;
 
 import at.jku.ce.ue.source.businessLogic.SupplierService;
 import at.jku.ce.ue.source.businessLogic.impl.SupplierServiceImpl;
+import at.jku.ce.ue.source.entities.Part;
 import at.jku.ce.ue.source.presentation.view.AddProductView;
 
 /**
@@ -14,6 +15,8 @@ import at.jku.ce.ue.source.presentation.view.AddProductView;
  * 
  */
 public class AddProductPresenter implements AddProductView {
+	
+	private List<Part> partsList;
 
 	/*
 	 * (non-Javadoc)
@@ -27,5 +30,19 @@ public class AddProductPresenter implements AddProductView {
 		SupplierService supplService = new SupplierServiceImpl();
 
 		return supplService.addPartsToProducer(producerId, parts);
+	}
+
+	/**
+	 * @return the partsList
+	 */
+	public List<Part> getPartsList() {
+		return partsList;
+	}
+
+	/**
+	 * @param partsList the partsList to set
+	 */
+	public void setPartsList(List<Part> partsList) {
+		this.partsList = partsList;
 	}
 }

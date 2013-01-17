@@ -69,7 +69,7 @@ page language="java" import="java.io.*"
 
 			PartService pService = new PartServiceImpl();
 
-			List<String> parts = pService.getAllPartNames();
+			List<Part> parts = pService.getAllParts();
 		%>
 		<form class="form-horizontal" name="selectProducer" method="post"
 			action="AddPriceToProducts.jsp">
@@ -90,8 +90,8 @@ page language="java" import="java.io.*"
 				<div class="controls">
 					<%
 						out.print("<select name='parts' size='10' multiple>");
-						for (String p : parts) {
-							out.print("<option value=" + p + ">" + p + "</option>");
+						for (Part p : parts) {
+							out.print("<option value=" + p.getName() + ">" + p.getName() + "</option>");
 						}
 						out.print("</select>");
 					%>
