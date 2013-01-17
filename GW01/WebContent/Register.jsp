@@ -1,3 +1,6 @@
+<%@page
+	import="at.jku.ce.ue.source.presentation.presenter.RegisterPresenter"%>
+<%@page import="at.jku.ce.ue.source.presentation.view.RegisterView"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@
@@ -53,6 +56,12 @@ test
 		</ul>
 	</div>
 	<%
+		RegisterView registerPresenter = new RegisterPresenter();
+						
+		String producerName = request.getParameter("inputName");
+		
+		int respond = registerPresenter.registerProducer(producerName, password, adress);
+		
 		/**
 		 Speicherung der Daten in ein XML File 
 		 - ID anhand des letzten Eintrags hochzählen und somit automatisch bestimmen
