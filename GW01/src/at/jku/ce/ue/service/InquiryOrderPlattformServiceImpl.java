@@ -106,6 +106,10 @@ public class InquiryOrderPlattformServiceImpl implements InquiryOrderPlattformSe
         System.out.println(price);
         System.out.println(orderid);
         try {
+        	
+        	
+        	
+        	
         } catch (java.lang.Exception ex) {
             ex.printStackTrace();
             throw new RuntimeException(ex);

@@ -80,6 +80,24 @@ public class SupplierServiceImpl implements SupplierService {
 
 		return prodId;
 	}
+	
+	/**
+	 * authentificates a supplier
+	 * @param producerName
+	 * @return
+	 */
+	public boolean authentificateSupplier(String producerName){
+		Database db = Database.getInstance();
+		for(Producer pd : db.getProducers().values()){
+			System.out.println(pd.getName()+" "+producerName);
+			if(pd.getName().equals(producerName)){
+				return true;
+			} else 
+				return false;
+		}
+		return false;
+	}
+	
 
 	@Override
 	public boolean addPartsToProducer(int producerId, List<Part> parts) {
