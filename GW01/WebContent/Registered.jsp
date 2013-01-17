@@ -60,20 +60,15 @@ page language="java" import="java.io.*"
 
 			String producerName = request.getParameter("inputName");
 			String producerPassword = request.getParameter("inputPassword");
-			String producerAdress = request.getParameter("inputAdress");
-
 			String respond = registerPresenter.registerProducer(producerName,
 					producerPassword);
 
 			if (!respond.equals("-1")) {
-				out.println("IT WORKED! Your ID: " + respond);
+				out.println("IT WORKED! Your ID is: " + respond);
 			} else {
 				out.println("Your registration did not work!");
 			}
 
-			out.println(producerName);
-			out.println(producerPassword);
-			out.println(producerAdress);
 		%>
 
 	</div>

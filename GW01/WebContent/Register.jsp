@@ -55,8 +55,7 @@ page language="java" import="java.io.*"
 		</ul>
 	</div>
 	<div class="moved-right">
-		<%
-		%>
+		<%%>
 		<form class="form-horizontal" name="supplierData" method="post"
 			action="Registered.jsp">
 			<div class="control-group">
@@ -71,19 +70,6 @@ page language="java" import="java.io.*"
 					Password:</label>
 				<div class="controls">
 					<input type="text" name="inputPassword" placeholder="Password">
-				</div>
-			</div>
-			<div class="control-group">
-				<label class="control-label" for="inputName">Adress of
-					Supplier:</label>
-				<div class="controls">
-					<input type="text" name="inputAdress" placeholder="Adress">
-				</div>
-			</div>
-			<div class="control-group">
-				<label class="control-label" for="inputParts">Offered Parts:</label>
-				<div class="controls">
-					<input type="text" id="inputPart" placeholder="Part1">
 				</div>
 			</div>
 			<div class="control-group">
