@@ -5,7 +5,7 @@ import at.jku.ce.ue.source.entities.Database;
 public class Init {
 	
 	static Database db;
-	static UddiRegistration uddiReg;
+//	static UddiRegistration uddiReg;
 
 	public Init() {
 		db = new Database();
@@ -22,13 +22,13 @@ public class Init {
 		Init.db = db;
 	}
 
-	public static UddiRegistration getUddiReg() {
-		return uddiReg;
-	}
-
-	public static void setUddiReg(UddiRegistration uddiReg) {
-		Init.uddiReg = uddiReg;
-	}
-
+//	public static UddiRegistration getUddiReg() {
+//		return uddiReg;
+//	}
+//
+//	public static void setUddiReg(UddiRegistration uddiReg) {
+//		Init.uddiReg = uddiReg;
+//	}
+//
 
 }

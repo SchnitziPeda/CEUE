@@ -51,7 +51,7 @@ public class UddiApp {
 
 	private String wsdlLocation = "http://" + MY_HOSTER + ":" + MY_PORT
 			+ "/GW01/services/InquiryOrderPlattformServicePort?wsdl";
-	private String serviceName = "Gruppe 1 Services";
+	private String serviceName = "Gruppe1_InquiryOrderPlattformServicePort";
 	private String serviceID = "GW01";
 	private String serviceDescription = "Webservice for managing prices of offered parts and retrieving price information.";
 
