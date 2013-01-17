@@ -4,7 +4,10 @@
 package at.jku.ce.ue.source.businessLogic;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
+import at.jku.ce.ue.source.entities.Part;
 import at.jku.ce.ue.source.entities.Producer;
 
 /**
@@ -26,12 +29,31 @@ public interface SupplierService {
 	 * 
 	 * @return
 	 */
-	public List<Producer> getAllProducers();
+	public Map<Integer, Producer> getAllProducers();
 
 	/**
+	 * Returns names of all Producers on our Platform
+	 * 
 	 * @return
 	 */
-	public List<String> getAllProducerKeys();
-	
-	
+	public List<String> getAllProducerNames();
+
+	/**
+	 * Registers a producer
+	 * 
+	 * Returns -1 if error occurred
+	 * 
+	 * @return producerID
+	 */
+	public int registerSupplier(String producerName, String password,
+			String adress);
+
+	/**
+	 * Adds offered parts to producer
+	 * 
+	 * @param producerId
+	 * @param parts
+	 * @return if adding succeeded
+	 */
+	public boolean addPartsToProducer(int producerId, List<Part> parts);
 }

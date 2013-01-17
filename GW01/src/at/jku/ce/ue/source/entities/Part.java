@@ -16,6 +16,7 @@ public class Part {
 	private String name;
 	private Producer offeredBy;
 	private List<Part> subParts;
+	private int price;
 	
 	/**
 	 * @param id
@@ -85,6 +86,20 @@ public class Part {
 	 */
 	public void setSubParts(List<Part> subParts) {
 		this.subParts = subParts;
+	}
+
+	/**
+	 * @return the price
+	 */
+	public int getPrice() {
+		return price;
+	}
+
+	/**
+	 * @param price the price to set
+	 */
+	public void setPrice(int price) {
+		this.price = price;
 	}
 	
 }

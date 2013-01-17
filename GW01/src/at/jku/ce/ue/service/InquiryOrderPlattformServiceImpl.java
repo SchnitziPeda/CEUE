@@ -130,7 +130,7 @@ public class InquiryOrderPlattformServiceImpl implements InquiryOrderPlattformSe
         	
         	SupplierService supplService = new SupplierServiceImpl();
         	
-        	List<String> producers = supplService.getAllProducerKeys();
+        	List<String> producers = supplService.getAllProducerNames();
         	
 //            java.util.List<java.lang.String> _return = new java.util.ArrayList<java.lang.String>();
 //            java.lang.String _returnVal1 = "_returnVal-1487149130";
