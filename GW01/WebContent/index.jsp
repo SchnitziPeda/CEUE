@@ -52,7 +52,7 @@
 			<li><a href="Offer.jsp">Offers</a></li>
 			<li><a href="checkOffers.jsp">Check Offers - without
 					concrete order possible</a></li>
-			<li><a href="Monitoring.jsp">Monitoring</a>
+			<li><a href="monitoring/index.jsp">Monitoring</a>
 		</ul>
 	</div>
 

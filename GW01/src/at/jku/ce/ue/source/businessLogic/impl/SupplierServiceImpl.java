@@ -52,11 +52,12 @@ public class SupplierServiceImpl implements SupplierService {
 
 		Collection<Producer> values = prodList.values();
 		List<String> names = new LinkedList<String>();
-		
-		for(Producer prod : values){
-			names.add(prod.getName());
+
+		for (Producer prod : values) {
+			if (prod.getPlattform() == "" || prod.getPlattform() == null)
+				names.add(prod.getName());
 		}
-		
+
 		return names;
 
 	}
@@ -80,49 +81,67 @@ public class SupplierServiceImpl implements SupplierService {
 		return prodId;
 	}
 
+	/**
+	 * authentificates a supplier
+	 * 
+	 * @param producerName
+	 * @return
+	 */
+	public boolean authentificateSupplier(String producerName) {
+		Database db = Database.getInstance();
+		for (Producer pd : db.getProducers().values()) {
+			System.out.println(pd.getName() + " " + producerName);
+			if (pd.getName().equals(producerName)) {
+				return true;
+			} else
+				return false;
+		}
+		return false;
+	}
+
 	@Override
 	public boolean addPartsToProducer(int producerId, List<Part> parts) {
-		
+
 		Database db = Database.getInstance();
-		
+
 		Producer producer = null;
-		
-		if(producerId != 0 && producerId != -1){
+
+		if (producerId != 0 && producerId != -1) {
 			producer = db.getProducers().get(producerId);
-		}else{
+		} else {
 			log.severe("ProducerID is not valid!");
 			return false;
 		}
-		
-		if(producer == null){
-			log.severe("Producer with id: "+producerId+" was not found!");
+
+		if (producer == null) {
+			log.severe("Producer with id: " + producerId + " was not found!");
 			return false;
 		}
-		
+
 		List<Part> partsOfProducer = producer.getParts();
-		
-		for(Part part : parts){
+
+		for (Part part : parts) {
 			partsOfProducer.add(part);
 		}
-		
+
 		return true;
 	}
 
 	/**
-	 * returns all producers for the given part name 
+	 * returns all producers for the given part name
 	 */
 	@Override
 	public List<String> getAllProducersForPart(String partId) {
-		List<String> producers = new LinkedList<String>(); 
-		
+		List<String> producers = new LinkedList<String>();
+
 		PartServiceImpl partService = new PartServiceImpl();
 		List<Part> list = partService.getAllParts();
-		for(Part part : list){
-			if(part.getName().equals(partId)){
+		for (Part part : list) {
+			if (part.getName().equals(partId)) {
 				producers.add(part.getOfferedBy().getName());
 			}
 		}
-		
+
 		return producers;
 	}
 }
