@@ -23,7 +23,7 @@ public class AddProductPresenter implements AddProductView {
 	 * (java.lang.String, java.util.List)
 	 */
 	@Override
-	public boolean addProducttoProducer(String producerId, List<String> parts) {
+	public boolean addProductToProducer(String producerId, List<String> parts) {
 		SupplierService supplService = new SupplierServiceImpl();
 
 		return supplService.addPartsToProducer(producerId, parts);

@@ -31,12 +31,28 @@ public class Part {
 		this.offeredBy = offeredBy;
 		this.subParts = new LinkedList<Part>();
 	}
-	
+
 	/**
 	 * @param id
 	 * @param name
 	 * @param offeredBy
 	 * @param subParts
+	 */
+	public Part(String name, Producer offeredBy, int price) {
+		super();
+		this.id = 0;
+		this.name = name;
+		this.offeredBy = offeredBy;
+		this.subParts = new LinkedList<Part>();
+		this.price = price;
+	}
+
+	/**
+	 * @param id
+	 * @param name
+	 * @param offeredBy
+	 * @param subParts
+	 * @param price
 	 */
 	public Part(String name, Producer offeredBy) {
 		super();

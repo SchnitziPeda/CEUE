@@ -66,7 +66,7 @@ page language="java" import="java.io.*"
 			List<String> parts = Arrays.asList(request
 					.getParameterValues("parts"));
 
-			boolean success= addProductPresenter.addProducttoProducer(producerID,parts);
+			boolean success= addProductPresenter.addProductToProducer(producerID,parts);
 
 			if (success) {
 				out.println("IT WORKED!");

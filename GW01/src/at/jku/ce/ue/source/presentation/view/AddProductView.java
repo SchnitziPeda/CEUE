@@ -11,6 +11,6 @@ import java.util.List;
  */
 public interface AddProductView {
 
-	public boolean addProducttoProducer(String producerId, List<String> parts);
+	public boolean addProductToProducer(String producerId, List<String> parts);
 
 }
