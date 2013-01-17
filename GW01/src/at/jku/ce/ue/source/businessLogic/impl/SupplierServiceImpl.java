@@ -6,8 +6,8 @@ package at.jku.ce.ue.source.businessLogic.impl;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
-import java.util.Set;
 import java.util.logging.Logger;
 
 import at.jku.ce.ue.source.businessLogic.SupplierService;
@@ -107,5 +107,23 @@ public class SupplierServiceImpl implements SupplierService {
 		}
 		
 		return true;
+	}
+
+	/**
+	 * returns all producers for the given part name 
+	 */
+	@Override
+	public List<String> getAllProducersForPart(String partId) {
+		List<String> producers = new LinkedList<String>(); 
+		
+		PartServiceImpl partService = new PartServiceImpl();
+		List<Part> list = partService.getAllParts();
+		for(Part part : list){
+			if(part.getName().equals(partId)){
+				producers.add(part.getOfferedBy().getName());
+			}
+		}
+		
+		return producers;
 	}
 }
