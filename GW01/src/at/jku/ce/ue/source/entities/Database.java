@@ -28,6 +28,8 @@ public class Database {
 	private static Database database;
 
 	private Map<String, Part> partsOnPlattform;
+	
+	private Map<Integer, Producer> producersOnAllPlattforms;
 
 	public Database() {
 
@@ -198,7 +200,7 @@ public class Database {
 		return producers.get(partID);
 	}
 
-	public int addProducer(String producerName, String password, String adress) {
+	public int registerProducer(String producerName, String password, String adress) {
 
 		int prodId = producerName.hashCode();
 
@@ -230,5 +232,9 @@ public class Database {
 	public void setProducers(Map<Integer, Producer> producers) {
 		this.producers = producers;
 	}
+
+	public void addProducer(String name) {
+	}
+
 
 }

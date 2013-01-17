@@ -70,7 +70,7 @@ public class SupplierServiceImpl implements SupplierService {
 		Database db = Database.getInstance();
 		if (producerName != null && producerName != "") {
 			if (password != null && password != "") {
-				prodId = db.addProducer(producerName, password, adress);
+				prodId = db.registerProducer(producerName, password, adress);
 			} else {
 				log.info("Password of producer is empty");
 			}

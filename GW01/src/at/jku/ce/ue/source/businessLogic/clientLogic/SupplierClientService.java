@@ -3,36 +3,52 @@
  */
 package at.jku.ce.ue.source.businessLogic.clientLogic;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import at.jku.ce.ue.service.InquiryOrderPlattformService;
 import at.jku.ce.ue.source.UddiInteraction;
 import at.jku.ce.ue.source.businessLogic.SupplierService;
 import at.jku.ce.ue.source.businessLogic.impl.SupplierServiceImpl;
+import at.jku.ce.ue.source.entities.Database;
 import at.jku.ce.ue.source.entities.Part;
 import at.jku.ce.ue.source.entities.Producer;
 
 /**
  * @author Schnitzi
- *
+ * 
  */
-public class SupplierClientService implements SupplierService{
-	
+public class SupplierClientService implements SupplierService {
+
 	@Override
 	public Producer getProducer(int producerID) {
-		
-		UddiInteraction uddi = new UddiInteraction();
-		
-		SupplierService service = new SupplierServiceImpl();
-		
-		
-		
+
 		return null;
 	}
 
 	@Override
 	public Map<Integer, Producer> getAllProducers() {
-		// TODO Auto-generated method stub
+		
+		Database db = Database.getInstance();
+		
+		List<Producer> producers = new LinkedList<Producer>();
+		
+		// Managing UDDI Stuff
+		UddiInteraction uddi = new UddiInteraction();
+		List<InquiryOrderPlattformService> plattforms = uddi.generateListofEndpoints();
+		
+		// Getting all producers of other plattforms
+		for(InquiryOrderPlattformService plattform : plattforms){
+			List<String> prods = plattform.getAllProducersOnPlattform();
+			System.out.println("Plattform: ");
+			for (String name : prods) {
+				System.out.println("ProdName: "+name);
+			}
+		}
+		
+		SupplierService service = new SupplierServiceImpl();
+
 		return null;
 	}
 
@@ -54,7 +70,5 @@ public class SupplierClientService implements SupplierService{
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
-	
-	
+
 }
