@@ -7,8 +7,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Monitoring</title>
-<link rel="stylesheet" type="text/css" href="bootstrap-responsive.css">
-<link rel="stylesheet" type="text/css" href="bootstrap.css">
+<link rel="stylesheet" type="text/css" href="../bootstrap-responsive.css">
+<link rel="stylesheet" type="text/css" href="../bootstrap.css">
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]> <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script> <![endif]-->
 </head>
@@ -37,7 +37,7 @@
 	<div class="page-header">
 		<h1>MONITORING</h1>
 	</div>
-	<div class = "centered">
+	<div class="centered">
 		<ul class="pager">
 			<li class="Home"><a href="index.jsp">&larr; Home</a></li>
 		</ul>
@@ -68,17 +68,15 @@
 		 - Preis
 		 - Bestellnummer
 		 */
+
+		/*
+		auswahl-kriterien: 
+		 eigene producerID
 		 
-		 /*
-		 auswahl-kriterien: 
-			 eigene producerID
-			 
-			 */
-		 
-		 
+		 */
+		String supplier = request.getParameter("inputName");
 		Monitoring mon = new Monitoring();
-		ResultSet rs = mon.getAllData();
-		out.println("30 results:");
+		ResultSet rs = mon.getAllDataForProducer(supplier);
 	%>
 		<table class=table>
 			<tr>
