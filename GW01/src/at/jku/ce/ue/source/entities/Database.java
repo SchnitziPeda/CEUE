@@ -196,8 +196,8 @@ public class Database {
 		return producers.get(producerID);
 	}
 
-	public Producer getPart(int partID) {
-		return producers.get(partID);
+	public Part getPart(String partID) {
+		return partsOnPlattform.get(partID);
 	}
 
 	public int registerProducer(String producerName, String password, String adress) {
@@ -234,6 +234,34 @@ public class Database {
 	}
 
 	public void addProducer(String name) {
+	}
+
+	/**
+	 * @return the producersOnAllPlattforms
+	 */
+	public Map<Integer, Producer> getProducersOnAllPlattforms() {
+		return producersOnAllPlattforms;
+	}
+
+	/**
+	 * @param producersOnAllPlattforms the producersOnAllPlattforms to set
+	 */
+	public void setProducersOnAllPlattforms(Map<Integer, Producer> producersOnAllPlattforms) {
+		this.producersOnAllPlattforms = producersOnAllPlattforms;
+	}
+
+	/**
+	 * @return the partsOnPlattform
+	 */
+	public Map<String, Part> getPartsOnPlattform() {
+		return partsOnPlattform;
+	}
+
+	/**
+	 * @param partsOnPlattform the partsOnPlattform to set
+	 */
+	public void setPartsOnPlattform(Map<String, Part> partsOnPlattform) {
+		this.partsOnPlattform = partsOnPlattform;
 	}
 
 

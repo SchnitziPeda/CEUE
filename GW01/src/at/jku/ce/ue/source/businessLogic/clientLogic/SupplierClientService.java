@@ -29,24 +29,25 @@ public class SupplierClientService implements SupplierService {
 
 	@Override
 	public Map<Integer, Producer> getAllProducers() {
-		
+
 		Database db = Database.getInstance();
-		
+
 		List<Producer> producers = new LinkedList<Producer>();
-		
+
 		// Managing UDDI Stuff
 		UddiInteraction uddi = new UddiInteraction();
-		List<InquiryOrderPlattformService> plattforms = uddi.generateListofEndpoints();
-		
+		Map<String, InquiryOrderPlattformService> plattforms = uddi
+				.generateListofEndpoints();
+
 		// Getting all producers of other plattforms
-		for(InquiryOrderPlattformService plattform : plattforms){
+		for (InquiryOrderPlattformService plattform : plattforms.values()) {
 			List<String> prods = plattform.getAllProducersOnPlattform();
-			System.out.println("Plattform: ");
+//			System.out.println("Plattform: "+plattforms.);
 			for (String name : prods) {
-				System.out.println("ProdName: "+name);
+				System.out.println("ProdName: " + name);
 			}
 		}
-		
+
 		SupplierService service = new SupplierServiceImpl();
 
 		return null;
@@ -69,6 +70,12 @@ public class SupplierClientService implements SupplierService {
 	public boolean addPartsToProducer(int producerId, List<Part> parts) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public List<String> getAllProducersForPart(String partId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
