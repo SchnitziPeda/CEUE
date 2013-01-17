@@ -70,7 +70,7 @@ public class Database {
 
 		BOMServiceUtil bomService = new BOMServiceUtilImpl();
 
-		partsOnPlattform = new HashMap<String, Part>();
+		setPartsOnPlattform(new HashMap<String, Part>());
 
 		// List of all parts
 		List<String> productList = bomService.getAllPartsOfBOM();
@@ -82,7 +82,7 @@ public class Database {
 			Random rand = new Random();
 
 			Part part = null;
-			for (Part partInList : partsOnPlattform.values()) {
+			for (Part partInList : getPartsOnPlattform().values()) {
 				if (partInList.getName().equals(partName)) {
 					part = partInList;
 				}
@@ -106,7 +106,7 @@ public class Database {
 
 				// Check if 'subPartName' already exists as Part in this
 				// database
-				for (Part partInList : partsOnPlattform.values()) {
+				for (Part partInList : getPartsOnPlattform().values()) {
 
 					if (partInList.getName().equals(subPartName)) {
 						subPart = partInList;
@@ -129,11 +129,11 @@ public class Database {
 			}
 
 			if (part != null)
-				partsOnPlattform.put(part.getIdString(), part);
+				getPartsOnPlattform().put(part.getIdString(), part);
 
 		}
 
-		printAllParts(partsOnPlattform);
+		printAllParts(getPartsOnPlattform());
 
 	}
 
@@ -194,8 +194,8 @@ public class Database {
 		return producers.get(producerID);
 	}
 
-	public Producer getPart(int partID) {
-		return producers.get(partID);
+	public Part getPart(String partID) {
+		return partsOnPlattform.get(partID);
 	}
 
 	public int addProducer(String producerName, String password, String adress) {
@@ -216,6 +216,7 @@ public class Database {
 	public Producer getProducer(String prodId) {
 		return null;
 	}
+	
 
 	/**
 	 * @return the producers
@@ -229,6 +230,14 @@ public class Database {
 	 */
 	public void setProducers(Map<Integer, Producer> producers) {
 		this.producers = producers;
+	}
+
+	public Map<String, Part> getPartsOnPlattform() {
+		return partsOnPlattform;
+	}
+
+	public void setPartsOnPlattform(Map<String, Part> partsOnPlattform) {
+		this.partsOnPlattform = partsOnPlattform;
 	}
 
 }

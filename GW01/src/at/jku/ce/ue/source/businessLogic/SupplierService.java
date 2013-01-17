@@ -56,4 +56,7 @@ public interface SupplierService {
 	 * @return if adding succeeded
 	 */
 	public boolean addPartsToProducer(int producerId, List<Part> parts);
+	
+	public List<String> getProducersForPart();
+
 }

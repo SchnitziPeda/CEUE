@@ -20,7 +20,7 @@ public interface PartService {
 	 * @param producerID
 	 * @return
 	 */
-	public Part getPart(int PartID);
+	public Part getPart(String PartID);
 
 	/**
 	 * Gets all producers of our platform
@@ -33,6 +33,9 @@ public interface PartService {
 	 * @return
 	 */
 	public List<String> getAllPartKeys();
+	
+	public List<String> getAllPartNames();
+	
 	
 	
 }
