@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Check Offers</title>
 <link rel="stylesheet" type="text/css" href="bootstrap-responsive.css">
 <link rel="stylesheet" type="text/css" href="bootstrap.css">
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -36,16 +36,13 @@
 	<div class="page-header">
 		<h1>CHECK OFFERS</h1>
 	</div>
-	<div>
+	<div class="centered">
 		<ul class="pager">
 			<li class="Home"><a href="index.jsp">&larr; Home</a></li>
 		</ul>
 	</div>
-	<div>
-
-ToDo: "Angebotseinholung"
-Possibility to check the available products etc. 
-No concrete offer needed! 
-
+	<div class="moved-right">
+		<div>ToDo: "Angebotseinholung" Possibility to check the
+			available products etc. No concrete offer needed!</div>
 </body>
 </html>

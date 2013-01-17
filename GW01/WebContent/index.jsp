@@ -41,7 +41,7 @@
 		// Initialize all stuff:
 		Init initialize = new Init();
 	%>
-	<div>
+	<div class="moved-right">
 		<ul class="nav nav-list">
 			<li class="nav-header">Menu</li>
 			<li><a href="Register.jsp">Register</a></li>

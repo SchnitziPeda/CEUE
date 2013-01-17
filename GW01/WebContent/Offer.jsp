@@ -35,16 +35,16 @@
 	<div class="page-header">
 		<h1>OFFER</h1>
 	</div>
-	<div>
+	<div class="centered">
 		<ul class="pager">
 			<li class="Home"><a href="index.jsp">&larr; Home</a></li>
 		</ul>
 	</div>
-	<div>
+	<div class="moved-right">
 		ToDo: Possibility to offer products
-		<%
-		
-	%>
-	
+		<%%>
+	</div>
+
+
 </body>
 </html>
