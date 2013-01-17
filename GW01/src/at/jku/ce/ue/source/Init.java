@@ -5,13 +5,9 @@ import at.jku.ce.ue.source.entities.Database;
 public class Init {
 	
 	static Database db;
-//	static UddiRegistration uddiReg;
 
 	public Init() {
 		db = new Database();
-//		uddiReg = new UddiRegistration();
-		
-//		uddiReg.generateListOfPlattforms();
 	}
 
 	public static Database getDb() {
