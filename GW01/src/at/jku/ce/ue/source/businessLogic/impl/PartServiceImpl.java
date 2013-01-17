@@ -7,6 +7,7 @@ import java.util.List;
 import at.jku.ce.ue.source.businessLogic.PartService;
 import at.jku.ce.ue.source.entities.Database;
 import at.jku.ce.ue.source.entities.Part;
+import at.jku.ce.ue.source.entities.Producer;
 
 public class PartServiceImpl implements PartService {
 
@@ -40,16 +41,29 @@ public class PartServiceImpl implements PartService {
 	}
 
 	@Override
+	/**
+	 * returns all parts for the given producer
+	 */
 	public List<String> getAllPartsByProducer(String producerId) {
 		List<String> parts = new LinkedList<String>();
 		
+		SupplierServiceImpl supService = new SupplierServiceImpl();
+		for(Producer producer : supService.getAllProducers().values()){
+			if(producer.getName().equals(producerId)){
+				for(Part part : producer.getParts()){
+					parts.add(part.getName());
+				}
+			}
+		}
 		
-		
-		
-		
-		return null;
+		return parts;
 	}
 	
+	/**
+	 * returns all producers for the given part
+	 * @param partId
+	 * @return
+	 */
 	public List<String> getAllProducersForPart(String partId) {
 		List<String> producers = new LinkedList<String>(); 
 		
