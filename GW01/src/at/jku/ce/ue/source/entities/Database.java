@@ -29,8 +29,6 @@ public class Database {
 
 	private Map<String, Part> partsOnPlattform;
 	
-	private Map<Integer, Producer> producersOnAllPlattforms;
-
 	public Database() {
 
 		this.producers = new HashMap<String, Producer>();
@@ -58,8 +56,7 @@ public class Database {
 	private void createProducers() {
 		for (int i = 0; i < PRODUCER_COUNT; i++) {
 
-			Producer prod = new Producer(i, "gw01Producer " + i, "Prod Street "
-					+ i);
+			Producer prod = new Producer("GW01Producer" + i, "GW01Producer" + i);
 
 			this.producers.put("GW01Producer"+i, prod);
 
@@ -139,34 +136,6 @@ public class Database {
 
 	}
 
-	// for (int i = 0; i < PART_COUNT; i++) {
-	// Part schlauch = new Part(i, "gw01SchlauchPR" + i,
-	// getProducers().get(i));
-	// Part motor = new Part(i, "gw01MotorPR" + i, getProducers().get(i));
-	//
-	// Part pumpe = new Part(i, "gw01PumpePR" + i, getProducers().get(i));
-	//
-	// Part tank = new Part(i, "gw01TankPR" + i, getProducers().get(i));
-	//
-	// Part wassertank = new Part(i, "gw01WassertankPR" + i,
-	// getProducers().get(i));
-	//
-	// // Building pumpe
-	// pumpe.getSubParts().add(schlauch);
-	// pumpe.getSubParts().add(motor);
-	//
-	// // Building wassertank
-	// wassertank.getSubParts().add(pumpe);
-	// wassertank.getSubParts().add(tank);
-	//
-	// // Put into
-	// parts.add(schlauch);
-	// parts.add(motor);
-	// parts.add(pumpe);
-	// parts.add(tank);
-	// parts.add(wassertank);
-	// }
-
 	private void printAllParts(Map<String, Part> allPartsWithSubParts) {
 
 		for (Part part : allPartsWithSubParts.values()) {
@@ -204,7 +173,7 @@ public class Database {
 
 		int prodId = producerName.hashCode();
 
-		Producer producer = new Producer(prodId, producerName, adress);
+		Producer producer = new Producer("GW01Producer"+prodId, producerName);
 
 		if (!producers.containsKey(prodId))
 			producers.put("GW01Producer"+prodId, producer);
@@ -234,20 +203,6 @@ public class Database {
 	}
 
 	public void addProducer(String name) {
-	}
-
-	/**
-	 * @return the producersOnAllPlattforms
-	 */
-	public Map<Integer, Producer> getProducersOnAllPlattforms() {
-		return producersOnAllPlattforms;
-	}
-
-	/**
-	 * @param producersOnAllPlattforms the producersOnAllPlattforms to set
-	 */
-	public void setProducersOnAllPlattforms(Map<Integer, Producer> producersOnAllPlattforms) {
-		this.producersOnAllPlattforms = producersOnAllPlattforms;
 	}
 
 	/**

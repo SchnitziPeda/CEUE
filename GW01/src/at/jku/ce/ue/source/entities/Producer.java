@@ -12,17 +12,17 @@ import java.util.List;
  */
 public class Producer {
 	
-	private int id;
+	private String id;
 	private String name;
 	private List<Part> parts;
-	private final String adress;
+	private String adress;
+	private String plattform;
 	
 	/**
 	 * @param roleId
 	 * @param name
-	 * @param adress
 	 */
-	public Producer(int roleId, String name, String adress) {
+	public Producer(String roleId, String name) {
 		this.id = roleId;
 		this.name = name;
 		this.adress = adress;
@@ -108,14 +108,14 @@ public class Producer {
 	/**
 	 * @return the id
 	 */
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -164,7 +164,7 @@ public class Producer {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((adress == null) ? 0 : adress.hashCode());
-		result = prime * result + id;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((parts == null) ? 0 : parts.hashCode());
 		return result;
@@ -200,6 +200,20 @@ public class Producer {
 		} else if (!parts.equals(other.parts))
 			return false;
 		return true;
+	}
+
+	/**
+	 * @return the plattform
+	 */
+	public String getPlattform() {
+		return plattform;
+	}
+
+	/**
+	 * @param plattform the plattform to set
+	 */
+	public void setPlattform(String plattform) {
+		this.plattform = plattform;
 	}
 	
 }

@@ -31,7 +31,7 @@ public class SupplierClientService implements SupplierService {
 	public Map<String, Producer> getAllProducers() {
 
 		Database db = Database.getInstance();
-
+		Map<String, Producer> storedPoducers = db.getProducers();
 		List<Producer> producers = new LinkedList<Producer>();
 
 		// Managing UDDI Stuff
@@ -39,16 +39,22 @@ public class SupplierClientService implements SupplierService {
 		Map<String, InquiryOrderPlattformService> plattforms = uddi
 				.generateListofEndpoints();
 
-		// Getting all producers of other plattforms
+		// Iterating through all platforms
 		for (InquiryOrderPlattformService plattform : plattforms.values()) {
+			// Getting all producers of other platforms
 			List<String> prods = plattform.getAllProducersOnPlattform();
-//			System.out.println("Plattform: "+plattforms.);
+			
+			// Iterating through all Producers of platform 'plattform'
 			for (String name : prods) {
-				System.out.println("ProdName: " + name);
+				// If not already stored in our database, store it
+				if(!storedPoducers.containsKey(name)){
+					Producer prod = new Producer(name, name);
+					storedPoducers.put(name, prod);
+				}
 			}
 		}
 
-		return null;
+		return storedPoducers;
 	}
 
 	@Override
