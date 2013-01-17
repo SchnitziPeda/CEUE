@@ -34,7 +34,7 @@ public class PartServiceImpl implements PartService {
 	public List<String> getAllPartNames() {
 		List<String> list = new LinkedList<String>();
 		for(Part part : getAllParts()){
-//			System.out.println("part: "+part.getName()+"//"+"producer: "+part.getOfferedBy().getName());
+			System.out.println("part: "+part.getName()+"//"+"producer: "+part.getOfferedBy().getName());
 			list.add(part.getName());
 		}
 		return list;
@@ -55,7 +55,28 @@ public class PartServiceImpl implements PartService {
 				}
 			}
 		}
+		
 		return parts;
 	}
+	
+	/**
+	 * returns all producers for the given part
+	 * @param partId
+	 * @return
+	 */
+	public List<String> getAllProducersForPart(String partId) {
+		List<String> producers = new LinkedList<String>(); 
+		
+		PartServiceImpl partService = new PartServiceImpl();
+		List<Part> list = partService.getAllParts();
+		for(Part part : list){
+			if(part.getName().equals(partId)){
+				producers.add(part.getOfferedBy().getName());
+			}
+		}
+		
+		return producers;
+	}
+
 
 }
