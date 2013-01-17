@@ -66,6 +66,7 @@ page language="java" import="java.io.*"
 			SupplierService supplService = new SupplierServiceImpl();
 
 			List<String> prods = supplService.getAllProducerNames();
+			
 		%>
 		<form class="form-horizontal" name="selectProducer" method="post"
 			action="ProductsAdded.jsp">
