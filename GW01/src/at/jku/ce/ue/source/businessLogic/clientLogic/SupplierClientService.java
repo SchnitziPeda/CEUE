@@ -23,7 +23,6 @@ public class SupplierClientService implements SupplierService{
 		
 		UddiInteraction uddi = new UddiInteraction();
 		
-		
 		SupplierService service = new SupplierServiceImpl();
 		
 		
