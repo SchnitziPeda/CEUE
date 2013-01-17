@@ -34,7 +34,6 @@ public class PartServiceImpl implements PartService {
 	public List<String> getAllPartNames() {
 		List<String> list = new LinkedList<String>();
 		for(Part part : getAllParts()){
-			System.out.println("part: "+part.getName()+"//"+"producer: "+part.getOfferedBy().getName());
 			list.add(part.getName());
 		}
 		return list;

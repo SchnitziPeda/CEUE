@@ -54,7 +54,7 @@ public interface SupplierService {
 	 * @param parts
 	 * @return if adding succeeded
 	 */
-	public boolean addPartsToProducer(int producerId, List<Part> parts);
+	public boolean addPartsToProducer(String producerId, List<String> parts);
 	
 	public List<String> getAllProducersForPart(String partId);
 	

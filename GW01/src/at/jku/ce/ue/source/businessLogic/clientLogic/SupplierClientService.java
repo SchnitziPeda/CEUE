@@ -41,12 +41,13 @@ public class SupplierClientService implements SupplierService {
 		// Iterating through all platforms
 		for (String plattformName : plattforms.keySet()) {
 			// Getting all producers of other platforms
-			List<String> prods = plattforms.get(plattformName).getAllProducersOnPlattform();
-			
+			List<String> prods = plattforms.get(plattformName)
+					.getAllProducersOnPlattform();
+
 			// Iterating through all Producers of platform 'plattform'
 			for (String name : prods) {
 				// If not already stored in our database, store it
-				if(!storedPoducers.containsKey(name)){
+				if (!storedPoducers.containsKey(name)) {
 					Producer prod = new Producer(name, name);
 					prod.setPlattform(plattformName);
 					storedPoducers.put(name, prod);
@@ -59,30 +60,22 @@ public class SupplierClientService implements SupplierService {
 
 	@Override
 	public List<String> getAllProducerNames() {
-		
+
 		Map<String, Producer> producers = getAllProducers();
 		List<Producer> prodList = new LinkedList(producers.values());
 		List<String> prodNames = new LinkedList<String>();
-		
+
 		for (Producer producer : prodList) {
 			prodNames.add(producer.getName());
 		}
-		
+
 		return prodNames;
 	}
 
 	@Override
 	public String registerSupplier(String producerName, String password) {
-		
-		
-		
-		return "-1";
-	}
 
-	@Override
-	public boolean addPartsToProducer(int producerId, List<Part> parts) {
-		// TODO Auto-generated method stub
-		return false;
+		return "-1";
 	}
 
 	@Override
@@ -93,6 +86,12 @@ public class SupplierClientService implements SupplierService {
 
 	@Override
 	public boolean authentificateSupplier(String supplierName) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean addPartsToProducer(String producerId, List<String> parts) {
 		// TODO Auto-generated method stub
 		return false;
 	}

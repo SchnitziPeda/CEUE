@@ -10,21 +10,18 @@ page language="java" import="java.io.*"
 	import="javax.xml.transform.Transformer"
 	import="javax.xml.transform.TransformerFactory"
 	import="javax.xml.transform.stream.StreamResult"
-	import="javax.xml.transform.dom.DOMSource"
-	import="at.jku.ce.ue.source.*" import="at.jku.ce.ue.source.entities.*"
-	import="at.jku.ce.ue.service.*"
-	import="at.jku.ce.ue.source.businessLogic.impl.*"
-	import="java.util.List" import="java.util.ListIterator"
-	import="at.jku.ce.ue.uddi.*"
-	import="at.jku.ce.ue.source.businessLogic.*"
+	import="javax.xml.transform.dom.DOMSource" import="java.util.List"
+	import="java.util.LinkedList" import="java.util.Arrays"
 	import="org.w3c.dom.Document" import="org.w3c.dom.NodeList"
 	import="org.w3c.dom.Node" import="org.w3c.dom.Element"
-	import="at.jku.ce.ue.source.RegisterSupplier"%>
+	import="at.jku.ce.ue.source.RegisterSupplier"
+	import="at.jku.ce.ue.source.presentation.presenter.*"
+	import="at.jku.ce.ue.source.presentation.view.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Add products to producer</title>
+<title>Add Products</title>
 <link rel="stylesheet" type="text/css" href="bootstrap-responsive.css">
 <link rel="stylesheet" type="text/css" href="bootstrap.css">
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -61,48 +58,23 @@ page language="java" import="java.io.*"
 		</ul>
 	</div>
 	<div class="moved-right">
-
 		<%
-			SupplierService supplService = new SupplierServiceImpl();
+			AddProductView addProductPresenter = new AddProductPresenter();
 
-			List<String> prods = supplService.getAllProducerNames();
+			String producerID = request.getParameter("producers");
 
-			PartService pService = new PartServiceImpl();
+			List<String> parts = Arrays.asList(request
+					.getParameterValues("parts"));
 
-			List<String> parts = pService.getAllPartNames();
+			boolean success= addProductPresenter.addProducttoProducer(producerID,parts);
+
+			if (success) {
+				out.println("IT WORKED!");
+			} else {
+				out.println("Your parts wer not added!");
+			}
 		%>
-		<form class="form-horizontal" name="selectProducer" method="post"
-			action="ProductsAdded.jsp">
-			<div class="control-group">
-				<label class="control-label" for="producers">ID of Supplier:</label>
-				<div class="controls">
-					<%
-						out.print("<select name='producers'>");
-						for (String prod : prods) {
-							out.print("<option value=" + prod + ">" + prod + "</option>");
-						}
-						out.print("</select>");
-					%>
-				</div>
-			</div>
-			<div class="control-group">
-				<label class="control-label" for="inputParts">Parts</label>
-				<div class="controls">
-					<%
-						out.print("<select name='parts' size='10' multiple>");
-						for (String p : parts) {
-							out.print("<option value=" + p + ">" + p + "</option>");
-						}
-						out.print("</select>");
-					%>
-				</div>
-			</div>
-			<div class="control-group">
-				<div class="controls">
-					<button type="submit" class="btn">Submit</button>
-				</div>
-			</div>
-		</form>
+
 	</div>
 
 </body>

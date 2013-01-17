@@ -3,6 +3,7 @@
  */
 package at.jku.ce.ue.source.businessLogic.impl;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -100,13 +101,13 @@ public class SupplierServiceImpl implements SupplierService {
 	}
 
 	@Override
-	public boolean addPartsToProducer(int producerId, List<Part> parts) {
+	public boolean addPartsToProducer(String producerId, List<String> parts) {
 
 		Database db = Database.getInstance();
 
 		Producer producer = null;
 
-		if (producerId != 0 && producerId != -1) {
+		if (!producerId.equals("") && !producerId.equals("-1")) {
 			producer = db.getProducers().get(producerId);
 		} else {
 			log.severe("ProducerID is not valid!");
@@ -119,11 +120,17 @@ public class SupplierServiceImpl implements SupplierService {
 		}
 
 		List<Part> partsOfProducer = producer.getParts();
+		List<String> partNames = producer.getPartNames();
 
-		for (Part part : parts) {
-			partsOfProducer.add(part);
+		for (String newPartName : parts) {
+			if (partNames.contains(newPartName)) {
+				return false;
+			}
 		}
-
+		for (String newPartName : parts) {
+			Part p = new Part(newPartName, producer);
+			partsOfProducer.add(p);
+		}
 		return true;
 	}
 

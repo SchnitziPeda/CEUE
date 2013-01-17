@@ -63,6 +63,16 @@ public class Producer {
 	public List<Part> getParts() {
 		return parts;
 	}
+	/**
+	 * @return the parts names
+	 */
+	public List<String> getPartNames() {
+		List<String> names = new LinkedList<String>();
+		for(Part p: parts){
+			names.add(p.getName());			
+		}
+		return names;
+	}
 
 	/**
 	 * @param parts the parts to set
