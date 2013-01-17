@@ -11,4 +11,6 @@ public interface RegisterView {
 	
 	public String registerProducer(String producerName, String passwords);
 	
+	public String registerCustomer(String customerName);
+	
 }

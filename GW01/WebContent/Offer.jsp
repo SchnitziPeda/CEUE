@@ -42,7 +42,9 @@
 	</div>
 	<div class="moved-right">
 		ToDo: Possibility to offer products
-		<%%>
+		<%
+		
+		%>
 	</div>
 
 
