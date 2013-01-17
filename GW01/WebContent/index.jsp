@@ -45,6 +45,7 @@
 		<ul class="nav nav-list">
 			<li class="nav-header">Menu</li>
 			<li><a href="Register.jsp">Register</a></li>
+			<li><a href="AddProducts.jsp">Add products to a producer</a></li>
 			<li><a href="ProdPartListing.jsp">Show all producers and
 					parts on platform</a></li>
 			<li><a href="Order.jsp">Orders</a></li>
