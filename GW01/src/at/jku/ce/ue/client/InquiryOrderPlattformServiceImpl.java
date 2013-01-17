@@ -51,6 +51,9 @@ public class InquiryOrderPlattformServiceImpl implements InquiryOrderPlattformSe
         LOG.info("Executing operation getAllPartsByProducer");
         System.out.println(producerid);
         try {
+        	
+        	
+        	
             java.util.List<java.lang.String> _return = new java.util.ArrayList<java.lang.String>();
             java.lang.String _returnVal1 = "_returnVal1766754543";
             _return.add(_returnVal1);
