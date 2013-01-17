@@ -52,7 +52,7 @@
 				<%
 					SupplierServiceImpl supplService = new SupplierServiceImpl();
 
-					Map<Integer, Producer> prodList = supplService.getAllProducers();
+					Map<String, Producer> prodList = supplService.getAllProducers();
 
 					for (Producer prod : prodList.values()) {
 						out.print("<li>");
