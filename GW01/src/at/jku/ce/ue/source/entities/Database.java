@@ -56,7 +56,7 @@ public class Database {
 	private void createProducers() {
 		for (int i = 0; i < PRODUCER_COUNT; i++) {
 
-			Producer prod = new Producer("GW01Producer" + i, "GW01Producer" + i);
+			Producer prod = new Producer(""+i, "GW01Producer" + i);
 
 			this.producers.put("GW01Producer"+i, prod);
 
@@ -171,18 +171,18 @@ public class Database {
 
 	public String registerProducer(String producerName, String password) {
 
-		String prodId = "GW01Producer"+producerName.hashCode();
+		String prodId = producerName;
 
 		Producer producer = new Producer(prodId, producerName);
 
-		if (!producers.containsKey(prodId))
-			producers.put(prodId, producer);
+		if (!producers.containsKey(producer.getId()))
+			producers.put(producer.getId(), producer);
 		else{
-			prodId = "-1";
 			log.info("Producer was not able to be registered!");
+			return "-1";
 		}
 		
-		return prodId;
+		return producer.getId();
 
 	}
 

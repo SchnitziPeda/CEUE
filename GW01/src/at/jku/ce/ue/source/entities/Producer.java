@@ -23,88 +23,12 @@ public class Producer {
 	 * @param name
 	 */
 	public Producer(String roleId, String name) {
-		this.id = roleId;
+		this.id = "GW01Producer"+roleId;
 		this.name = name;
 		this.adress = adress;
 		this.parts = new LinkedList<Part>();
 	}
 	
-//	@Override
-//	public boolean storeRole() {
-//		
-//		// add new data to xml file:
-//		if (supplierList != null && supplierList.getLength() > 0) {
-//
-//			// read current id:
-//			Node node = null;
-//			for (int i = 0; i < supplierList.getLength(); i++) {
-//				node = supplierList.item(i);
-//			}
-//			if (node.getNodeType() == Node.ELEMENT_NODE) {
-//				Element e = (Element) node;
-//				NodeList ndList = e.getElementsByTagName("id");
-//				NodeList elementValues = ndList.item(0).getChildNodes();
-//				curId = Integer.parseInt(elementValues.item(0)
-//						.getNodeValue());
-//				// raise ID one up:
-//				curId = curId + 1;
-//			}
-//
-//			NodeList ndList = doc.getElementsByTagName("listOfSuppliers");
-//			node = null;
-//			for (int i = 0; i < ndList.getLength(); i++) {
-//				node = ndList.item(i);
-//			}
-//			Element e = (Element) node;
-//
-//			// create new element:
-//			Element newId = doc.createElement("id");
-//			newId.appendChild(doc.createTextNode(Integer.toString(curId)));
-//
-//			Element name = doc.createElement("name");
-//			name.appendChild(doc.createTextNode(supplierName));
-//
-//			Element newSupplier = doc.createElement("supplier");
-//			newSupplier.appendChild(newId);
-//			newSupplier.appendChild(name);
-//
-//			// add parts
-//			Element newParts = doc.createElement("parts");
-//			if (part1.length() != 0) {
-//				Element newPart = doc.createElement("part");
-//				newPart.appendChild(doc.createTextNode(part1));
-//				newParts.appendChild(newPart);
-//			}
-//			if (part2.length() != 0) {
-//				Element newPart = doc.createElement("part");
-//				newPart.appendChild(doc.createTextNode(part2));
-//				newParts.appendChild(newPart);
-//			}
-//			if (part3.length() != 0) {
-//				Element newPart = doc.createElement("part");
-//				newPart.appendChild(doc.createTextNode(part3));
-//				newParts.appendChild(newPart);
-//			}
-//
-//			newSupplier.appendChild(newParts);
-//
-//			// add to list of suppliers
-//			rootElement.appendChild(newSupplier);
-//
-//			DOMSource source = new DOMSource(doc);
-//
-//			// write everything to xml file:
-//			Transformer transformer = TransformerFactory.newInstance()
-//					.newTransformer();
-//			FileOutputStream fos = new FileOutputStream(xmlFile);
-//			StreamResult result = new StreamResult(fos);
-//			transformer.transform(source, result);
-//			fos.flush();
-//			fos.close();
-//		
-//		return false;
-//	}
-
 	/**
 	 * @return the id
 	 */
