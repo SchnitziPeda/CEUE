@@ -28,8 +28,8 @@ public class RegisterPresenter implements RegisterView {
 
 	@Override
 	public String registerCustomer(String customerName) {		
+		
 		CustomerServiceImpl customerService = new CustomerServiceImpl();
-		System.out.println(""+customerName);
 		return customerService.addCustomer(customerName);
 	}
 

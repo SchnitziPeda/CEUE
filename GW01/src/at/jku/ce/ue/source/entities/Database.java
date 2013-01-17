@@ -38,6 +38,7 @@ public class Database {
 	public Database() {
 
 		this.producers = new HashMap<String, Producer>();
+		this.customersOnPlatform = new HashMap<String, Customer>();
 
 		fillWithData();
 
@@ -212,7 +213,6 @@ public class Database {
 			return "-1";
 		}
 
-		
 		return customer.getId();
 	}
 

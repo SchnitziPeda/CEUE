@@ -1,5 +1,6 @@
 <%@page
-	import="at.jku.ce.ue.source.presentation.presenter.RegisterPresenter"%>
+	import="at.jku.ce.ue.source.presentation.presenter.RegisterPresenter"
+%>
 <%@page import="at.jku.ce.ue.source.presentation.view.RegisterView"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -49,17 +50,19 @@
 		if(request.getParameter("submit") != null){
 			RegisterView registerPresenter = new RegisterPresenter();
 
-			String producerName = request.getParameter("inputName");
+			String customerName = request.getParameter("inputName");
 
-			String respond = registerPresenter.registerCustomer(producerName);
+			String resp = registerPresenter.registerCustomer(customerName);
 
-			if (!respond.equals("-1")) {
-				out.println("IT WORKED! Your ID: " + respond);
+			if (!resp.equals("-1")) {
+				out.println("IT WORKED! Your ID: " + resp);
+				response.sendRedirect("createOrder.jsp");
+				
 			} else {
 				out.println("Your registration did not work!");
 			}
 
-			out.println(producerName);	
+			out.println(customerName);	
 		} else {
 
 		%>

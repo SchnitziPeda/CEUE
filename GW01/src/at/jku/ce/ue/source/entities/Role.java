@@ -21,7 +21,11 @@ public abstract class Role {
 	 * @param adress
 	 */
 	public Role(String roleId, boolean isSupplier, String name) {
-		this.id = "GW01Producer"+name;
+		if(isSupplier)
+			this.id = "GW01Producer"+name;
+		else 
+			this.id = "GW01Customer"+name;
+		
 		this.isSupplier = isSupplier;
 		this.name = name;
 	}

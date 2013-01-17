@@ -9,6 +9,7 @@ import java.util.Map;
 
 import at.jku.ce.ue.service.InquiryOrderPlattformService;
 import at.jku.ce.ue.source.UddiInteraction;
+import at.jku.ce.ue.source.businessLogic.PartService;
 import at.jku.ce.ue.source.businessLogic.SupplierService;
 import at.jku.ce.ue.source.entities.Database;
 import at.jku.ce.ue.source.entities.Part;
@@ -18,7 +19,7 @@ import at.jku.ce.ue.source.entities.Producer;
  * @author Schnitzi
  * 
  */
-public class SupplierClientService implements SupplierService {
+public class SupplierClientService implements SupplierService, PartService {
 
 	@Override
 	public Producer getProducer(int producerID) {
@@ -94,6 +95,63 @@ public class SupplierClientService implements SupplierService {
 	public boolean addPartsToProducer(String producerId, List<String> parts) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public Part getPart(String PartID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Part> getAllParts() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<String> getAllPartKeys() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<String> getAllPartNames() {
+		Database db = Database.getInstance();
+		List<String> storedParts = new LinkedList<String>();
+		Map<String, Part> ownParts = db.getPartsOnPlattform();
+		
+		// adding own parts to list
+		for(String key : ownParts.keySet()){
+			Part partname = ownParts.get(key);
+			storedParts.add(partname.getName());
+		}
+		
+		// adding foreign parts to list
+		// Managing UDDI Stuff
+		UddiInteraction uddi = new UddiInteraction();
+		Map<String, InquiryOrderPlattformService> plattforms = uddi.generateListofEndpoints();
+
+		// Iterating through all platforms
+		for (String plattformName : plattforms.keySet()) {
+			// Getting all parts of other platforms
+			List<String> parts = plattforms.get(plattformName).getAllPartsOnPlattform();
+
+			// Iterating through all parts of platform 'plattform'
+			for (String name : parts) {
+				// add parts to current list
+				storedParts.add(name);
+			}
+		}
+
+		return storedParts;
+
+	}
+
+	@Override
+	public List<String> getAllPartsByProducer(String producerId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
