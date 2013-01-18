@@ -4,19 +4,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@
-page language="java" import="java.io.*"
-	import="javax.xml.parsers.DocumentBuilderFactory"
-	import="javax.xml.parsers.DocumentBuilder"
-	import="javax.xml.transform.Transformer"
-	import="javax.xml.transform.TransformerFactory"
-	import="javax.xml.transform.stream.StreamResult"
-	import="javax.xml.transform.dom.DOMSource" import="java.util.List"
-	import="java.util.LinkedList" import="java.util.Arrays"
-	import="org.w3c.dom.Document" import="org.w3c.dom.NodeList"
-	import="org.w3c.dom.Node" import="org.w3c.dom.Element"
+page language="java"
+	import="java.io.*"
+	import="java.util.List"
+	import="java.util.LinkedList"
 	import="at.jku.ce.ue.source.RegisterSupplier"
 	import="at.jku.ce.ue.source.presentation.presenter.*"
-	import="at.jku.ce.ue.source.presentation.view.*"%>
+	import="at.jku.ce.ue.source.presentation.view.*"
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -63,15 +58,20 @@ page language="java" import="java.io.*"
 
 			String producerID = request.getParameter("producers");
 
-			List<String> parts = Arrays.asList(request
-					.getParameterValues("parts"));
+			
+			List<String> storedParts = new LinkedList<String>();
+			// TODO: wrong formular is submitted here 
+			String[] parts = request.getParameterValues("supplierData");
+			for(int i=0;i<parts.length;i++){
+				storedParts.add(parts[i]);
+			}
 
-			boolean success= addProductPresenter.addProductToProducer(producerID,parts);
+			boolean success= addProductPresenter.addProductToProducer(producerID,storedParts);
 
 			if (success) {
 				out.println("IT WORKED!");
 			} else {
-				out.println("Your parts wer not added!");
+				out.println("Your parts were not added!");
 			}
 		%>
 

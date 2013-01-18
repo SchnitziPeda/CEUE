@@ -33,7 +33,7 @@ import="at.jku.ce.ue.uddi.*"
 					class="icon-bar"></span> <span class="icon-bar"></span>
 				</a>
 
-				<!-- Be sure to leave the brand out there if you want it shown -->
+				<!-- Be sure to leave the brand out there if you want it shown -->w
 				<a class="brand" href="#">PLATFORM GW01 - CE UE WS 2012/2013</a>
 
 
