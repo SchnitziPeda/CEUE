@@ -56,10 +56,11 @@
 
 			if (!resp.equals("-1")) {
 				out.println("IT WORKED! Your ID: " + resp);
-				response.sendRedirect("createOrder.jsp?customerId="+customerName);
+				response.sendRedirect("order/createOrder.jsp?customerId="+customerName);
 				
 			} else {
-				out.println("Your registration did not work. <br> We are sorry, it seems you're already registered.");
+				out.println("Your registration did not work. <br> We are sorry, it seems you're already registered.<br>");
+				out.println("You still can go <a href='Customer.jsp'>back</a> and try again.");
 			}
 
 		} else {

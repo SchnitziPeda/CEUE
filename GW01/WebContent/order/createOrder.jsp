@@ -10,8 +10,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Create your order</title>
-<link rel="stylesheet" type="text/css" href="bootstrap-responsive.css">
-<link rel="stylesheet" type="text/css" href="bootstrap.css">
+<link rel="stylesheet" type="text/css" href="../bootstrap-responsive.css">
+<link rel="stylesheet" type="text/css" href="../bootstrap.css">
 </head>
 <body style>
 	<div class="navbar navbar-inverse">
@@ -40,7 +40,7 @@
 	</div>
 	<div class="centered">
 		<ul class="pager">
-			<li class="Home"><a href="index.jsp">&larr; Home</a></li>
+			<li class="Home"><a href="../index.jsp">&larr; Home</a></li>
 		</ul>
 	</div>
 	<div class="moved-right">
@@ -92,14 +92,6 @@
 				Map<String, Integer> supplyChains = supClientService.getSupplyChainForPart(partId, customerId);
 				Iterator entries = supplyChains.entrySet().iterator();
 							
-	// 			out.println("Available producers:");
-	// 			if(producers != null){
-	// 				for(String prod : producers){
-	// 					out.println("Name: "+prod.toString());
-	// 				}	
-	// 			} else {
-	// 				out.println("No producers for that part available!");
-	// 			}
 				%>
 				Available supply chains: <% out.println(supplyChains.size()); %>
 				<div class="control-group">
@@ -110,10 +102,10 @@
 				<i>Show subparts here:</i>
 				</div>
 				<div class="control-group">
-				<form method="post" action="#" name="createOrder">
+				<form method="post" action="saveOrder.jsp" name="saveOrder">
 				<table class="table">
 					<tr>
-						<td>Order</td><td>Producer</td><td>Price</td>
+						<td>Select chain</td><td>Producer</td><td>Price</td>
 					</tr>
 					<%
 					// create supply chains here
@@ -121,15 +113,15 @@
 					while(entries.hasNext()){
 						Map.Entry pairs = (Map.Entry)entries.next();
 						out.println("<tr>");
-						out.println("<td><input type='checkbox' name='order1' class='controls'></td>");
-						out.println("<td>"+pairs.getKey()+"</td>");
-						out.println("<td>"+pairs.getValue()+"</td>");
+						out.println("<td><input type='checkbox' name='order' value='order"+i+"' class='controls'></td>");
+						out.println("<td><input type='hidden' name='producer' value=producer_"+pairs.getKey()+">"+pairs.getKey()+"</td>");
+						out.println("<td><input type='hidden' name='price' value=order_"+pairs.getValue()+">"+pairs.getValue()+"</td>");
 						out.println("</tr>");
 						i++;
 					}
  					%> 
 				</table>
-				<input type="submit" name="submit" value="submit" class="btn">
+				<input type="submit" name="submit" value="save order" class="btn">
 				</form>
 				</div>
 				<%
