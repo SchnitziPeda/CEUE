@@ -8,9 +8,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import at.jku.ce.ue.client.InquiryOrderPlattformServiceImpl;
 import at.jku.ce.ue.service.InquiryOrderPlattformService;
 import at.jku.ce.ue.source.UddiInteraction;
+import at.jku.ce.ue.source.businessLogic.impl.PartServiceImpl;
 import at.jku.ce.ue.source.businessLogic.impl.PriceServiceImpl;
 import at.jku.ce.ue.source.businessLogic.impl.SupplierServiceImpl;
 import at.jku.ce.ue.source.clientLogic.SupplierClientService;
@@ -59,14 +59,30 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 
 	@Override
 	public List<String> getAllProducerNames() {
-
-		Map<String, Producer> producers = getAllProducers();
-		List<Producer> prodList = new LinkedList(producers.values());
 		List<String> prodNames = new LinkedList<String>();
 
+		// get own data first:
+		Map<String, Producer> producers = getAllProducers();
+		List<Producer> prodList = new LinkedList(producers.values());
 		for (Producer producer : prodList) {
 			prodNames.add(producer.getName());
 		}
+		
+		// data of foreign plattforms:
+		UddiInteraction uddi = new UddiInteraction();
+		Map<String, InquiryOrderPlattformService> plattforms = uddi.generateListofEndpoints();
+		// Iterating through all platforms
+		for (String plattformName : plattforms.keySet()) {
+			// Getting all producers of other platforms
+			List<String> prods = plattforms.get(plattformName).getAllProducersOnPlattform();
+			
+			// Iterating through all parts of platform 'plattform'
+			for (String name : prods){
+				// add parts to current list
+				prodNames.add(name);
+			}
+		}
+
 
 		return prodNames;
 	}
@@ -188,6 +204,43 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 
 		
 		return supplyChains;
+	}
+
+	@Override
+	public List<String> getAllPartsByProducer(String producerId) {
+		List<String> allPartsByProducer = new LinkedList<String>();
+		
+		// get own data first
+		PartServiceImpl partService = new PartServiceImpl();
+		allPartsByProducer = partService.getAllPartsByProducer(producerId);
+		
+		
+		// get foreign data:
+		UddiInteraction uddi = new UddiInteraction();
+		Map<String, InquiryOrderPlattformService> plattforms = uddi.generateListofEndpoints();
+		// iterate through:
+		for(String platformName : plattforms.keySet()){
+			List<String> parts = plattforms.get(platformName).getAllPartsByProducer(producerId);
+			for(String pr : parts){
+				allPartsByProducer.add(pr);
+			}
+		}
+
+		return allPartsByProducer;
+	}
+
+	@Override
+	public int getPrice(String customerId, String producerId, String partId,
+			String inquiryId) {
+		
+		// TODO 
+		inquiryId = "123";
+		
+		
+		PriceServiceImpl priceService = new PriceServiceImpl();
+		return priceService.getPrice(customerId, producerId, partId, inquiryId);
+		
+		
 	}
 
 }
