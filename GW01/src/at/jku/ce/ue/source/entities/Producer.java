@@ -14,6 +14,7 @@ public class Producer extends Role {
 	
 	private List<Part> parts;
 	private String plattform;
+	private String level;
 	
 	/**
 	 * @param roleId
@@ -22,8 +23,23 @@ public class Producer extends Role {
 	public Producer(String roleId, String name) {
 		super(roleId, true, name);
 		this.parts = new LinkedList<Part>();
+		this.level = "1";
 	}
 	
+	/**
+	 * @return the level
+	 */
+	public String getLevel() {
+		return level;
+	}
+
+	/**
+	 * @param level the level to set
+	 */
+	public void setLevel(String level) {
+		this.level = level;
+	}
+
 	/**
 	 * @return the id
 	 */

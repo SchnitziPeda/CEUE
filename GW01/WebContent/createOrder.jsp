@@ -2,7 +2,9 @@
 	pageEncoding="ISO-8859-1"%>
 
 <%@ page language="java" import="at.jku.ce.ue.client.*"
-	import="java.util.*" import="java.util.ListIterator"%>
+	import="java.util.*" import="java.util.ListIterator"
+	import="at.jku.ce.ue.bom.*"
+	%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -42,19 +44,15 @@
 		</ul>
 	</div>
 	<div class="moved-right">
-		<%
-		/**
-		IDEE: im hintergrund alle daten generieren, danach mit collapse events die entsprechenden datenfelder anzeigen!
-		*/
+		<%		
 		
+			BOMServiceImpl bomService = new BOMServiceImpl();
+			List<String> parts = bomService.getAllParts();
+			
+				
 		
-			if(request.getParameter("parts")!=null){
-				out.println("show all producers for "+request.getParameter("parts"));
-			}
-		
-		
-			InquiryOrderPlattformServiceImpl inquiryOrder = new InquiryOrderPlattformServiceImpl();
-			List<String> parts = inquiryOrder.getAllPartsOnPlattform();
+// 			InquiryOrderPlattformServiceImpl inquiryOrder = new InquiryOrderPlattformServiceImpl();
+// 			List<String> parts = inquiryOrder.getAllPartsOnPlattform();
 			
 			/*
 			display further menu
@@ -77,6 +75,28 @@
 			out.print("</select>");
 		%>
 		</form>
+		<%
+		if(request.getParameter("parts")!=null){
+			String partId = request.getParameter("parts");
+			
+			List<String> subParts = bomService.getDirectSubPartsOf(partId);
+			
+// 			InquiryOrderPlattformServiceImpl inquiryOrder = new InquiryOrderPlattformServiceImpl();
+// 			List<String> producers = inquiryOrder.getAllProducersForPart(partId);
+						
+// 			out.println("Available producers:");
+// 			if(producers != null){
+// 				for(String prod : producers){
+// 					out.println("Name: "+prod.toString());
+// 				}	
+// 			} else {
+// 				out.println("No producers for that part available!");
+// 			}
+			
+		}
+		
+		%>
+		
 		</div>
 	</div>
 </body>

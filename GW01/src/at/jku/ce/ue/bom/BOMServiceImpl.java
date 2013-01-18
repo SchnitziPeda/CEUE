@@ -35,10 +35,15 @@ public class BOMServiceImpl implements BOMService {
         LOG.info("Executing operation getDirectSubPartsOf");
         System.out.println(arg0);
         try {
-            java.util.List<java.lang.String> _return = new java.util.ArrayList<java.lang.String>();
-            java.lang.String _returnVal1 = "_returnVal1875170331";
-            _return.add(_returnVal1);
-            return _return;
+        	
+        	PartServiceImpl partService = new PartServiceImpl();
+        	return partService.getDirectSubPartsOf(arg0);
+        	
+        	
+//            java.util.List<java.lang.String> _return = new java.util.ArrayList<java.lang.String>();
+//            java.lang.String _returnVal1 = "_returnVal1875170331";
+//            _return.add(_returnVal1);
+//            return _return;
         } catch (java.lang.Exception ex) {
             ex.printStackTrace();
             throw new RuntimeException(ex);

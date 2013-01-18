@@ -57,25 +57,17 @@ public class PartServiceImpl implements PartService {
 		
 		return parts;
 	}
-	
-	/**
-	 * returns all producers for the given part
-	 * @param partId
-	 * @return
-	 */
-	public List<String> getAllProducersForPart(String partId) {
-		List<String> producers = new LinkedList<String>(); 
+
+	@Override
+	public List<String> getDirectSubPartsOf(String partId) {
+		/*
+		 * TODO:
+		 * return direct subparts of given part
+		 */
 		
-		PartServiceImpl partService = new PartServiceImpl();
-		List<Part> list = partService.getAllParts();
-		for(Part part : list){
-			if(part.getName().equals(partId)){
-				producers.add(part.getOfferedBy().getName());
-			}
-		}
-		
-		return producers;
+		return null;
 	}
+	
 
 
 }

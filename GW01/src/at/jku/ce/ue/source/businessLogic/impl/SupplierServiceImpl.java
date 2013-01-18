@@ -3,11 +3,9 @@
  */
 package at.jku.ce.ue.source.businessLogic.impl;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -144,8 +142,16 @@ public class SupplierServiceImpl implements SupplierService {
 		PartServiceImpl partService = new PartServiceImpl();
 		List<Part> list = partService.getAllParts();
 		for (Part part : list) {
-			if (part.getName().equals(partId)) {
-				producers.add(part.getOfferedBy().getName());
+			System.out.println(part.getName());
+			if(part.getName().equals(partId)){
+				/*
+				 * TODO: getOfferedBy().getName() -> returns null! 
+				 * instead: getId() is used
+				 */
+				if(part.getOfferedBy() != null)
+					producers.add(part.getOfferedBy().getId());
+				else 
+					producers.add("Producer is missing!");
 			}
 		}
 

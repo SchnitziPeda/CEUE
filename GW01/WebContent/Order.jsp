@@ -1,4 +1,4 @@
-<%@page import="at.jku.ce.ue.source.businessLogic.clientLogic.SupplierClientService"%>
+<%@page import="at.jku.ce.ue.source.clientLogic.impl.SupplierClientServiceImpl"%>
 <%@page import="at.jku.ce.ue.source.businessLogic.SupplierService"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -56,29 +56,28 @@ import="at.jku.ce.ue.uddi.*"
 		<div>
 			ToDo: Possibility to order some parts: <br> <br>
 			<%
+				SupplierService supplService = new SupplierClientServiceImpl();
 				
-			SupplierService supplService = new SupplierClientService();
-			
-			Map<String, Producer> prods = supplService.getAllProducers();
-			
-				//OrderParts availableParts = new OrderParts();
-				// List<String> list = availableParts.testInqiury();
-				// ListIterator iter1 = list.listIterator();
+				Map<String, Producer> prods = supplService.getAllProducers();
+				
+					//OrderParts availableParts = new OrderParts();
+					// List<String> list = availableParts.testInqiury();
+					// ListIterator iter1 = list.listIterator();
 
-				// String plattformName = "gruppe4";
-				// System.out.print(Init.getUddiReg().getWsdlOfPlattform(plattformName));
-				// String plattformName = "gruppe 1 publisher";
-				//UddiInteraction uddiInter = new UddiInteraction();
-				// uddiInter.deleteService();
-				// uddiInter.publishPlattformAndService();
-// 				List<InquiryOrderPlattformService> list = uddiInter
-// 						.generateListofEndpoints();
-				// ListIterator iter1 = list.listIterator();
-				// out.println("size: "+list.size());
-				// System.out.print(uddiReg.publishPlattformAndService());
+					// String plattformName = "gruppe4";
+					// System.out.print(Init.getUddiReg().getWsdlOfPlattform(plattformName));
+					// String plattformName = "gruppe 1 publisher";
+					//UddiInteraction uddiInter = new UddiInteraction();
+					// uddiInter.deleteService();
+					// uddiInter.publishPlattformAndService();
+			// 				List<InquiryOrderPlattformService> list = uddiInter
+			// 						.generateListofEndpoints();
+					// ListIterator iter1 = list.listIterator();
+					// out.println("size: "+list.size());
+					// System.out.print(uddiReg.publishPlattformAndService());
 
-				// System.out.print(Init.getUddiReg().isRegistered(plattformName));
-				// System.out.print(Init.getUddiReg().getWsdlOfPlattform(plattformName));
+					// System.out.print(Init.getUddiReg().isRegistered(plattformName));
+					// System.out.print(Init.getUddiReg().getWsdlOfPlattform(plattformName));
 			%>
 			<form name="selectedParts" method="post" action="Order.jsp">
 				<%

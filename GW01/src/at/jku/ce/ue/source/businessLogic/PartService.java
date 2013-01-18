@@ -38,6 +38,7 @@ public interface PartService {
 	
 	public List<String> getAllPartsByProducer(String producerId);
 	
+	public List<String> getDirectSubPartsOf(String partId);
 	
 	
 }
