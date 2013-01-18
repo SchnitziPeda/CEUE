@@ -43,7 +43,7 @@
 	
 	// TODO: recieving more than one form parameter...
 	
-	out.println(request.getParameter("order"));
+// 	out.println(request.getParameter("order"));
 						
 	String[] parts = request.getParameterValues("producer");
 	for(int i=0;i<parts.length;i++){

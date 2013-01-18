@@ -46,6 +46,7 @@
 			<li class="nav-header">Menu</li>
 			<li><a href="Register.jsp">Register as Supplier</a></li>
 			<li><a href="Customer.jsp">Register as Customer</a></li>
+			<li><a href="monitoring/index.jsp">Monitoring</a></li>
 			<hr>
 			For testing: 
 			<li><a href="AddProducts.jsp">Add products to a producer</a></li>
@@ -54,7 +55,7 @@
 			<li><a href="Offer.jsp">Offers</a></li>
 			<li><a href="checkOffers.jsp">Check Offers - without
 					concrete order possible</a></li>
-			<li><a href="monitoring/index.jsp">Monitoring</a>
+
 		</ul>
 	</div>
 

@@ -91,6 +91,7 @@
 	
 				Map<String, Integer> supplyChains = supClientService.getSupplyChainForPart(partId, customerId);
 				Iterator entries = supplyChains.entrySet().iterator();
+				if(supplyChains.size()>0){
 							
 				%>
 				Available supply chains: <% out.println(supplyChains.size()); %>
@@ -125,6 +126,9 @@
 				</form>
 				</div>
 				<%
+				} else	{
+					out.println("Sorry, currently are no supply chains available.");
+				}
 			} catch(Exception e){
 				out.println("Sorry, currently are no supply chains available.");
 			}

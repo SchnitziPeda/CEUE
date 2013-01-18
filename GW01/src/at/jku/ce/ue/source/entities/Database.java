@@ -40,6 +40,7 @@ public class Database {
 		this.producers = new HashMap<String, Producer>();
 		this.customersOnPlatform = new HashMap<String, Customer>();
 
+
 		fillWithData();
 
 	}
