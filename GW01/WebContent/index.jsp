@@ -44,12 +44,12 @@
 	<div class="moved-right">
 		<ul class="nav nav-list">
 			<li class="nav-header">Menu</li>
-			<li><a href="Register.jsp">Register</a></li>
+			<li><a href="Register.jsp">Register as Supplier</a></li>
 			<li><a href="Customer.jsp">Register as Customer</a></li>
-			
-					<li><a href="AddProducts.jsp">Add products to a producer</a></li>
-			<li><a href="ProdPartListing.jsp">Show all producers and
-					parts on platform</a></li>
+			<hr>
+			For testing: 
+			<li><a href="AddProducts.jsp">Add products to a producer</a></li>
+			<li><a href="ProdPartListing.jsp">Show all producers and parts on platform</a></li>
 <!-- 			<li><a href="createOrder.jsp">Create Order</a></li> -->
 			<li><a href="Offer.jsp">Offers</a></li>
 			<li><a href="checkOffers.jsp">Check Offers - without
