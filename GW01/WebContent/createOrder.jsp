@@ -46,8 +46,11 @@
 	<div class="moved-right">
 		<%		
 		
-			BOMServiceImpl bomService = new BOMServiceImpl();
-			List<String> parts = bomService.getAllParts();
+// 			BOMServiceImpl bomService = new BOMServiceImpl();
+// 			List<String> parts = bomService.getAllParts();
+
+			SupplierClientServiceImpl supClient = new SupplierClientServiceImpl();
+			List<String> parts = supClient.getAllPartNames();
 
 // 			InquiryOrderPlattformServiceImpl inquiryOrder = new InquiryOrderPlattformServiceImpl();
 // 			List<String> parts = inquiryOrder.getAllPartsOnPlattform();
@@ -79,7 +82,8 @@
 			String partId = request.getParameter("parts");
 			String customerId = request.getParameter("customerId");
 			
-			List<String> subParts = bomService.getDirectSubPartsOf(partId);
+			// TODO: direct sub parts have to be shown
+// 			List<String> subParts = bomService.getDirectSubPartsOf(partId);
 			
 			SupplierClientServiceImpl supClientService = new SupplierClientServiceImpl();
 			
@@ -101,8 +105,9 @@
 				<div class="control-group">
 				Your have selected:<br>
 				<% out.println(partId); %>
+				<br>
 				Direct sub-parts of that:<br>
-				<i>Show subparts here</i>
+				<i>Show subparts here:</i>
 				</div>
 				<div class="control-group">
 				<form method="post" action="#" name="createOrder">
@@ -110,19 +115,19 @@
 					<tr>
 						<td>Order</td><td>Producer</td><td>Price</td>
 					</tr>
-					<tr>
-						<%
-						// create supply chains here
-						int i=0;
-						while(entries.hasNext()){
-							Map.Entry pairs = (Map.Entry)entries.next();
-							out.println("<td><input type='checkbox' name='order1'></td>");
-							out.println("<td>"+pairs.getKey()+"</td>");
-							out.println("<td>"+pairs.getValue()+"</td>");
-							i++;
-						}
-	 					%> 
-					</tr>
+					<%
+					// create supply chains here
+					int i=0;
+					while(entries.hasNext()){
+						Map.Entry pairs = (Map.Entry)entries.next();
+						out.println("<tr>");
+						out.println("<td><input type='checkbox' name='order1' class='controls'></td>");
+						out.println("<td>"+pairs.getKey()+"</td>");
+						out.println("<td>"+pairs.getValue()+"</td>");
+						out.println("</tr>");
+						i++;
+					}
+ 					%> 
 				</table>
 				<input type="submit" name="submit" value="submit" class="btn">
 				</form>

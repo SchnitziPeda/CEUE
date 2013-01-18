@@ -43,8 +43,6 @@
 		</ul>
 	</div>
 	<div class="moved-right">
-		ToDo: Possibility for a product manager to identify his top customers,
-		save request to the database etc.
 
 		<%
 		/**

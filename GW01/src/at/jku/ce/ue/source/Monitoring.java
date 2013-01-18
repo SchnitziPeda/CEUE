@@ -30,6 +30,17 @@ public class Monitoring {
 			e.printStackTrace();
 		}
 	}
+	
+	public void closeConnection() {
+		try {
+			conn.close();
+			System.out.print("connection closed");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 
 	public ResultSet getAllData() {
 		ResultSet rs = null;
@@ -59,14 +70,6 @@ public class Monitoring {
 		return rs;
 	}
 
-	public void closeConnection() {
-		try {
-			conn.close();
-			System.out.print("connection closed");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+
 
 }
