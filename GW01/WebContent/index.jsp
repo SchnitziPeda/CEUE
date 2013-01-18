@@ -50,7 +50,7 @@
 					<li><a href="AddProducts.jsp">Add products to a producer</a></li>
 			<li><a href="ProdPartListing.jsp">Show all producers and
 					parts on platform</a></li>
-			<li><a href="createOrder.jsp">Create Order</a></li>
+<!-- 			<li><a href="createOrder.jsp">Create Order</a></li> -->
 			<li><a href="Offer.jsp">Offers</a></li>
 			<li><a href="checkOffers.jsp">Check Offers - without
 					concrete order possible</a></li>

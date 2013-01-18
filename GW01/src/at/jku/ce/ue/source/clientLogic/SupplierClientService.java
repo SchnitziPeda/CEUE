@@ -24,4 +24,6 @@ public interface SupplierClientService {
 	public List<String> getAllPartNames();
 	
 	public List<String> getDirectSubPartsOf(String partId);
+	
+	public Map<String, Integer> getSupplyChainForPart(String partId, String customerId);
 }

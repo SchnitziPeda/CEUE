@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
-<%@ page language="java" import="at.jku.ce.ue.client.*"
+<%@ page language="java" import="at.jku.ce.ue.source.clientLogic.impl.*"
 	import="java.util.*" import="java.util.ListIterator"
 	import="at.jku.ce.ue.bom.*"
 	%>
@@ -48,9 +48,7 @@
 		
 			BOMServiceImpl bomService = new BOMServiceImpl();
 			List<String> parts = bomService.getAllParts();
-			
-				
-		
+
 // 			InquiryOrderPlattformServiceImpl inquiryOrder = new InquiryOrderPlattformServiceImpl();
 // 			List<String> parts = inquiryOrder.getAllPartsOnPlattform();
 			
@@ -67,6 +65,7 @@
 		</div>
 		<div class="controls">
 		<form name="supplyChainData" method="post" action="createOrder.jsp">
+		<input type="hidden" name="customerId" value="<% out.println(request.getParameter("customerId")); %>">
 		<%
 			out.print("<select name='parts' onChange='this.form.submit()'>");
 			for (String pd : parts) {
@@ -76,27 +75,66 @@
 		%>
 		</form>
 		<%
-		if(request.getParameter("parts")!=null){
+		if(request.getParameter("parts")!=null && request.getParameter("customerId") != null){
 			String partId = request.getParameter("parts");
+			String customerId = request.getParameter("customerId");
 			
 			List<String> subParts = bomService.getDirectSubPartsOf(partId);
 			
-// 			InquiryOrderPlattformServiceImpl inquiryOrder = new InquiryOrderPlattformServiceImpl();
-// 			List<String> producers = inquiryOrder.getAllProducersForPart(partId);
-						
-// 			out.println("Available producers:");
-// 			if(producers != null){
-// 				for(String prod : producers){
-// 					out.println("Name: "+prod.toString());
-// 				}	
-// 			} else {
-// 				out.println("No producers for that part available!");
-// 			}
+			SupplierClientServiceImpl supClientService = new SupplierClientServiceImpl();
 			
+			try{
+	
+				Map<String, Integer> supplyChains = supClientService.getSupplyChainForPart(partId, customerId);
+				Iterator entries = supplyChains.entrySet().iterator();
+							
+	// 			out.println("Available producers:");
+	// 			if(producers != null){
+	// 				for(String prod : producers){
+	// 					out.println("Name: "+prod.toString());
+	// 				}	
+	// 			} else {
+	// 				out.println("No producers for that part available!");
+	// 			}
+				%>
+				Available supply chains: <% out.println(supplyChains.size()); %>
+				<div class="control-group">
+				Your have selected:<br>
+				<% out.println(partId); %>
+				Direct sub-parts of that:<br>
+				<i>Show subparts here</i>
+				</div>
+				<div class="control-group">
+				<form method="post" action="#" name="createOrder">
+				<table class="table">
+					<tr>
+						<td>Order</td><td>Producer</td><td>Price</td>
+					</tr>
+					<tr>
+						<%
+						// create supply chains here
+						int i=0;
+						while(entries.hasNext()){
+							Map.Entry pairs = (Map.Entry)entries.next();
+							out.println("<td><input type='checkbox' name='order1'></td>");
+							out.println("<td>"+pairs.getKey()+"</td>");
+							out.println("<td>"+pairs.getValue()+"</td>");
+							i++;
+						}
+	 					%> 
+					</tr>
+				</table>
+				<input type="submit" name="submit" value="submit" class="btn">
+				</form>
+				</div>
+				<%
+			} catch(Exception e){
+				out.println("Sorry, currently are no supply chains available.");
+			}
 		}
 		
 		%>
-		
+			
 		</div>
 	</div>
 </body>

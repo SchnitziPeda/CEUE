@@ -3,14 +3,15 @@
  */
 package at.jku.ce.ue.source.clientLogic.impl;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import at.jku.ce.ue.client.InquiryOrderPlattformServiceImpl;
 import at.jku.ce.ue.service.InquiryOrderPlattformService;
 import at.jku.ce.ue.source.UddiInteraction;
-import at.jku.ce.ue.source.businessLogic.PartService;
-import at.jku.ce.ue.source.businessLogic.SupplierService;
+import at.jku.ce.ue.source.businessLogic.impl.PriceServiceImpl;
 import at.jku.ce.ue.source.businessLogic.impl.SupplierServiceImpl;
 import at.jku.ce.ue.source.clientLogic.SupplierClientService;
 import at.jku.ce.ue.source.entities.Database;
@@ -150,6 +151,43 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 	public List<String> getDirectSubPartsOf(String partId) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Map<String, Integer> getSupplyChainForPart(String partId, String customerId) {
+		Map<String, Integer> supplyChains = new HashMap<String, Integer>();
+		
+		// TODO: 
+		String inquiryId = "123";
+		
+		// get data of own plattform
+			// get producers for part first:
+			SupplierServiceImpl supService = new SupplierServiceImpl();
+			List<String> producers = supService.getAllProducersForPart(partId);
+			// get price of producers:
+			PriceServiceImpl priceService = new PriceServiceImpl();
+			supplyChains = priceService.getPriceForProducers(producers, partId);
+			
+		// get data of foreign plattforms
+			UddiInteraction uddi = new UddiInteraction();
+			Map<String, InquiryOrderPlattformService> plattforms = uddi.generateListofEndpoints();
+
+			// iterate through all plattforms:
+			for(String platformName : plattforms.keySet()){
+				// Getting all producers for parts of foreign plattforms
+				List<String> producerForeignPlatform = plattforms.get(platformName).getAllProducersForPart(partId);
+				for(String prod : producerForeignPlatform){
+					// get prices for given product of foreign platform;
+					int price = plattforms.get(platformName).getPrice(customerId, prod, partId, inquiryId);
+					if(price >= 0){
+						// add price and producer to list
+						supplyChains.put(prod, price);
+					}
+				}
+			}
+
+		
+		return supplyChains;
 	}
 
 }
