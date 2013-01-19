@@ -45,23 +45,13 @@ import="at.jku.ce.ue.source.clientLogic.impl.*"
 	<div class="moved-right">
 		<%
 	
-	// TODO: recieving more than one form parameter...
-	
-// 	out.println(request.getParameter("order"));
-	
 	String customerId = request.getParameter("customerId");
 	String partId = request.getParameter("partId");
 						
-// 	String[] parts = request.getParameterValues("producer");
-// 	for(int i=0;i<parts.length;i++){
-// 		out.println(parts[i]);
-// 	}
 		
 	if(request.getParameter("order")!=null){
-		out.println("Your order will now be saved. Thanks for ordering!");
 		
 		if(request.getParameterValues("producer")!=null && request.getParameter("price") != null){
-			out.println("we will save it now");
 			
 			String[] orders = request.getParameterValues("order");
 		 	String[] producers = request.getParameterValues("producer");
@@ -71,23 +61,9 @@ import="at.jku.ce.ue.source.clientLogic.impl.*"
 			SupplierClientServiceImpl supClient = new SupplierClientServiceImpl();
 			supClient.saveOrders(customerId, partId, orders, producers, prices);
 			
-// 		 	for(int i=0;i<orders.length;i++){
-// 	 			out.println(orders[i]); 
-// 	 		}
-		 	
-// 		 	for(int i=0;i<prodcuers.length;i++){
-// 	 			out.println(prodcuers[i]); 
-// 	 		}
-		 	
-// 		 	for(int i=0;i<price.length;i++){
-// 	 			out.println(price[i]); 
-// 	 		}
+			out.println("Your order will now be saved. Thanks for ordering!");
 			
 		}
-				
-		
-				
-				
 				
 				
 	} else {
