@@ -138,7 +138,7 @@ public class SupplierServiceImpl implements SupplierService {
 	@Override
 	public List<String> getAllProducersForPart(String partId) {
 		List<String> producers = new LinkedList<String>();
-
+		
 		PartServiceImpl partService = new PartServiceImpl();
 		List<Part> list = partService.getAllParts();
 		for (Part part : list) {
@@ -146,7 +146,7 @@ public class SupplierServiceImpl implements SupplierService {
 			if(part.getName().equals(partId)){
 				/*
 				 * TODO: getOfferedBy().getName() -> returns null! 
-				 * instead: getId() is used
+				 * instead: getId() is used -> doesnt work either
 				 */
 				if(part.getOfferedBy() != null)
 					producers.add(part.getOfferedBy().getId());

@@ -173,7 +173,7 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 	@Override
 	public Map<String, Integer> getSupplyChainForPart(String partId, String customerId) {
 		Map<String, Integer> supplyChains = new HashMap<String, Integer>();
-		
+
 		// TODO: 
 		String inquiryId = "123";
 		
@@ -181,9 +181,11 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 			// get producers for part first:
 			SupplierServiceImpl supService = new SupplierServiceImpl();
 			List<String> producers = supService.getAllProducersForPart(partId);
+
 			// get price of producers:
 			PriceServiceImpl priceService = new PriceServiceImpl();
 			supplyChains = priceService.getPriceForProducers(producers, partId);
+//			System.out.println(supplyChains.size());
 			
 		// get data of foreign plattforms
 			UddiInteraction uddi = new UddiInteraction();
