@@ -28,6 +28,11 @@ public class PriceServiceImpl implements PriceService {
 	public Map<String, Integer> getPriceForProducers(List<String> producer, String partid) {
 		Map<String, Integer> prices = new HashMap<String, Integer>();
 		
+		/*
+		 * TODO
+		 * price logic for calculating end prices should go here 
+		 */
+		
 		Database db = Database.getInstance();
 		Map<String, Producer> producerFromDatabase = db.getProducers();
 		for(Producer prod : producerFromDatabase.values()){

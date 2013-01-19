@@ -216,6 +216,17 @@ public class Database {
 
 		return customer.getId();
 	}
+	
+
+	/**
+	 * saves a given order
+	 * @param order
+	 * @param producer
+	 * @param price
+	 */
+	public void saveOrder(String order, String producer, int price){
+		// TODO
+	}
 
 	/**
 	 * @return the producers

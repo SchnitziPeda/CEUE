@@ -63,6 +63,10 @@
 			*/
 		%>
 		<div class="control-group">
+		Your Customer-ID: <% out.println(request.getParameter("customerId")); %>
+		</div>
+		<br />
+		<div class="control-group">
 			<label class="control-label" for="inputName">Select your
 				product: </label>
 		</div>
@@ -104,6 +108,8 @@
 				</div>
 				<div class="control-group">
 				<form method="post" action="saveOrder.jsp" name="saveOrder">
+				<input type="hidden" name="customerId" value="<% out.println(request.getParameter("customerId")); %>">
+				<input type="hidden" name="partId" value="<% out.println(request.getParameter(partId)); %>">
 				<table class="table">
 					<tr>
 						<td>Select chain</td><td>Producer</td><td>Price</td>
@@ -114,9 +120,9 @@
 					while(entries.hasNext()){
 						Map.Entry pairs = (Map.Entry)entries.next();
 						out.println("<tr>");
-						out.println("<td><input type='checkbox' name='order' value='order"+i+"' class='controls'></td>");
-						out.println("<td><input type='hidden' name='producer' value=producer_"+pairs.getKey()+">"+pairs.getKey()+"</td>");
-						out.println("<td><input type='hidden' name='price' value=order_"+pairs.getValue()+">"+pairs.getValue()+"</td>");
+						out.println("<td><input type='checkbox' name='order' value='order#"+i+"' class='controls'></td>");
+						out.println("<td><input type='hidden' name='producer' value="+pairs.getKey()+"#"+i+">"+pairs.getKey()+"</td>");
+						out.println("<td><input type='hidden' name='price' value="+pairs.getValue()+"#"+i+">"+pairs.getValue()+"</td>");
 						out.println("</tr>");
 						i++;
 					}

@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import at.jku.ce.ue.log.WriteLogServiceImpl;
 import at.jku.ce.ue.service.InquiryOrderPlattformService;
 import at.jku.ce.ue.source.UddiInteraction;
 import at.jku.ce.ue.source.businessLogic.impl.PartServiceImpl;
@@ -240,6 +241,56 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 		PriceServiceImpl priceService = new PriceServiceImpl();
 		return priceService.getPrice(customerId, producerId, partId, inquiryId);
 		
+		
+	}
+
+	@Override
+	public void saveOrders(String customerId, String partId, String[] orders, String[] producers, String[] prices) {
+		Database db = Database.getInstance();
+		
+		// assemble data for orders to be saved
+		for(int i=0;i<orders.length;i++){
+			int pos = orders[i].indexOf("#");
+			String numberOfOrder = orders[i].substring(pos+1);
+//			System.out.println(orders[i]+numberOfOrder);
+			
+			for(int j=0;j<producers.length;j++){
+				int p = producers[j].indexOf("#");
+				String number = producers[j].substring(p+1);
+//				System.out.println(producers[j]+number);
+				
+				if(numberOfOrder.equals(number)){
+					for(int k=0;k<prices.length;k++){
+						int po = prices[k].indexOf("#");
+						String numb = prices[k].substring(po+1);
+						
+						if(number.equals(numb)){
+							int price = Integer.parseInt(prices[k].substring(0, po));
+							String producerName = producers[j].substring(0, p);
+							String order = orders[i].substring(0, pos);
+							
+							System.out.println("order: "+order+" producer: "+producerName+" price: "+price);
+							// TODO: what do we have to save?
+							db.saveOrder(order, producerName, price); 
+							
+							// save order as log in monitoring database
+							// TODO:
+							String inquiryid = "GW01_inquiry";
+							String offerid = "GW01_offerid";
+							String orderid = "GW01_orderid";
+							
+							WriteLogServiceImpl logService = new WriteLogServiceImpl();
+							logService.logOrder(customerId, producerName, partId, price, inquiryid, offerid, orderid);
+
+						}
+					}
+					
+
+				}
+				
+			}
+		}
+					
 		
 	}
 
