@@ -74,7 +74,7 @@ page language="java" import="java.io.*" import="java.util.List"
 			}
 
 			addProductPresenter.setPartsList(partsList);
-
+			application.setAttribute("addProductPresenter", addProductPresenter);
 			// 						List<String> storedParts = new LinkedList<String>();
 			// 						String[] parts = request.getParameterValues("parts");
 			// 						for (int i = 0; i < parts.length; i++) {

@@ -63,6 +63,7 @@
 						for (Part part : partsOfProd) {
 							out.print("<li>");
 							out.println(part.getName());
+							out.println("- Price: " + part.getPrice() + ",-");
 							out.print("</li>");
 						}
 						out.print("</ul>");

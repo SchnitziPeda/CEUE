@@ -52,7 +52,8 @@ page language="java" import="java.io.*" import="java.util.List"
 	</div>
 	<div class="moved-right">
 		<%
-			AddProductView addProductPresenter = new AddProductPresenter();
+			AddProductView addProductPresenter = (AddProductView) application
+					.getAttribute("addProductPresenter");
 			List<Part> parts = addProductPresenter.getPartsList();
 			int price;
 			boolean success;
@@ -61,6 +62,7 @@ page language="java" import="java.io.*" import="java.util.List"
 				p.setPrice(price);
 				success = addProductPresenter.addProductToProducer(
 						p.getOfferedBy(), p);
+
 				if (success) {
 					out.println(p.getName() + " was added!");
 				} else {

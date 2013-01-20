@@ -22,24 +22,21 @@ public class Database {
 	private static Logger log = Logger.getLogger("Database");
 
 	private static final int PRODUCER_COUNT = 15;
-	
+
 	private static Database database;
 
 	private Map<String, Producer> producers;
 
 	private Map<String, Part> partsOnPlattform;
-	
-	private Map<String, Customer> customersOnPlatform;
-	
-	private List<Offer> offersOfPlatform;
-	
 
+	private Map<String, Customer> customersOnPlatform;
+
+	private List<Offer> offersOfPlatform;
 
 	public Database() {
 
 		this.producers = new HashMap<String, Producer>();
 		this.customersOnPlatform = new HashMap<String, Customer>();
-
 
 		fillWithData();
 
@@ -58,15 +55,15 @@ public class Database {
 		createProducers();
 
 		producePartsForProducer();
-		
+
 	}
 
 	private void createProducers() {
 		for (int i = 0; i < PRODUCER_COUNT; i++) {
 
-			Producer prod = new Producer(""+i, "GW01Producer" + i);
+			Producer prod = new Producer("" + i, "" + i);
 
-			this.producers.put("GW01Producer"+i, prod);
+			this.producers.put(prod.getId(), prod);
 
 		}
 	}
@@ -99,7 +96,7 @@ public class Database {
 				int prodId = rand.nextInt(PRODUCER_COUNT);
 				part = new Part(count, partName, producers.get(prodId));
 				count += 1;
-				producers.get("GW01Producer"+prodId).getParts().add(part);
+				producers.get("GW01Producer" + prodId).getParts().add(part);
 			}
 
 			// Get all subParts of actual looked part
@@ -126,7 +123,7 @@ public class Database {
 					subPart = new Part(count, subPartName,
 							producers.get(prodId));
 					count += 1;
-					producers.get("GW01Producer"+prodId).getParts().add(part);
+					producers.get("GW01Producer" + prodId).getParts().add(part);
 				}
 
 				// Add 'subPart' as subpart of 'part'
@@ -185,46 +182,47 @@ public class Database {
 
 		if (!producers.containsKey(producer.getId()))
 			producers.put(producer.getId(), producer);
-		else{
+		else {
 			log.info("Producer was not able to be registered!");
 			return "-1";
 		}
-		
+
 		return producer.getId();
 
 	}
 
 	public Producer getProducer(String prodId) {
-		return null;
+		return producers.get(prodId);
 	}
-	
+
 	/**
 	 * registers a new customer
+	 * 
 	 * @param customerName
 	 * @return
 	 */
-	public String registerCustomer(String customerName){
+	public String registerCustomer(String customerName) {
 		String customerId = customerName;
 		Customer customer = new Customer(customerId, customerName);
-		
-		if(!customersOnPlatform.containsKey(customer.getId()))
+
+		if (!customersOnPlatform.containsKey(customer.getId()))
 			customersOnPlatform.put(customer.getId(), customer);
-		else{
+		else {
 			log.info("Customer was not able to be registered!");
 			return "-1";
 		}
 
 		return customer.getId();
 	}
-	
 
 	/**
 	 * saves a given order
+	 * 
 	 * @param order
 	 * @param producer
 	 * @param price
 	 */
-	public void saveOrder(String order, String producer, int price){
+	public void saveOrder(String order, String producer, int price) {
 		// TODO
 	}
 
@@ -236,7 +234,8 @@ public class Database {
 	}
 
 	/**
-	 * @param producers the producers to set
+	 * @param producers
+	 *            the producers to set
 	 */
 	public void setProducers(Map<String, Producer> producers) {
 		this.producers = producers;
@@ -253,12 +252,13 @@ public class Database {
 	}
 
 	/**
-	 * @param partsOnPlattform the partsOnPlattform to set
+	 * @param partsOnPlattform
+	 *            the partsOnPlattform to set
 	 */
 	public void setPartsOnPlattform(Map<String, Part> partsOnPlattform) {
 		this.partsOnPlattform = partsOnPlattform;
 	}
-	
+
 	public Map<String, Customer> getCustomersOnPlatform() {
 		return customersOnPlatform;
 	}
@@ -266,6 +266,5 @@ public class Database {
 	public void setCustomersOnPlatform(Map<String, Customer> customersOnPlatform) {
 		this.customersOnPlatform = customersOnPlatform;
 	}
-
 
 }
