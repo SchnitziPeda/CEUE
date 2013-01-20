@@ -9,6 +9,7 @@ import="at.jku.ce.ue.source.entities.*"
 import="at.jku.ce.ue.service.*"
 import="at.jku.ce.ue.source.clientLogic.*"
 import="java.util.Map"
+import="java.util.*"
 import="java.util.ListIterator"
 import="at.jku.ce.ue.uddi.*"
  %>
@@ -56,9 +57,9 @@ import="at.jku.ce.ue.uddi.*"
 		<div>
 			ToDo: Possibility to order some parts: <br> <br>
 			<%
-				SupplierService supplService = new SupplierClientServiceImpl();
+// 				SupplierService supplService = new SupplierClientServiceImpl();
 				
-				Map<String, Producer> prods = supplService.getAllProducers();
+// 				Map<String, Producer> prods = supplService.getAllProducers();
 				
 					//OrderParts availableParts = new OrderParts();
 					// List<String> list = availableParts.testInqiury();
@@ -67,11 +68,11 @@ import="at.jku.ce.ue.uddi.*"
 					// String plattformName = "gruppe4";
 					// System.out.print(Init.getUddiReg().getWsdlOfPlattform(plattformName));
 					// String plattformName = "gruppe 1 publisher";
-					//UddiInteraction uddiInter = new UddiInteraction();
+					UddiApp app = new UddiApp();
+					app.getListofEndpoints();
 					// uddiInter.deleteService();
 					// uddiInter.publishPlattformAndService();
-			// 				List<InquiryOrderPlattformService> list = uddiInter
-			// 						.generateListofEndpoints();
+							
 					// ListIterator iter1 = list.listIterator();
 					// out.println("size: "+list.size());
 					// System.out.print(uddiReg.publishPlattformAndService());
@@ -81,11 +82,11 @@ import="at.jku.ce.ue.uddi.*"
 			%>
 			<form name="selectedParts" method="post" action="Order.jsp">
 				<%
-					out.print("<select name='parts'>");
-					for(Producer prod : prods.values()){
-						out.print("<option value="+prod.getName()+">"+prod.getName()+"</option>");
-					}
-					out.print("</select>");
+// 					out.print("<select name='parts'>");
+// 					for(Producer prod : prods.values()){
+// 						out.print("<option value="+prod.getName()+">"+prod.getName()+"</option>");
+// 					}
+// 					out.print("</select>");
 					
 				%>
 				<input type="submit" name="submit" value="Select">
