@@ -142,22 +142,22 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 			storedParts.add(partname.getName());
 		}
 		
-		// adding foreign parts to list
-		// Managing UDDI Stuff
-		UddiInteraction uddi = new UddiInteraction();
-		Map<String, InquiryOrderPlattformService> plattforms = uddi.generateListofEndpoints();
-
-		// Iterating through all platforms
-		for (String plattformName : plattforms.keySet()) {
-			// Getting all parts of other platforms
-			List<String> parts = plattforms.get(plattformName).getAllPartsOnPlattform();
-
-			// Iterating through all parts of platform 'plattform'
-			for (String name : parts) {
-				// add parts to current list
-				storedParts.add(name);
-			}
-		}
+//		// adding foreign parts to list
+//		// Managing UDDI Stuff
+//		UddiInteraction uddi = new UddiInteraction();
+//		Map<String, InquiryOrderPlattformService> plattforms = uddi.generateListofEndpoints();
+//
+//		// Iterating through all platforms
+//		for (String plattformName : plattforms.keySet()) {
+//			// Getting all parts of other platforms
+//			List<String> parts = plattforms.get(plattformName).getAllPartsOnPlattform();
+//
+//			// Iterating through all parts of platform 'plattform'
+//			for (String name : parts) {
+//				// add parts to current list
+//				storedParts.add(name);
+//			}
+//		}
 
 		return storedParts;
 

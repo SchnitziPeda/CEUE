@@ -101,11 +101,10 @@
 				%>
 				Available supply chains: <% out.println(supplyChains.size()); %>
 				<div class="control-group">
-				Your have selected:<br>
-				<% out.println(partId); %>
+				Your have selected: <b><% out.println(partId); %></b>
 				<br>
 				Direct sub-parts of that:<br>
-				<i>Show subparts here:</i>
+				<i>Show subparts here</i>
 				</div>
 				<div class="control-group">
 				<form method="post" action="saveOrder.jsp" name="saveOrder">
