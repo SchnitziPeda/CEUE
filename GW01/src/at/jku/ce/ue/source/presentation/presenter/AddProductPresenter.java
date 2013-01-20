@@ -8,6 +8,7 @@ import java.util.List;
 import at.jku.ce.ue.source.businessLogic.SupplierService;
 import at.jku.ce.ue.source.businessLogic.impl.SupplierServiceImpl;
 import at.jku.ce.ue.source.entities.Part;
+import at.jku.ce.ue.source.entities.Producer;
 import at.jku.ce.ue.source.presentation.view.AddProductView;
 
 /**
@@ -26,10 +27,10 @@ public class AddProductPresenter implements AddProductView {
 	 * (java.lang.String, java.util.List)
 	 */
 	@Override
-	public boolean addProductToProducer(String producerId, List<String> parts) {
+	public boolean addProductToProducer(Producer producer, Part part) {
 		SupplierService supplService = new SupplierServiceImpl();
 
-		return supplService.addPartsToProducer(producerId, parts);
+		return supplService.addPartToProducer(producer, part);
 	}
 
 	/**

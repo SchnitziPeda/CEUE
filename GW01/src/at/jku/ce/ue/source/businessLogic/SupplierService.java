@@ -22,7 +22,7 @@ public interface SupplierService {
 	 * @param producerID
 	 * @return
 	 */
-	public Producer getProducer(int producerID);
+	public Producer getProducer(String producerID);
 
 	/**
 	 * Gets all producers of our platform
@@ -54,7 +54,7 @@ public interface SupplierService {
 	 * @param parts
 	 * @return if adding succeeded
 	 */
-	public boolean addPartsToProducer(String producerId, List<String> parts);
+	public boolean addPartToProducer(Producer producer, Part part);
 	
 	public List<String> getAllProducersForPart(String partId);
 	

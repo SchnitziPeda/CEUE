@@ -5,15 +5,17 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@
-page language="java" import="java.io.*"
-	import="java.util.List"
-	import="java.util.LinkedList"
-	import="java.util.Arrays"
+page language="java" import="java.io.*" import="java.util.List"
+	import="java.util.LinkedList" import="java.util.Arrays"
 	import="at.jku.ce.ue.source.RegisterSupplier"
 	import="at.jku.ce.ue.source.presentation.presenter.*"
 	import="at.jku.ce.ue.source.presentation.view.*"
-%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+	import="at.jku.ce.ue.source.entities.*"
+	import="at.jku.ce.ue.source.RegisterSupplier"
+	import="at.jku.ce.ue.source.businessLogic.impl.*"
+	import="at.jku.ce.ue.source.businessLogic.*"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -56,42 +58,49 @@ page language="java" import="java.io.*"
 	<div class="moved-right">
 		<%
 			AddProductView addProductPresenter = new AddProductPresenter();
-			
-						
+
+			SupplierService supplService = new SupplierServiceImpl();
+
 			String producerID = request.getParameter("producers");
 
-			List<String> storedParts = new LinkedList<String>();
-			String[] parts = request.getParameterValues("parts");
-			for(int i=0;i<parts.length;i++){
-				storedParts.add(parts[i]);
-			}
-			
-			boolean success = addProductPresenter.addProductToProducer(producerID, storedParts);
-			if (success) {
-				out.println("IT WORKED!");
-			} else {
-				out.println("Your parts were not added!");
-			}
-// 			AddProductView addProductPresenter = new AddProductPresenter();
+			List<String> partNames = Arrays.asList(request
+					.getParameterValues("parts"));
 
-// 			String producerID = request.getParameter("producers");
+			List<Part> partsList = new LinkedList<Part>();
 
-// 			List<String> parts = Arrays.asList(request
-// 					.getParameterValues("parts"));
+			for (String p : partNames) {
+				partsList
+						.add(new Part(p, supplService.getProducer(producerID)));
+			}
+
+			addProductPresenter.setPartsList(partsList);
+
+			// 						List<String> storedParts = new LinkedList<String>();
+			// 						String[] parts = request.getParameterValues("parts");
+			// 						for (int i = 0; i < parts.length; i++) {
+			// 							storedParts.add(parts[i]);
+			// 						}
+
+			// 						boolean success = addProductPresenter.addProductToProducer(
+			// 								producerID, partNames);
+			// 						if (success) {
+			// 							out.println("IT WORKED!");
+			// 						} else {
+			// 							out.println("Your parts were not added!");
+			// 						}
 		%>
 		<form class="form-horizontal" name="supplierData" method="post"
 			action="ProductsAdded.jsp">
 			<%
-				for (String p : storedParts) {
+				for (String p : partNames) {
 			%>
 			<div class="control-group">
-				<label class="control-label" for="inputName">
-					<%
-						out.print(p);
-					%>
+				<label class="control-label" for="inputName"> <%
+ 	out.print(p);
+ %>
 				</label>
 				<div class="controls">
-					<input type="number" name="<% out.print(p); %>"
+					<input type="number" name="<%out.print(p);%>"
 						placeholder="Enter price">
 				</div>
 			</div>

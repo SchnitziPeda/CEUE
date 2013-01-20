@@ -4,14 +4,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@
-page language="java"
-	import="java.io.*"
-	import="java.util.List"
+page language="java" import="java.io.*" import="java.util.List"
 	import="java.util.LinkedList"
 	import="at.jku.ce.ue.source.RegisterSupplier"
+	import="at.jku.ce.ue.source.entities.*"
 	import="at.jku.ce.ue.source.presentation.presenter.*"
-	import="at.jku.ce.ue.source.presentation.view.*"
-%>
+	import="at.jku.ce.ue.source.presentation.view.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -55,23 +53,19 @@ page language="java"
 	<div class="moved-right">
 		<%
 			AddProductView addProductPresenter = new AddProductPresenter();
-
-			String producerID = request.getParameter("producers");
-
-			
-			List<String> storedParts = new LinkedList<String>();
-			// TODO: wrong formular is submitted here 
-			String[] parts = request.getParameterValues("supplierData");
-			for(int i=0;i<parts.length;i++){
-				storedParts.add(parts[i]);
-			}
-
-			boolean success= addProductPresenter.addProductToProducer(producerID,storedParts);
-
-			if (success) {
-				out.println("IT WORKED!");
-			} else {
-				out.println("Your parts were not added!");
+			List<Part> parts = addProductPresenter.getPartsList();
+			int price;
+			boolean success;
+			for (Part p : parts) {
+				price = Integer.parseInt(request.getParameter(p.getName()));
+				p.setPrice(price);
+				success = addProductPresenter.addProductToProducer(
+						p.getOfferedBy(), p);
+				if (success) {
+					out.println(p.getName() + " was added!");
+				} else {
+					out.println(p.getName() + " was not added!");
+				}
 			}
 		%>
 

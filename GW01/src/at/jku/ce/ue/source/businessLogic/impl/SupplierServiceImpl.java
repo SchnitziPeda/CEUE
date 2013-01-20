@@ -23,7 +23,7 @@ public class SupplierServiceImpl implements SupplierService {
 	private static Logger log = Logger.getLogger("SupplierServiceImpl");
 
 	@Override
-	public Producer getProducer(int producerID) {
+	public Producer getProducer(String producerID) {
 
 		Database database = Database.getInstance();
 
@@ -99,36 +99,31 @@ public class SupplierServiceImpl implements SupplierService {
 	}
 
 	@Override
-	public boolean addPartsToProducer(String producerId, List<String> parts) {
+	public boolean addPartToProducer(Producer producer, Part part) {
 
 		Database db = Database.getInstance();
 
-		Producer producer = null;
-
-		if (!producerId.equals("") && !producerId.equals("-1")) {
-			producer = db.getProducers().get(producerId);
-		} else {
-			log.severe("ProducerID is not valid!");
+		if (producer == null) {
+			log.severe("Producer not found!");
 			return false;
 		}
 
-		if (producer == null) {
-			log.severe("Producer with id: " + producerId + " was not found!");
+		if (producer.getId().equals("") && producer.getId().equals("-1")) {
+			log.severe("ProducerID is not valid!");
 			return false;
 		}
 
 		List<Part> partsOfProducer = producer.getParts();
 		List<String> partNames = producer.getPartNames();
 
-		for (String newPartName : parts) {
-			if (partNames.contains(newPartName)) {
-				return false;
-			}
+		if (partNames.contains(part.getName())) {
+			log.severe("Part with name: " + part.getName()
+					+ " is already in List!");
+			return false;
+		} else {
+			partsOfProducer.add(part);
 		}
-		for (String newPartName : parts) {
-			Part p = new Part(newPartName, producer);
-			partsOfProducer.add(p);
-		}
+
 		return true;
 	}
 
@@ -138,19 +133,19 @@ public class SupplierServiceImpl implements SupplierService {
 	@Override
 	public List<String> getAllProducersForPart(String partId) {
 		List<String> producers = new LinkedList<String>();
-		
+
 		PartServiceImpl partService = new PartServiceImpl();
 		List<Part> list = partService.getAllParts();
 		for (Part part : list) {
 			System.out.println(part.getName());
-			if(part.getName().equals(partId)){
+			if (part.getName().equals(partId)) {
 				/*
-				 * TODO: getOfferedBy().getName() -> returns null! 
-				 * instead: getId() is used -> doesnt work either
+				 * TODO: getOfferedBy().getName() -> returns null! instead:
+				 * getId() is used -> doesnt work either
 				 */
-				if(part.getOfferedBy() != null)
+				if (part.getOfferedBy() != null)
 					producers.add(part.getOfferedBy().getId());
-				else 
+				else
 					producers.add("Producer is missing!");
 			}
 		}
