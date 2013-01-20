@@ -76,18 +76,18 @@
 		Monitoring mon = new Monitoring();
 		ResultSet rs = mon.getAllDataForProducer(supplier);
 	%>
-		<table class=table>
+		<table class="table">
 			<tr>
-				<td>CustomerID</td>
-				<td>ProducerID</td>
-				<td>PartID</td>
-				<td>inquiryID</td>
-				<td>OfferID</td>
-				<td>Price</td>
-				<td>Street</td>
-				<td>User</td>
-				<td>Datetime</td>
-			</tr>
+					<td>CustomerID</td>
+					<td>ProducerID</td>
+					<td>PartID</td>
+					<td>inquiryID</td>
+					<td>OfferID</td>
+					<td>Price</td>
+					<td>Street</td>
+					<td>User</td>
+					<td>Datetime</td>
+				</tr>
 			<tr>
 				<%
 					String output = "";
