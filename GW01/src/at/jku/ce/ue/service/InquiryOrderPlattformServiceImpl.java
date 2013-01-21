@@ -82,12 +82,12 @@ public class InquiryOrderPlattformServiceImpl implements InquiryOrderPlattformSe
     /* (non-Javadoc)
      * @see at.jku.ce.ue.service.InquiryOrderPlattformService#getAllProducersForPart(java.lang.String  partid )*
      */
-    public java.util.List<java.lang.String> getAllProducersForPart(java.lang.String partid) { 
+    public java.util.List<java.lang.String> getAllProducersForPart(java.lang.String partName) { 
         LOG.info("Executing operation getAllProducersForPart");
-        System.out.println(partid);
+        System.out.println(partName);
         try {
         	SupplierServiceImpl supService = new SupplierServiceImpl();
-        	return supService.getAllProducersForPart(partid);
+        	return supService.getAllProducersForPartName(partName);
         } catch (java.lang.Exception ex) {
             ex.printStackTrace();
             throw new RuntimeException(ex);

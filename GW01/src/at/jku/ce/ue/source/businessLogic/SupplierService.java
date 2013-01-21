@@ -56,8 +56,9 @@ public interface SupplierService {
 	 */
 	public boolean addPartToProducer(Producer producer, Part part);
 	
-	public List<String> getAllProducersForPart(String partId);
+	public List<String> getAllProducersForPartName(String partName);
 	
 	public boolean authentificateSupplier(String supplierName);
+	
 
 }

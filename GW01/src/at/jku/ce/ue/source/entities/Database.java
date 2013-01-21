@@ -19,6 +19,8 @@ import at.jku.ce.ue.source.businessLogic.impl.BOMServiceUtilImpl;
  */
 public class Database {
 
+	private static final int PART_PRICE = 1000;
+
 	private static Logger log = Logger.getLogger("Database");
 
 	private static final int PRODUCER_COUNT = 15;
@@ -96,7 +98,7 @@ public class Database {
 				int prodId = rand.nextInt(PRODUCER_COUNT);
 				part = new Part(count, partName, producers.get(prodId));
 				count += 1;
-				producers.get("GW01Producer" + prodId).getParts().add(part);
+				producers.get("GW01Producer" + prodId).addNewProduct(partName, rand.nextInt(PART_PRICE));
 			}
 
 			// Get all subParts of actual looked part
@@ -123,7 +125,7 @@ public class Database {
 					subPart = new Part(count, subPartName,
 							producers.get(prodId));
 					count += 1;
-					producers.get("GW01Producer" + prodId).getParts().add(part);
+					producers.get("GW01Producer" + prodId).addNewProduct(subPartName, rand.nextInt(PART_PRICE));
 				}
 
 				// Add 'subPart' as subpart of 'part'

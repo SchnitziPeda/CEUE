@@ -49,8 +49,8 @@ public class PartServiceImpl implements PartService {
 		SupplierServiceImpl supService = new SupplierServiceImpl();
 		for(Producer producer : supService.getAllProducers().values()){
 			if(producer.getName().equals(producerId)){
-				for(Part part : producer.getParts()){
-					parts.add(part.getName());
+				for(String part : producer.getParts().keySet()){
+					parts.add(part);
 				}
 			}
 		}

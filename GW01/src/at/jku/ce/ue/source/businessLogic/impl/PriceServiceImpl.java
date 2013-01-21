@@ -35,23 +35,41 @@ public class PriceServiceImpl implements PriceService {
 		
 		Database db = Database.getInstance();
 		Map<String, Producer> producerFromDatabase = db.getProducers();
-		for(Producer prod : producerFromDatabase.values()){
-			for(String pd : producer){
-				// check if given producer matches with database
-				if(prod.getName().equals(pd)){
-					// check, if producer has the given product
-					for(Part part : prod.getParts()){
-						if(part.getName().equals(partid)){
-							// if equal, add to list
-							prices.put(prod.getName(), part.getPrice());
-						}
-					}
-					
-				}
+
+		for (Producer prod : producerFromDatabase.values()) {
+
+			Map<String, Integer> partsOfProd = prod.getParts();
+		
+			if(partsOfProd.containsKey(partid)){
+				prices.put(prod.getName(), partsOfProd.get(partid));
 			}
+			
 		}
 		
 		return prices;
+		
+//		for(Producer prod : producerFromDatabase.values()){
+//			for(String pd : producer){
+//				// check if given producer matches with database
+//				if(prod.getName().equals(pd)){
+//					// check, if producer has the given product
+////					for(String part : prod.getParts()){
+////						if(part.getName().equals(partid)){
+////							// if equal, add to list
+////							prices.put(prod.getName(), part.getPrice());
+////						}
+////					}
+//					
+//					List<String> partNames = prod.getPartNames();
+//					
+//					if(partNames.contains(partid)){
+//						prices.put(partid, part);
+//					}
+//					
+//				}
+//			}
+//		}
+		
 	}
 
 	

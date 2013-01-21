@@ -59,11 +59,11 @@
 						out.println("Producer: " + prod.getName());
 						out.print("</li>");
 						out.print("<ul>");
-						List<Part> partsOfProd = prod.getParts();
-						for (Part part : partsOfProd) {
+						Map<String, Integer> partsOfProd = prod.getParts();
+						for (String part : partsOfProd.keySet()) {
 							out.print("<li>");
-							out.println(part.getName());
-							out.println("- Price: " + part.getPrice() + ",-");
+							out.println(part);
+							out.println("- Price: " + partsOfProd.get(part) + ",-");
 							out.print("</li>");
 						}
 						out.print("</ul>");

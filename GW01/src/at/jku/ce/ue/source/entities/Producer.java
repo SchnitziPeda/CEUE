@@ -3,8 +3,10 @@
  */
 package at.jku.ce.ue.source.entities;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Schnitzi
@@ -12,7 +14,7 @@ import java.util.List;
  */
 public class Producer extends Role {
 	
-	private List<Part> parts;
+	private Map<String, Integer> parts;
 	private String plattform;
 	private String level;
 	
@@ -22,8 +24,15 @@ public class Producer extends Role {
 	 */
 	public Producer(String roleId, String name) {
 		super(roleId, true, name);
-		this.parts = new LinkedList<Part>();
+		this.parts = new HashMap<String, Integer>();
 		this.level = "1";
+	}
+	
+	public boolean addNewProduct(String name, int price){
+		
+		parts.put(name, price);
+		
+		return true;
 	}
 	
 	/**
@@ -71,74 +80,14 @@ public class Producer extends Role {
 	/**
 	 * @return the parts
 	 */
-	public List<Part> getParts() {
+	public Map<String, Integer> getParts() {
 		return parts;
 	}
 	/**
 	 * @return the parts names
 	 */
 	public List<String> getPartNames() {
-		List<String> names = new LinkedList<String>();
-		for(Part p: parts){
-			names.add(p.getName());			
-		}
-		return names;
-	}
-
-	/**
-	 * @param parts the parts to set
-	 */
-	public void setParts(List<Part> parts) {
-		this.parts = parts;
-	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "Producer [id=" + getId() + ", name=" + getName() + ", parts=" + parts
-				+ "]";
-	}
-	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((getId() == null) ? 0 : getId().hashCode());;
-		result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
-		result = prime * result + ((parts == null) ? 0 : parts.hashCode());
-		return result;
-	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Producer other = (Producer) obj;
-		if (getId() != other.getId())
-			return false;
-		if (getName() == null) {
-			if (other.getName() != null)
-				return false;
-		} else if (!getName().equals(other.getName()))
-			return false;
-		if (parts == null) {
-			if (other.parts != null)
-				return false;
-		} else if (!parts.equals(other.parts))
-			return false;
-		return true;
+		return new LinkedList<String>(parts.keySet());
 	}
 
 	/**

@@ -114,7 +114,6 @@ public class SupplierServiceImpl implements SupplierService {
 			return false;
 		}
 
-		List<Part> partsOfProducer = producer.getParts();
 		List<String> partNames = producer.getPartNames();
 
 		if (partNames.contains(part.getName())) {
@@ -122,7 +121,7 @@ public class SupplierServiceImpl implements SupplierService {
 					+ " is already in List!");
 			return false;
 		} else {
-			partsOfProducer.add(part);
+			producer.getParts().put(part.getName(), part.getPrice());
 		}
 
 		return true;
@@ -132,25 +131,36 @@ public class SupplierServiceImpl implements SupplierService {
 	 * returns all producers for the given part name
 	 */
 	@Override
-	public List<String> getAllProducersForPart(String partId) {
+	public List<String> getAllProducersForPartName(String partName) {
 		List<String> producers = new LinkedList<String>();
 
-		PartServiceImpl partService = new PartServiceImpl();
-		List<Part> list = partService.getAllParts();
-		for (Part part : list) {
-			System.out.println(part.getName());
-			if (part.getName().equals(partId)) {
-				/*
-				 * TODO: getOfferedBy().getName() -> returns null! instead:
-				 * getId() is used -> doesnt work either
-				 */
-				if (part.getOfferedBy() != null)
-					producers.add(part.getOfferedBy().getId());
-				else
-					producers.add("Producer is missing!");
+//		PartServiceImpl partService = new PartServiceImpl();
+//		List<Part> list = partService.getAllParts();
+//		for (Part part : list) {
+//			System.out.println(part.getName());
+//			if (part.getName().equals(partName)) {
+//				/*
+//				 * TODO: getOfferedBy().getName() -> returns null! instead:
+//				 * getId() is used -> doesnt work either
+//				 */
+//				if (part.getOfferedBy() != null)
+//					producers.add(part.getOfferedBy().getId());
+//				else
+//					producers.add("Producer is missing!");
+//			}
+//		}
+		
+		Map<String, Producer> producerList = getAllProducers();
+		
+		for(Producer prod : producerList.values()){
+			List<String> partNames = prod.getPartNames();
+			
+			for (String string : partNames) {
+				
 			}
 		}
 
 		return producers;
 	}
+	
 }
