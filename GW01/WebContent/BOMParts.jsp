@@ -1,5 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+
+<%@
+page language="java" import="java.io.*"
+	
+	import="at.jku.ce.ue.source.*" import="at.jku.ce.ue.source.entities.*"
+	import="at.jku.ce.ue.service.*"
+	import="at.jku.ce.ue.source.businessLogic.impl.*"
+	import="java.util.List" import="java.util.ListIterator"
+	import="at.jku.ce.ue.uddi.*"
+	import="at.jku.ce.ue.source.businessLogic.*"
+	import="org.w3c.dom.Document" import="org.w3c.dom.NodeList"
+	import="org.w3c.dom.Node" import="org.w3c.dom.Element"
+	import="at.jku.ce.ue.source.RegisterSupplier"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -41,8 +55,29 @@
 		</ul>
 	</div>
 	<div class="moved-right">
-		ToDo: Possibility to offer products
 		<%
+
+		PartService partService = new PartServiceImpl();
+		List<Part> partsList = partService.getAllParts();
+		
+		out.println("<table>");
+		for(Part part :partsList){
+			out.println("<tr>");
+			out.println("<td>");
+			out.println(part.getName());
+			out.println("</td>");
+			for(Part subPart : part.getSubParts()){
+				out.println("<tr>");
+				out.println("<td>");
+				out.println("</td>");
+				out.println("<td>");
+				out.println(subPart.getName());
+				out.println("</td>");
+				out.println("</tr>");
+			}
+			out.println("</tr>");
+		}
+		out.println("</table>");
 		
 		%>
 	</div>

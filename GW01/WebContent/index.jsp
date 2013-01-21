@@ -53,6 +53,7 @@
 			<li><a href="ProdPartListing.jsp">Show all producers and parts on platform</a></li>
 <!-- 			<li><a href="Order.jsp">check Order</a></li> -->
 			<li><a href="Offer.jsp">Offers</a></li>
+			<li><a href="BOMParts.jsp">Show all BOMParts</a></li>
 
 		</ul>
 	</div>
