@@ -88,7 +88,7 @@ public class Database {
 
 		// List of all parts
 		List<String> productList = bomService.getAllPartsOfBOM();
-		log.severe("PART COUNT: " + productList.size());
+		log.info("PART COUNT: " + productList.size());
 		int count = 0;
 		// Iterator through all parts and put every part and a list of it's
 		// subparts in the map

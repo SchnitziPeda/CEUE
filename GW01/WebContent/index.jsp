@@ -55,6 +55,7 @@
 <!-- 			<li><a href="Order.jsp">check Order</a></li> -->
 			<li><a href="Offer.jsp">Offers</a></li>
 			<li><a href="BOMParts.jsp">Show all BOMParts</a></li>
+			<li><a href="RekursionTest.jsp">Test der Rekursion</a></li>
 
 		</ul>
 	</div>

@@ -3,7 +3,9 @@
 
 <%@ page language="java" import="at.jku.ce.ue.source.clientLogic.impl.*"
 	import="java.util.*" import="java.util.ListIterator"
-	import="at.jku.ce.ue.bom.*"%>
+	import="at.jku.ce.ue.bom.*"
+	import="at.jku.ce.ue.source.businessLogic.impl.*"
+	import="at.jku.ce.ue.source.businessLogic.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -96,8 +98,9 @@
 				String partId = request.getParameter("part");
 				String customerId = request.getParameter("customer");
 
-				// TODO: direct sub parts have to be shown
-				// 			List<String> subParts = bomService.getDirectSubPartsOf(partId);
+				BOMServiceUtil bomService = new BOMServiceUtilImpl();
+				List<String> subParts = bomService
+						.getAllDirectSubpartsOfPart(partId);
 
 				SupplierClientServiceImpl supClientService = new SupplierClientServiceImpl();
 
@@ -116,8 +119,19 @@
 			Your have selected: <b> <%
  	out.println(partId);
  %>
-			</b> <br> Direct sub-parts of that:<br> <i>Show subparts
-				here</i>
+			</b> <br> Direct sub-parts of that:
+			<ul>
+				<%
+					for (String s : subParts) {
+				%><li>
+					<%
+						out.println(s + " ");
+					%>
+				</li>
+				<%
+					}
+				%>
+			</ul>
 		</div>
 		<div class="control-group">
 			<form method="post" action="saveOrder.jsp" name="saveOrder">
