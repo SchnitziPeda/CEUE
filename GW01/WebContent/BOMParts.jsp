@@ -46,7 +46,7 @@ page language="java" import="java.io.*"
 		</div>
 	</div>
 	<div class="page-header">
-		<h1>Part Hierarchy</h1>
+		<h1>PART HIERARCHY</h1>
 	</div>
 	<div class="centered">
 		<ul class="pager">
@@ -60,7 +60,6 @@ page language="java" import="java.io.*"
 
 			out.println("<table class='table'>");
 		%>
-		
 		<thead>
 			<tr>
 				<th>Part</th>

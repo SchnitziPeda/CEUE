@@ -322,8 +322,8 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 							String producerName = producers[j].substring(0, p);
 							String order = orders[i].substring(0, pos);
 
-							System.out.println("order: " + order
-									+ " producer: " + producerName + " price: "
+							System.out.println("Order: " + order
+									+ " Producer: " + producerName + " Price: "
 									+ price);
 							// TODO: what do we have to save?
 							db.saveOrder(order, producerName, price);

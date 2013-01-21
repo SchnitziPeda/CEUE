@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@ page language="java"
-import="at.jku.ce.ue.source.clientLogic.impl.*"
-%>
+<%@ page language="java" import="at.jku.ce.ue.source.clientLogic.impl.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -44,36 +42,50 @@ import="at.jku.ce.ue.source.clientLogic.impl.*"
 	</div>
 	<div class="moved-right">
 		<%
-	
-	String customerId = request.getParameter("customerId");
-	String partId = request.getParameter("partId");
-						
-		
-	if(request.getParameter("order")!=null){
-		
-		if(request.getParameterValues("producer")!=null && request.getParameter("price") != null){
-			
-			String[] orders = request.getParameterValues("order");
-		 	String[] producers = request.getParameterValues("producer");
-			String[] prices = request.getParameterValues("price");
+			String customerId = request.getParameter("customerId");
+			String partId = request.getParameter("partId");
 
-			
-			SupplierClientServiceImpl supClient = new SupplierClientServiceImpl();
-			supClient.saveOrders(customerId, partId, orders, producers, prices);
-			
-			out.println("Your order will now be saved. Thanks for ordering!");
-			
-		}
-				
-				
-	} else {
-		out.println("We're sorry, you didn't select any product.");
-		out.println("You can go <a href='createOrder.jsp'>back</a> here.");
-	}
-	
-	
-	
-	%>
+			if (request.getParameter("order") != null) {
+
+				if (request.getParameterValues("producer") != null
+						&& request.getParameter("price") != null) {
+
+					String[] orders = request.getParameterValues("order");
+					String[] producers = request.getParameterValues("producer");
+					String[] prices = request.getParameterValues("price");
+
+					SupplierClientServiceImpl supClient = new SupplierClientServiceImpl();
+					supClient.saveOrders(customerId, partId, orders, producers,
+							prices);
+
+					out.println("Your order will now be saved. Thanks for ordering!");
+					out.println(customerId + " " + partId);
+					for (String s : orders) {
+		%>
+		<br>
+		<%
+			out.println("" + s);
+					}
+					for (String s : producers) {
+		%>
+		<br>
+		<%
+			out.println("" + s);
+					}
+					for (String s : prices) {
+		%>
+		<br>
+		<%
+			out.println("" + s);
+					}
+
+				}
+
+			} else {
+				out.println("We're sorry, you didn't select any product.");
+				out.println("You can go <a href='createOrder.jsp'>back</a> here.");
+			}
+		%>
 
 
 	</div>
