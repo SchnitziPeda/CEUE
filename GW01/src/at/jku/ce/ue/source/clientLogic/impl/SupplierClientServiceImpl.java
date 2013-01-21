@@ -17,6 +17,7 @@ import at.jku.ce.ue.source.businessLogic.impl.PartServiceImpl;
 import at.jku.ce.ue.source.businessLogic.impl.PriceServiceImpl;
 import at.jku.ce.ue.source.businessLogic.impl.SupplierServiceImpl;
 import at.jku.ce.ue.source.clientLogic.SupplierClientService;
+import at.jku.ce.ue.source.entities.Customer;
 import at.jku.ce.ue.source.entities.Database;
 import at.jku.ce.ue.source.entities.Part;
 import at.jku.ce.ue.source.entities.Producer;
@@ -88,6 +89,26 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 		}
 
 		return prodNames;
+	}
+
+	@Override
+	public List<String> getAllCustomerNames() {
+		Database db = Database.getInstance();
+		Map<String, Customer> customer = db.getCustomersOnPlatform();
+		List<String> cNames = new LinkedList<String>();
+		for (Map.Entry<String, Customer> c : customer.entrySet()) {
+			cNames.add(c.getKey());
+		}
+		return cNames;
+
+	}
+
+	@Override
+	public Map<String, Customer> getAllCustomers() {
+		Database db = Database.getInstance();
+		Map<String, Customer> customer = db.getCustomersOnPlatform();
+		return customer;
+
 	}
 
 	@Override

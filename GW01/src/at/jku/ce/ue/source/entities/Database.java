@@ -57,7 +57,15 @@ public class Database {
 		createProducers();
 
 		producePartsForProducer();
+		createCustomer();
 
+	}
+
+	private void createCustomer() {
+		for (int i = 0; i < 5; i++) {
+			Customer c = new Customer("" + i, "" + i);
+			this.customersOnPlatform.put(c.getId(), c);
+		}
 	}
 
 	private void createProducers() {
@@ -98,7 +106,8 @@ public class Database {
 				int prodId = rand.nextInt(PRODUCER_COUNT);
 				part = new Part(count, partName, producers.get(prodId));
 				count += 1;
-				producers.get("GW01Producer" + prodId).addNewProduct(partName, rand.nextInt(PART_PRICE));
+				producers.get("GW01Producer" + prodId).addNewProduct(partName,
+						rand.nextInt(PART_PRICE));
 			}
 
 			// Get all subParts of actual looked part
@@ -125,7 +134,8 @@ public class Database {
 					subPart = new Part(count, subPartName,
 							producers.get(prodId));
 					count += 1;
-					producers.get("GW01Producer" + prodId).addNewProduct(subPartName, rand.nextInt(PART_PRICE));
+					producers.get("GW01Producer" + prodId).addNewProduct(
+							subPartName, rand.nextInt(PART_PRICE));
 				}
 
 				// Add 'subPart' as subpart of 'part'
@@ -241,9 +251,6 @@ public class Database {
 	 */
 	public void setProducers(Map<String, Producer> producers) {
 		this.producers = producers;
-	}
-
-	public void addProducer(String name) {
 	}
 
 	/**

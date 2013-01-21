@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Create your order</title>
+<title>Check offers and order</title>
 <link rel="stylesheet" type="text/css"
 	href="../bootstrap-responsive.css">
 <link rel="stylesheet" type="text/css" href="../bootstrap.css">
@@ -36,7 +36,7 @@
 		</div>
 	</div>
 	<div class="page-header">
-		<h1>CREATE ORDER</h1>
+		<h1>CHECK OFFERS & ORDER</h1>
 	</div>
 	<div class="centered">
 		<ul class="pager">
@@ -50,6 +50,7 @@
 
 			SupplierClientServiceImpl supClient = new SupplierClientServiceImpl();
 			List<String> parts = supClient.getAllPartNames();
+			List<String> customers = supClient.getAllCustomerNames();
 
 			// 			InquiryOrderPlattformServiceImpl inquiryOrder = new InquiryOrderPlattformServiceImpl();
 			// 			List<String> parts = inquiryOrder.getAllPartsOnPlattform();
@@ -63,9 +64,15 @@
 		%>
 		<div class="control-group">
 			Your Customer-ID:
-			<%
-			out.println(request.getParameter("customerId"));
-		%>
+			<div class="controls">
+				<%
+					out.print("<select name='customers'>");
+					for (String c : customers) {
+						out.print("<option value=" + c + ">" + c + "</option>");
+					}
+					out.print("</select>");
+				%>
+			</div>
 		</div>
 		<br />
 		<div class="control-group">

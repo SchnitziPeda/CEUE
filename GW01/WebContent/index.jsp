@@ -46,6 +46,7 @@
 			<li class="nav-header">Menu</li>
 			<li><a href="Register.jsp">Register as Supplier</a></li>
 			<li><a href="Customer.jsp">Register as Customer</a></li>
+			<li><a href="order/createOrder.jsp">Check Offers & Order</a></li>
 			<li><a href="monitoring/index.jsp">Monitoring</a></li>
 			<hr>
 			For testing: 

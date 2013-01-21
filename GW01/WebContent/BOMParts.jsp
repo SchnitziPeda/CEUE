@@ -3,7 +3,6 @@
 
 <%@
 page language="java" import="java.io.*"
-	
 	import="at.jku.ce.ue.source.*" import="at.jku.ce.ue.source.entities.*"
 	import="at.jku.ce.ue.service.*"
 	import="at.jku.ce.ue.source.businessLogic.impl.*"
@@ -18,7 +17,7 @@ page language="java" import="java.io.*"
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Part Hierarchy</title>
 <link rel="stylesheet" type="text/css" href="bootstrap-responsive.css">
 <link rel="stylesheet" type="text/css" href="bootstrap.css">
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -47,7 +46,7 @@ page language="java" import="java.io.*"
 		</div>
 	</div>
 	<div class="page-header">
-		<h1>OFFER</h1>
+		<h1>Part Hierarchy</h1>
 	</div>
 	<div class="centered">
 		<ul class="pager">
@@ -56,29 +55,38 @@ page language="java" import="java.io.*"
 	</div>
 	<div class="moved-right">
 		<%
+			PartService partService = new PartServiceImpl();
+			List<Part> partsList = partService.getAllParts();
 
-		PartService partService = new PartServiceImpl();
-		List<Part> partsList = partService.getAllParts();
+			out.println("<table class='table'>");
+		%>
 		
-		out.println("<table>");
-		for(Part part :partsList){
-			out.println("<tr>");
-			out.println("<td>");
-			out.println(part.getName());
-			out.println("</td>");
-			for(Part subPart : part.getSubParts()){
+		<thead>
+			<tr>
+				<th>Part</th>
+				<th>Subpart</th>
+			</tr>
+		</thead>
+		<%
+			for (Part part : partsList) {
 				out.println("<tr>");
 				out.println("<td>");
+				out.println(part.getName());
 				out.println("</td>");
 				out.println("<td>");
-				out.println(subPart.getName());
+				for (Part subPart : part.getSubParts()) {
+					out.println("<tr>");
+					out.println("<td>");
+					out.println("</td>");
+					out.println("<td>");
+					out.println(subPart.getName());
+					out.println("</td>");
+					out.println("</tr>");
+				}
 				out.println("</td>");
 				out.println("</tr>");
 			}
-			out.println("</tr>");
-		}
-		out.println("</table>");
-		
+			out.println("</table>");
 		%>
 	</div>
 

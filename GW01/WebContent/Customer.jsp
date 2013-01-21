@@ -55,8 +55,8 @@
 			String resp = registerPresenter.registerCustomer(customerName);
 
 			if (!resp.equals("-1")) {
-				out.println("IT WORKED! Your ID: " + resp);
-				response.sendRedirect("order/createOrder.jsp?customerId="+customerName);
+				out.println("IT WORKED! Your ID is: " + resp);
+// 				response.sendRedirect("order/createOrder.jsp?customerId="+customerName);
 				
 			} else {
 				out.println("Your registration did not work. <br> We are sorry, it seems you're already registered.<br>");
