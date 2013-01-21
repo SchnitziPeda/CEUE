@@ -21,8 +21,7 @@ public class BOMServiceUtilImpl implements BOMServiceUtil {
 	private BOMService port;
 	
 	public BOMServiceUtilImpl() {
-		this.ss = new BOMServiceService(
-				BOMServiceService.WSDL_LOCATION, BOMServiceService.SERVICE);;
+		this.ss = new BOMServiceService(BOMServiceService.WSDL_LOCATION, BOMServiceService.SERVICE);
 		this.port = ss.getBOMServicePort();
 	}
 

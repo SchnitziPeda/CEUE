@@ -216,8 +216,8 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 			String customerId) {
 		Map<String, Integer> supplyChains = new HashMap<String, Integer>();
 
-		// TODO:
-		String inquiryId = "123";
+		// TODO
+		String inquiryId = "GW01Inq"+Math.random()*10000;
 
 		// get data of own plattform
 		// get producers for part first:
@@ -329,8 +329,8 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 							db.saveOrder(order, producerName, price);
 
 							// save order as log in monitoring database
+							String inquiryid = "GW01Inq"+Math.random()*10000;
 							// TODO:
-							String inquiryid = "GW01_inquiry";
 							String offerid = "GW01_offerid";
 							String orderid = "GW01_orderid";
 
