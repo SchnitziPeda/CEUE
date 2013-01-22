@@ -161,22 +161,22 @@ public class Database {
 
 	private void printAllParts(Map<String, Part> allPartsWithSubParts) {
 
-		for (Part part : allPartsWithSubParts.values()) {
-			String outPut = "Part: No: " + part.getId() + part.getName();
-			// System.out.println("Part: " + part.getName());
-
-			if (part.getSubParts().size() > 0) {
-				for (Part subPart : part.getSubParts()) {
-					// System.out.println("\t+" + subPart.getName());
-					outPut += "\n\t+ No: " + subPart.getId()
-							+ subPart.getName();
-				}
-			} else {
-				// System.out.println("\t No more subParts");
-				outPut += "\n\t No more subParts";
-			}
-			System.out.println(outPut);
-		}
+//		for (Part part : allPartsWithSubParts.values()) {
+//			String outPut = "Part: No: " + part.getId() + part.getName();
+//			// System.out.println("Part: " + part.getName());
+//
+//			if (part.getSubParts().size() > 0) {
+//				for (Part subPart : part.getSubParts()) {
+//					// System.out.println("\t+" + subPart.getName());
+//					outPut += "\n\t+ No: " + subPart.getId()
+//							+ subPart.getName();
+//				}
+//			} else {
+//				// System.out.println("\t No more subParts");
+//				outPut += "\n\t No more subParts";
+//			}
+//			System.out.println(outPut);
+//		}
 
 	}
 

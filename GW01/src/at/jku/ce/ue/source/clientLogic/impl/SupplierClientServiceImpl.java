@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import org.eclipse.jetty.util.log.Log;
+
 import at.jku.ce.ue.log.WriteLogService;
 import at.jku.ce.ue.log.WriteLogServiceImpl;
 import at.jku.ce.ue.service.InquiryOrderPlattformService;
@@ -199,7 +201,7 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 		List<Offer> listOfOffers = new LinkedList<Offer>();
 
 		String inquiryId = Database.getInstance().generateInquiryId();
-
+		
 		Map<String, InquiryOrderPlattformService> serviceList = Database
 				.getInstance().getAllServices(false);
 		
@@ -207,15 +209,18 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 			SupplierClientService supClientService = new SupplierClientServiceImpl();
 			List<String> prodList = supClientService.getAllProducersForPart(partName);
 			for (String prod : prodList) {
+				log.info("PRODUCER: "+prod);
 				int price = serviceList.get(platformName).getPrice(customerId,
 						prod, partName, inquiryId);
+				
 				String offerID = Database.getInstance().generateOfferId();
 				Offer offer = new Offer(offerID, partName, prod, customerId, inquiryId, price);
+				log.info(offer.toString());
 				listOfOffers.add(offer);
 				WriteLogService logService = new WriteLogServiceImpl();
 				logService.logOffer(customerId, prod, partName, price, inquiryId, offerID);
 			}
-			
+				
 			
 		}
 

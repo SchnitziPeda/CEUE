@@ -30,159 +30,160 @@ public class PriceServiceImpl implements PriceService {
 
 	public List<Offer> getSupplyChains(String customerid, String partid,
 			String inquiryid) {
-//
-//		// Map<String, Integer> priceChains = new HashMap<String, Integer>();
+		//
+		// // Map<String, Integer> priceChains = new HashMap<String, Integer>();
 		List<Offer> offersList = new LinkedList<Offer>();
-//
-//		// get data of foreign plattforms
-//		Map<String, InquiryOrderPlattformService> serviceList = Database
-//				.getInstance().getServices(false);
-//
-//		log.info("Platforms generated!");
-//
-//		int price = 0;
-//
-//		PartService partService = new PartServiceImpl();
-//
-//		try {
-//
-//			SupplierClientService supplService = new SupplierClientServiceImpl();
-//			List<String> suppliers = supplService
-//					.getAllProducersForPart(partid);
-//
-//			for (String supplier : suppliers) {
-//				// Look if there are subparts of part with partid
-//				if (partService.getAllDirectSubpartsOfPart(partid).size() > 0) {
-//					int cheapestPrice = 0;
-//					String cheapestProducer = null;
-//					// iterate through all direct subParts
-//					for (String subPart : partService
-//							.getAllDirectSubpartsOfPart(partid)) {
-//
-//						cheapestPrice = 0;
-//						Offer cheapestOfferForSubPart = null;
-//
-//						// iterate through all platforms
-//						List<String> suppliersOfSubPart = supplService
-//								.getAllProducersForPart(subPart);
-//
-//						// inner price of each platform
-//						int innerPlatformProducerPrice = 0;
-//
-//						// Iterate through all producers of subpart
-//						for (String prod : suppliersOfSubPart) {
-//
-//							// Calculates price for every subPart of every
-//							// producer of part
-//							// priceForPart = calcPrice(customerid,
-//							// inquiryid,
-//							// serviceList, prod, price, helpprice,
-//							// innerprice,
-//							// subPart);
-//
-//							// generates an inquiryid
-//							WriteLogServiceImpl logService = new WriteLogServiceImpl();
-//							logService.logInquiry(customerid, prod, partid,
-//									inquiryid);
-//
-//							innerPlatformProducerPrice = serviceList.get(
-//									platformNameSubParts).getPrice(customerid,
-//									prod, subPart, inquiryid);
-//
-//							String offerId = Database.getInstance()
-//									.generateOfferId();
-//							logService.logOffer(customerid, prod, partid,
-//									innerPlatformProducerPrice, inquiryid,
-//									offerId);
-//
-//							log.info("InnerPrice for " + subPart
-//									+ " after call getPrice: "
-//									+ innerPlatformProducerPrice);
-//							if (innerPlatformProducerPrice < cheapestPrice
-//									&& innerPlatformProducerPrice > 0) {
-//								log.info(innerPlatformProducerPrice + "<"
-//										+ cheapestPrice + " &&"
-//										+ innerPlatformProducerPrice + "> 0");
-//								// bei allen ab dem zweiten
-//								cheapestPrice = innerPlatformProducerPrice;
-//								cheapestProducer = prod;
-//								offerId = Database.getInstance()
-//										.generateOfferId();
-//								cheapestOfferForSubPart = new Offer(offerId,
-//										subPart, prod, customerid, inquiryid,
-//										innerPlatformProducerPrice);
-//								logService.logOffer(customerid, prod, partid,
-//										innerPlatformProducerPrice, inquiryid,
-//										offerId);
-//							} else if (cheapestPrice == 0
-//									&& innerPlatformProducerPrice > 0) {
-//								log.info(innerPlatformProducerPrice
-//										+ "== 0 && "
-//										+ innerPlatformProducerPrice + "> 0");
-//								// bei ersten durchlauf dieser code
-//								cheapestPrice = innerPlatformProducerPrice;
-//								cheapestProducer = prod;
-//								offerId = Database.getInstance()
-//										.generateOfferId();
-//								cheapestOfferForSubPart = new Offer(offerId,
-//										subPart, prod, customerid, inquiryid,
-//										innerPlatformProducerPrice);
-//								logService.logOffer(customerid, prod, partid,
-//										innerPlatformProducerPrice, inquiryid,
-//										offerId);
-//							}
-//
-//						}
-//
-//						log.severe("PRICECALC: " + customerid + " "
-//								+ serviceList + " " + price + " " + subPart
-//								+ " " + cheapestPrice);
-//
-//						// Storing the cheapest producer and its price for part
-//						offersList.add(cheapestOfferForSubPart);
-//					}
-//					int sumPrices = 0;
-//					for (Offer off : offersList) {
-//						sumPrices += off.getPrice();
-//					}
-//					String offerId = Database.getInstance().generateOfferId();
-//					Offer offerWholePart = new Offer(offerId, partid, prod,
-//							customerid, inquiryid, sumPrices);
-//
-//				} else {
-//					// No subparts existing
-//					// log.severe("NoSubParts PRICECALC: " + customerid + " "
-//					// + serviceList + " " + price + " " + partid + " "
-//					// + price);
-//					//
-//					// for (String platformName : serviceList.keySet()) {
-//					//
-//					// // Get producers of all foreign platforms for every
-//					// subPart
-//					// List<String> allProducers = serviceList.get(platformName)
-//					// .getAllProducersForPart(partid);
-//					//
-//					// // Get producers of all own platforms for every subPart
-//					// SupplierService supplService = new SupplierServiceImpl();
-//					// List<String> ownProducers = supplService
-//					// .getAllProducersForPart(partid);
-//					//
-//					// // join all producers of all platforms
-//					// allProducers.addAll(ownProducers);
-//					//
-//					// for (String prod : allProducers) {
-//					// price = serviceList.get(platformName).getPrice(
-//					// customerid, prod, partid, inquiryid);
-//					// priceChains.put(prod, price);
-//					// }
-//				}
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//
-//		// logService.logOffer(customerid, producerid, partid, price, inquiryid,
-//		// Database.getInstance().generateOfferId());
+		//
+		// // get data of foreign plattforms
+		// Map<String, InquiryOrderPlattformService> serviceList = Database
+		// .getInstance().getServices(false);
+		//
+		// log.info("Platforms generated!");
+		//
+		// int price = 0;
+		//
+		// PartService partService = new PartServiceImpl();
+		//
+		// try {
+		//
+		// SupplierClientService supplService = new SupplierClientServiceImpl();
+		// List<String> suppliers = supplService
+		// .getAllProducersForPart(partid);
+		//
+		// for (String supplier : suppliers) {
+		// // Look if there are subparts of part with partid
+		// if (partService.getAllDirectSubpartsOfPart(partid).size() > 0) {
+		// int cheapestPrice = 0;
+		// String cheapestProducer = null;
+		// // iterate through all direct subParts
+		// for (String subPart : partService
+		// .getAllDirectSubpartsOfPart(partid)) {
+		//
+		// cheapestPrice = 0;
+		// Offer cheapestOfferForSubPart = null;
+		//
+		// // iterate through all platforms
+		// List<String> suppliersOfSubPart = supplService
+		// .getAllProducersForPart(subPart);
+		//
+		// // inner price of each platform
+		// int innerPlatformProducerPrice = 0;
+		//
+		// // Iterate through all producers of subpart
+		// for (String prod : suppliersOfSubPart) {
+		//
+		// // Calculates price for every subPart of every
+		// // producer of part
+		// // priceForPart = calcPrice(customerid,
+		// // inquiryid,
+		// // serviceList, prod, price, helpprice,
+		// // innerprice,
+		// // subPart);
+		//
+		// // generates an inquiryid
+		// WriteLogServiceImpl logService = new WriteLogServiceImpl();
+		// logService.logInquiry(customerid, prod, partid,
+		// inquiryid);
+		//
+		// innerPlatformProducerPrice = serviceList.get(
+		// platformNameSubParts).getPrice(customerid,
+		// prod, subPart, inquiryid);
+		//
+		// String offerId = Database.getInstance()
+		// .generateOfferId();
+		// logService.logOffer(customerid, prod, partid,
+		// innerPlatformProducerPrice, inquiryid,
+		// offerId);
+		//
+		// log.info("InnerPrice for " + subPart
+		// + " after call getPrice: "
+		// + innerPlatformProducerPrice);
+		// if (innerPlatformProducerPrice < cheapestPrice
+		// && innerPlatformProducerPrice > 0) {
+		// log.info(innerPlatformProducerPrice + "<"
+		// + cheapestPrice + " &&"
+		// + innerPlatformProducerPrice + "> 0");
+		// // bei allen ab dem zweiten
+		// cheapestPrice = innerPlatformProducerPrice;
+		// cheapestProducer = prod;
+		// offerId = Database.getInstance()
+		// .generateOfferId();
+		// cheapestOfferForSubPart = new Offer(offerId,
+		// subPart, prod, customerid, inquiryid,
+		// innerPlatformProducerPrice);
+		// logService.logOffer(customerid, prod, partid,
+		// innerPlatformProducerPrice, inquiryid,
+		// offerId);
+		// } else if (cheapestPrice == 0
+		// && innerPlatformProducerPrice > 0) {
+		// log.info(innerPlatformProducerPrice
+		// + "== 0 && "
+		// + innerPlatformProducerPrice + "> 0");
+		// // bei ersten durchlauf dieser code
+		// cheapestPrice = innerPlatformProducerPrice;
+		// cheapestProducer = prod;
+		// offerId = Database.getInstance()
+		// .generateOfferId();
+		// cheapestOfferForSubPart = new Offer(offerId,
+		// subPart, prod, customerid, inquiryid,
+		// innerPlatformProducerPrice);
+		// logService.logOffer(customerid, prod, partid,
+		// innerPlatformProducerPrice, inquiryid,
+		// offerId);
+		// }
+		//
+		// }
+		//
+		// log.severe("PRICECALC: " + customerid + " "
+		// + serviceList + " " + price + " " + subPart
+		// + " " + cheapestPrice);
+		//
+		// // Storing the cheapest producer and its price for part
+		// offersList.add(cheapestOfferForSubPart);
+		// }
+		// int sumPrices = 0;
+		// for (Offer off : offersList) {
+		// sumPrices += off.getPrice();
+		// }
+		// String offerId = Database.getInstance().generateOfferId();
+		// Offer offerWholePart = new Offer(offerId, partid, prod,
+		// customerid, inquiryid, sumPrices);
+		//
+		// } else {
+		// // No subparts existing
+		// // log.severe("NoSubParts PRICECALC: " + customerid + " "
+		// // + serviceList + " " + price + " " + partid + " "
+		// // + price);
+		// //
+		// // for (String platformName : serviceList.keySet()) {
+		// //
+		// // // Get producers of all foreign platforms for every
+		// // subPart
+		// // List<String> allProducers = serviceList.get(platformName)
+		// // .getAllProducersForPart(partid);
+		// //
+		// // // Get producers of all own platforms for every subPart
+		// // SupplierService supplService = new SupplierServiceImpl();
+		// // List<String> ownProducers = supplService
+		// // .getAllProducersForPart(partid);
+		// //
+		// // // join all producers of all platforms
+		// // allProducers.addAll(ownProducers);
+		// //
+		// // for (String prod : allProducers) {
+		// // price = serviceList.get(platformName).getPrice(
+		// // customerid, prod, partid, inquiryid);
+		// // priceChains.put(prod, price);
+		// // }
+		// }
+		// }
+		// } catch (Exception e) {
+		// e.printStackTrace();
+		// }
+		//
+		// // logService.logOffer(customerid, producerid, partid, price,
+		// inquiryid,
+		// // Database.getInstance().generateOfferId());
 		return offersList;
 	}
 
@@ -194,16 +195,20 @@ public class PriceServiceImpl implements PriceService {
 		SupplierService supplService = new SupplierServiceImpl();
 		Producer prod = supplService.getProducer(producerid);
 		Map<String, Integer> parts = prod.getParts();
-
+		int charge;
 		// Aufschlag auf Preis der Subparts
-		int charge = parts.get(partid);
+		if (parts != null) {
+			charge = parts.get(partid);
+		} else {
+			charge = 333;
+		}
 
 		PartService partService = new PartServiceImpl();
 		List<String> subParts = partService.getAllDirectSubpartsOfPart(partid);
 
 		// get foreign producers
 		Map<String, InquiryOrderPlattformService> serviceList = Database
-				.getInstance().getAllServices(false);
+				.getInstance().getServices(false);
 		int sum = 0;
 		for (String subPart : subParts) {
 			int cheapestSubPartPrice = -1;
@@ -212,7 +217,7 @@ public class PriceServiceImpl implements PriceService {
 
 				List<String> prods = serviceList.get(platformName)
 						.getAllProducersForPart(subPart);
-				
+
 				int temp = -1;
 				for (String prodOfSubPart : prods) {
 					temp = serviceList.get(platformName).getPrice(customerid,
@@ -228,6 +233,7 @@ public class PriceServiceImpl implements PriceService {
 			sum += cheapestSubPartPrice;
 		}
 		price = sum + charge;
+		log.info("Current price: " + price);
 		return price;
 	}
 

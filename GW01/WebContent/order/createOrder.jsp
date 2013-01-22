@@ -84,7 +84,7 @@
 									+ pd.toString() + "</option>");
 						}
 						out.print("</select>");
-					%>
+					%>		 
 				</div>
 			</div>
 			<div class="control-group">
@@ -111,6 +111,7 @@
 				try {
 					List<Offer> listOfOffers = supClientService
 							.getOffersForPart(partName, customerId);
+					System.out.println(listOfOffers.toString());
 					if (listOfOffers.size() > 0) {
 		%>
 		<div class="control-group">

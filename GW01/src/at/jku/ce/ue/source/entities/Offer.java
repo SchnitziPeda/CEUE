@@ -44,6 +44,17 @@ public class Offer {
 		return offerID;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Offer [offerID=" + offerID + ", partName=" + partName
+				+ ", supplierOfOffer=" + supplierOfOffer + ", customerOfOffer="
+				+ customerOfOffer + ", inquiryOfOffer=" + inquiryOfOffer
+				+ ", price=" + price + "]";
+	}
+
 	/**
 	 * @param offerID the offerID to set
 	 */
