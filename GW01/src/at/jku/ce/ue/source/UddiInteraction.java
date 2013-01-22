@@ -83,6 +83,48 @@ public class UddiInteraction {
 		return serviceCollection;
 
 	}
+	
+	/**
+	 * AAAALLL List of endpoints, including us
+	 * @return
+	 */
+	public Map<String, InquiryOrderPlattformService> generateListOfAllEndpoints(){
+		Map<String, InquiryOrderPlattformService> serviceCollection = new HashMap<String, InquiryOrderPlattformService>();
+		plattforms = app.getListOfAllEndpoints();
+		URL wsdlLocation = null;
+		
+		for(String key : plattforms.keySet()){
+			String value = plattforms.get(key);
+//			System.out.println("++"+key.toString());
+			wsdlLocation = null;
+			
+			try {
+				wsdlLocation = new URL(value);
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+//				e.printStackTrace();
+			}
+			
+			try { 
+				if(wsdlLocation != null){
+					InquiryOrderPlattformServiceService ss = new InquiryOrderPlattformServiceService(wsdlLocation, new QName(QNameURL, QNameName));
+					if(ss != null){
+						InquiryOrderPlattformService myService = ss.getInquiryOrderPlattformServicePort();	
+						if(myService != null){
+							serviceCollection.put(key.toString(), myService);
+						}
+					}
+				}				
+			} catch (Exception e){
+				log.severe("UDDI Error: InquyirOrderPlattformService could not be created");
+			}
+		}
+
+		return serviceCollection;
+
+	}
+	
+	
 
 
 	public Map<String, String> getPlattforms() {

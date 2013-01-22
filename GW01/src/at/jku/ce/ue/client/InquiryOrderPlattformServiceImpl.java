@@ -43,7 +43,7 @@ public class InquiryOrderPlattformServiceImpl implements InquiryOrderPlattformSe
         try {
         	
         	PriceService priceService = new PriceServiceImpl();
-        	return priceService.getPrice(customerid, partid, inquiryid);
+        	return priceService.getPrice(customerid, producerid, partid, inquiryid);
         	
 //        	
 //            int _return = -1603630566;

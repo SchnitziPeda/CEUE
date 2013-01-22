@@ -33,6 +33,8 @@ public class Database {
 
 	private Map<String, InquiryOrderPlattformService> services;
 
+	private Map<String, InquiryOrderPlattformService> allServices;
+	
 	private Map<String, Part> partsOnPlattform;
 
 	private Map<String, Customer> customersOnPlatform;
@@ -332,6 +334,21 @@ public class Database {
 
 		return this.services;
 	}
+	
+	/**
+	 * @return the allServices
+	 */
+	public Map<String, InquiryOrderPlattformService> getAllServices(
+			boolean withUpdate) {
+		if (allServices == null || withUpdate) {
+			// Managing UDDI Stuff
+			
+			this.allServices =  new UddiInteraction().generateListOfAllEndpoints();
+		}
+
+		return this.allServices;
+	}
+
 
 	/**
 	 * @param services

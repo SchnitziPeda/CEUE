@@ -5,7 +5,9 @@
 	import="java.util.*" import="java.util.ListIterator"
 	import="at.jku.ce.ue.bom.*"
 	import="at.jku.ce.ue.source.businessLogic.impl.*"
-	import="at.jku.ce.ue.source.businessLogic.*"%>
+	import="at.jku.ce.ue.source.businessLogic.*"
+	import="at.jku.ce.ue.source.entities.*"%>
+	
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -107,10 +109,9 @@
 				SupplierClientServiceImpl supClientService = new SupplierClientServiceImpl();
 
 				try {
-					Map<String, Integer> offers = supClientService
+					List<Offer> listOfOffers = supClientService
 							.getOffersForPart(partName, customerId);
-					Iterator entries = offers.entrySet().iterator();
-					if (offers.size() > 0) {
+					if (listOfOffers.size() > 0) {
 		%>
 		<div class="control-group">
 			<%
@@ -141,23 +142,22 @@
 					<%
 						// create supply chains here
 									int i = 0;
-									while (entries.hasNext()) {
-										Map.Entry pairs = (Map.Entry) entries.next();
+									for(Offer of : listOfOffers){
 										out.println("<tr>");
 										out.println("<td><input type='checkbox' name='order' value='order#"
 												+ i + "' class='controls'></td>");
 										out.println("<td><input type='hidden' name='producer' value="
-												+ pairs.getKey()
+												+ of.getSupplierOfOffer()
 												+ "#"
 												+ i
 												+ ">"
-												+ pairs.getKey() + "</td>");
+												+ of.getSupplierOfOffer() + "</td>");
 										out.println("<td><input type='hidden' name='price' value="
-												+ pairs.getValue()
+												+ of.getPrice()
 												+ "#"
 												+ i
 												+ ">"
-												+ pairs.getValue() + "</td>");
+												+ of.getPrice() + "</td>");
 										out.println("</tr>");
 										i++;
 									}

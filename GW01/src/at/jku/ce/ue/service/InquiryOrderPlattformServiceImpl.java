@@ -46,11 +46,9 @@ public class InquiryOrderPlattformServiceImpl implements InquiryOrderPlattformSe
         try {
         	
         	PriceService priceService = new PriceServiceImpl();
+        	int price = priceService.getPrice(customerid, producerid, partid, inquiryid);
         	
-        priceService.getClientPrice();
-        	
-            int _return = 818061312;
-            return _return;
+            return price;
         } catch (java.lang.Exception ex) {
             ex.printStackTrace();
             throw new RuntimeException(ex);

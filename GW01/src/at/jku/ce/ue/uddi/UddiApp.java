@@ -368,6 +368,114 @@ public class UddiApp {
 
 		return endpoints;
 	}
+	
+	/**
+	 * get endpoints with us
+	 * @return
+	 */
+	public Map<String, String> getListOfAllEndpoints() {
+
+		FindBusiness fb = new FindBusiness();
+		BusinessList bl = null;
+		String serviceKey = null;
+		Map<String, String> endpoints = new HashMap<String, String>();
+
+		try {
+
+			fb.setAuthInfo(this.getAuth());
+
+			Name name = new Name();
+			name.setValue("%");
+
+			FindQualifiers fq = new FindQualifiers();
+			fq.getFindQualifier().add(this.APPROXIMATE_MATCH);
+
+			fb.getName().add(name);
+			fb.setFindQualifiers(fq);
+
+			// get all businesses
+			bl = inquiry.findBusiness(fb);
+
+			bl.getBusinessInfos().getBusinessInfo().iterator();
+			for (int i = 0; i < bl.getBusinessInfos().getBusinessInfo().size(); i++) {
+
+				if (bl != null
+						&& bl.getBusinessInfos() != null
+						&& bl.getBusinessInfos().getBusinessInfo().size() > 0
+						&& bl.getBusinessInfos().getBusinessInfo().get(i)
+								.getName().size() > 0) {
+					String publisherName = bl.getBusinessInfos()
+							.getBusinessInfo().get(i).getName().get(0)
+							.getValue();
+
+					if (publisherName.matches("gruppe\\s+[0-9]*\\s+publisher")) {
+						// System.out.println(""+bl.getBusinessInfos().getBusinessInfo().get(i).getName().get(0).getValue());
+						// System.out.println(publisherName);
+
+						if (bl.getBusinessInfos().getBusinessInfo().get(i)
+								.getServiceInfos() != null
+								&& bl.getBusinessInfos().getBusinessInfo()
+										.get(i).getServiceInfos()
+										.getServiceInfo().size() > 0) {
+							serviceKey = bl.getBusinessInfos()
+									.getBusinessInfo().get(i).getServiceInfos()
+									.getServiceInfo().get(0).getServiceKey();
+
+							GetServiceDetail service = new GetServiceDetail();
+							service.setAuthInfo(getAuth());
+							service.getServiceKey().add(serviceKey);
+							ServiceDetail serviceInfo = inquiry
+									.getServiceDetail(service);
+							List<BusinessService> services = serviceInfo
+									.getBusinessService();
+							if (services.size() > 0) {
+								BusinessService bs = services.get(0);
+								if (bs != null
+										&& bs.getBindingTemplates() != null
+										&& bs.getBindingTemplates()
+												.getBindingTemplate().size() > 0
+										&& bs.getBindingTemplates()
+												.getBindingTemplate().get(0)
+												.getAccessPoint() != null) {
+
+									AccessPoint ap = bs.getBindingTemplates()
+											.getBindingTemplate().get(0)
+											.getAccessPoint();
+									String wsdlFile = ap.getValue();
+
+									if ((!wsdlFile.contains("localhost")) && (wsdlFile.contains("GW23") || wsdlFile.contains("GW01"))) {
+										if (!wsdlFile.contains("8090")) {
+											if (!wsdlFile.endsWith("?wsdl"))
+												wsdlFile = wsdlFile + "?wsdl";
+
+											System.out
+													.println("publisherName: "
+															+ publisherName
+															+ " " + wsdlFile);
+											endpoints.put(publisherName,
+													wsdlFile);
+										}
+									}
+								}
+							}
+						}
+					} // else
+						// System.out.println("wrong " + publisherName);
+				}
+
+			}
+			return endpoints;
+
+		} catch (DispositionReportFaultMessage e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (RemoteException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		return endpoints;
+	}
 
 	public static void main(String[] args) {
 		UddiApp app = new UddiApp();

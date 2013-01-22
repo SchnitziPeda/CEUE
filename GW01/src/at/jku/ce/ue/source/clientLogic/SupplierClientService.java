@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import at.jku.ce.ue.source.entities.Customer;
+import at.jku.ce.ue.source.entities.Offer;
 import at.jku.ce.ue.source.entities.Producer;
 
 /**
@@ -26,7 +27,7 @@ public interface SupplierClientService {
 
 	public List<String> getDirectSubPartsOf(String partId);
 
-	public Map<String, Integer> getOffersForPart(String partId,
+	public List<Offer> getOffersForPart(String partId,
 			String customerId);
 
 	public List<String> getAllPartsByProducer(String producerId);

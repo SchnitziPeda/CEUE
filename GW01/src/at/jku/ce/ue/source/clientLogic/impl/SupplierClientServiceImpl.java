@@ -3,26 +3,22 @@
  */
 package at.jku.ce.ue.source.clientLogic.impl;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import at.jku.ce.ue.log.WriteLogService;
 import at.jku.ce.ue.log.WriteLogServiceImpl;
 import at.jku.ce.ue.service.InquiryOrderPlattformService;
-import at.jku.ce.ue.source.UddiInteraction;
-import at.jku.ce.ue.source.businessLogic.BOMServiceUtil;
-import at.jku.ce.ue.source.businessLogic.PartService;
 import at.jku.ce.ue.source.businessLogic.PriceService;
-import at.jku.ce.ue.source.businessLogic.SupplierService;
-import at.jku.ce.ue.source.businessLogic.impl.BOMServiceUtilImpl;
 import at.jku.ce.ue.source.businessLogic.impl.PartServiceImpl;
 import at.jku.ce.ue.source.businessLogic.impl.PriceServiceImpl;
 import at.jku.ce.ue.source.businessLogic.impl.SupplierServiceImpl;
 import at.jku.ce.ue.source.clientLogic.SupplierClientService;
 import at.jku.ce.ue.source.entities.Customer;
 import at.jku.ce.ue.source.entities.Database;
+import at.jku.ce.ue.source.entities.Offer;
 import at.jku.ce.ue.source.entities.Part;
 import at.jku.ce.ue.source.entities.Producer;
 
@@ -198,48 +194,33 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 	}
 
 	@Override
-	public Map<String, Integer> getOffersForPart(String partName,
+	public List<Offer> getOffersForPart(String partName,
 			String customerId) {
-		Map<String, Integer> priceChains = new HashMap<String, Integer>();
+		List<Offer> listOfOffers = new LinkedList<Offer>();
 
 		String inquiryId = Database.getInstance().generateInquiryId();
 
-		List<String> producersForGivenPart = this
-				.getAllProducersForPart(partName);
-
-//		for (String prod : producersForGivenPart) {
-			// get price of producers:
-			PriceService priceService = new PriceServiceImpl();
+		Map<String, InquiryOrderPlattformService> serviceList = Database
+				.getInstance().getAllServices(false);
+		
+		for (String platformName : serviceList.keySet()) {
+			SupplierClientService supClientService = new SupplierClientServiceImpl();
+			List<String> prodList = supClientService.getAllProducersForPart(partName);
+			for (String prod : prodList) {
+				int price = serviceList.get(platformName).getPrice(customerId,
+						prod, partName, inquiryId);
+				String offerID = Database.getInstance().generateOfferId();
+				Offer offer = new Offer(offerID, partName, prod, customerId, inquiryId, price);
+				listOfOffers.add(offer);
+				WriteLogService logService = new WriteLogServiceImpl();
+				logService.logOffer(customerId, prod, partName, price, inquiryId, offerID);
+			}
 			
-			return priceService.getSupplyChains(customerId, partName,
-					inquiryId);
-//			priceChains.put(prod, price);
-//		}
-
-		// System.out.println(supplyChains.size());
-
-		// // get data of foreign plattforms
-		// UddiInteraction uddi = new UddiInteraction();
-		// Map<String, InquiryOrderPlattformService> plattforms = uddi
-		// .generateListofEndpoints();
-		//
-		// // iterate through all plattforms:
-		// for (String platformName : plattforms.keySet()) {
-		// // Getting all producers for parts of foreign plattforms
-		// List<String> producerForeignPlatform = plattforms.get(platformName)
-		// .getAllProducersForPart(partName);
-		// for (String prod : producerForeignPlatform) {
-		// // get prices for given product of foreign platform;
-		// int price = plattforms.get(platformName).getPrice(customerId,
-		// prod, partName, inquiryId);
-		// if (price >= 0) {
-		// // add price and producer to list
-		// supplyChains.put(prod, price);
-		// }
-		// }
-		// }
+			
+		}
 
 		
+			return listOfOffers;		
 	}
 
 	@Override
