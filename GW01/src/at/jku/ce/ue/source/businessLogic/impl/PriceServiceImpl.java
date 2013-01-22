@@ -32,6 +32,7 @@ public class PriceServiceImpl implements PriceService {
 		WriteLogServiceImpl logService = new WriteLogServiceImpl();
 		logService.logInquiry(customerid, producerid, producerid, inquiryid);
 
+
 		// get data of foreign plattforms
 		UddiInteraction uddi = new UddiInteraction();
 		Map<String, InquiryOrderPlattformService> plattforms = uddi

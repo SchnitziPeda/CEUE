@@ -297,6 +297,10 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 							int price = Integer.parseInt(prices[k].substring(0,
 									po));
 							String producerName = producers[j].substring(0, p);
+							// TODO:
+							// if producerName in liste mit gespeicherten
+							// wsdlFiles+Producers -> call webServce & place
+							// order
 							String order = orders[i].substring(0, pos);
 
 							System.out.println("Order: " + order
