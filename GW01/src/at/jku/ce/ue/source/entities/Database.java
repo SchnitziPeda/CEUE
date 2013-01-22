@@ -226,6 +226,42 @@ public class Database {
 
 		return customer.getId();
 	}
+	
+	/**
+	 * generates a random inquiryid
+	 * @return String
+	 */
+	public String generateInquiryId(){
+		Random rdm = new Random();
+		int rndm = rdm.nextInt(20000);
+									
+		String inquiryid = "GW01Inq" + rndm;
+		return inquiryid;
+	}
+	
+	/**
+	 * generates a random offer id
+	 * @return String
+	 */
+	public String generateOfferId(){
+		Random rdm = new Random();
+		int rndm = rdm.nextInt(20000);
+									
+		String offerid = "GW01Offer"+ rndm;
+		return offerid;
+	}
+	
+	/**
+	 * generates a random order id	
+	 * @return String
+	 */
+	public String generateOrderId(){
+		Random rdm = new Random();
+		int rndm = rdm.nextInt(20000);
+									
+		String orderid = "GW01Order"+ rndm;
+		return orderid;
+	}
 
 	/**
 	 * saves a given order

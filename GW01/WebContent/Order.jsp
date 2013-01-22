@@ -68,8 +68,9 @@ import="at.jku.ce.ue.uddi.*"
 					// String plattformName = "gruppe4";
 					// System.out.print(Init.getUddiReg().getWsdlOfPlattform(plattformName));
 					// String plattformName = "gruppe 1 publisher";
-					UddiApp app = new UddiApp();
-					app.getListofEndpoints();
+					UddiInteraction uddiInter = new UddiInteraction();
+					uddiInter.publishPlattformAndService();
+// 					app.getListofEndpoints();
 					// uddiInter.deleteService();
 					// uddiInter.publishPlattformAndService();
 							

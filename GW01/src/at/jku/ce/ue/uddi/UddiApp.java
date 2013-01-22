@@ -329,12 +329,12 @@ public class UddiApp {
 											.getAccessPoint();
 									String wsdlFile = ap.getValue();
 
-									if (!wsdlFile.contains("localhost")) {
+									if (!wsdlFile.contains("localhost") && !wsdlFile.contains("GW01")) {
 										if (!wsdlFile.contains("8090")) {
 											if (!wsdlFile.endsWith("?wsdl"))
 												wsdlFile = wsdlFile + "?wsdl";
 
-//											System.out.println("publisherName: "+publisherName+" "+wsdlFile);
+											System.out.println("publisherName: "+publisherName+" "+wsdlFile);
 											endpoints.put(publisherName,
 													wsdlFile);
 										}

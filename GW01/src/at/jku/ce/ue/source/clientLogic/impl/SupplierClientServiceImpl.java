@@ -328,21 +328,11 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 							
 							// TODO: what do we have to save?
 							db.saveOrder(order, producerName, price);
-
-							// save order as log in monitoring database
-							Random rdm = new Random();
-							int rndm = rdm.nextInt();
-							if(rndm<0)
-								rndm = rndm*-1;
-														
-							String inquiryid = "GW01Inq" + rndm;
-							String offerid = "GW01Offer"+ rndm;
-							String orderid = "GW01Order"+ rndm;
+							
 
 							WriteLogServiceImpl logService = new WriteLogServiceImpl();
 							logService.logOrder(customerId, producerName,
-									partId, price, inquiryid, offerid, orderid);
-
+									partId, price, db.generateInquiryId(), db.generateOfferId(), db.generateOrderId());
 						}
 					}
 

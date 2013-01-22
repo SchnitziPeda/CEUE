@@ -156,7 +156,9 @@ public class SupplierServiceImpl implements SupplierService {
 			List<String> partNames = prod.getPartNames();
 			
 			for (String string : partNames) {
-				
+				if(partName.contains(string)){
+					producers.add(prod.getName());
+				}
 			}
 		}
 
