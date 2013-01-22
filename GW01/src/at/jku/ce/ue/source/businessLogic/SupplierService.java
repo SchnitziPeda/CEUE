@@ -60,5 +60,4 @@ public interface SupplierService {
 	
 	public boolean authentificateSupplier(String supplierName);
 	
-
 }

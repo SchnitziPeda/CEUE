@@ -38,20 +38,16 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 
 	@Override
 	public Map<String, Producer> getAllProducers() {
-
 		Database db = Database.getInstance();
 		Map<String, Producer> storedPoducers = db.getProducers();
 		List<Producer> producers = new LinkedList<Producer>();
 
-		// Managing UDDI Stuff
-		UddiInteraction uddi = new UddiInteraction();
-		Map<String, InquiryOrderPlattformService> plattforms = uddi
-				.generateListofEndpoints();
-
+		Map<String, InquiryOrderPlattformService> serviceList = db.getServices(false);
+		
 		// Iterating through all platforms
-		for (String plattformName : plattforms.keySet()) {
+		for (String plattformName : serviceList.keySet()) {
 			// Getting all producers of other platforms
-			List<String> prods = plattforms.get(plattformName)
+			List<String> prods = serviceList.get(plattformName)
 					.getAllProducersOnPlattform();
 
 			// Iterating through all Producers of platform 'plattform'
@@ -81,13 +77,12 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 		}
 
 		// data of foreign plattforms:
-		UddiInteraction uddi = new UddiInteraction();
-		Map<String, InquiryOrderPlattformService> plattforms = uddi
-				.generateListofEndpoints();
+		Map<String, InquiryOrderPlattformService> serviceList = Database.getInstance().getServices(false);
+		
 		// Iterating through all platforms
-		for (String plattformName : plattforms.keySet()) {
+		for (String plattformName : serviceList.keySet()) {
 			// Getting all producers of other platforms
-			List<String> prods = plattforms.get(plattformName)
+			List<String> prods = serviceList.get(plattformName)
 					.getAllProducersOnPlattform();
 
 			// Iterating through all parts of platform 'plattform'
@@ -128,6 +123,7 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 
 	@Override
 	public List<String> getAllProducersForPart(String partId) {
+		
 		List<String> producers = new LinkedList<String>();
 
 		// get own producers
@@ -140,14 +136,14 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 			}
 		}
 
+		
 		// get foreign producers
-		UddiInteraction uddi = new UddiInteraction();
-		Map<String, InquiryOrderPlattformService> plattforms = uddi
-				.generateListofEndpoints();
+		Map<String, InquiryOrderPlattformService> serviceList = Database.getInstance().getServices(false);
+		
 		// Iterating through all platforms
-		for (String plattformName : plattforms.keySet()) {
+		for (String plattformName : serviceList.keySet()) {
 			// Getting all parts of other platforms
-			List<String> prods = plattforms.get(plattformName)
+			List<String> prods = serviceList.get(plattformName)
 					.getAllProducersForPart(partId);
 
 			// Iterating through all parts of platform 'plattform'
@@ -211,16 +207,14 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 		List<String> producersForGivenPart = this
 				.getAllProducersForPart(partName);
 
-		for (String prod : producersForGivenPart) {
-			log.info("get price of producers "+prod);
+//		for (String prod : producersForGivenPart) {
 			// get price of producers:
 			PriceService priceService = new PriceServiceImpl();
 			
-			int price = priceService.getPrice(customerId, prod,
-					partName, inquiryId);
-			log.severe("Price for prod "+prod+" product: "+partName+" --> "+price);
-			priceChains.put(prod, price);
-		}
+			return priceService.getSupplyChains(customerId, partName,
+					inquiryId);
+//			priceChains.put(prod, price);
+//		}
 
 		// System.out.println(supplyChains.size());
 
@@ -245,7 +239,7 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 		// }
 		// }
 
-		return priceChains;
+		
 	}
 
 	@Override
@@ -257,12 +251,11 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 		allPartsByProducer = partService.getAllPartsByProducer(producerId);
 
 		// get foreign data:
-		UddiInteraction uddi = new UddiInteraction();
-		Map<String, InquiryOrderPlattformService> plattforms = uddi
-				.generateListofEndpoints();
+		Map<String, InquiryOrderPlattformService> serviceList = Database.getInstance().getServices(false);
+		
 		// iterate through:
-		for (String platformName : plattforms.keySet()) {
-			List<String> parts = plattforms.get(platformName)
+		for (String platformName : serviceList.keySet()) {
+			List<String> parts = serviceList.get(platformName)
 					.getAllPartsByProducer(producerId);
 			for (String pr : parts) {
 				allPartsByProducer.add(pr);

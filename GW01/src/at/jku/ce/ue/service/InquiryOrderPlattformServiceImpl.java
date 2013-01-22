@@ -9,9 +9,11 @@ package at.jku.ce.ue.service;
 import java.util.List;
 import java.util.logging.Logger;
 
+import at.jku.ce.ue.source.businessLogic.PriceService;
 import at.jku.ce.ue.source.businessLogic.SupplierService;
 import at.jku.ce.ue.source.businessLogic.impl.OrderServiceImpl;
 import at.jku.ce.ue.source.businessLogic.impl.PartServiceImpl;
+import at.jku.ce.ue.source.businessLogic.impl.PriceServiceImpl;
 import at.jku.ce.ue.source.businessLogic.impl.SupplierServiceImpl;
 
 /**
@@ -42,6 +44,11 @@ public class InquiryOrderPlattformServiceImpl implements InquiryOrderPlattformSe
         System.out.println(partid);
         System.out.println(inquiryid);
         try {
+        	
+        	PriceService priceService = new PriceServiceImpl();
+        	
+        priceService.getClientPrice();
+        	
             int _return = 818061312;
             return _return;
         } catch (java.lang.Exception ex) {

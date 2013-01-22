@@ -11,29 +11,29 @@ public class Offer {
 
 	private String offerID;
 
-	private Part part;
-	private Role supplierOfOffer;
-	private Role customerOfOffer;
-	private Inquiry inquiryOfOffer;
+	private String partName;
+	private String supplierOfOffer;
+	private String customerOfOffer;
+	private String inquiryOfOffer;
 	
-	private double price;
+	private int price;
 
 	/**
 	 * @param offerID
-	 * @param part
-	 * @param supplierOfOffer
-	 * @param customerOfOffer
-	 * @param inquiryOfOffer
+	 * @param subPart
+	 * @param prod
+	 * @param customerid
+	 * @param inquiryid
 	 * @param price
 	 */
-	public Offer(String offerID, Part part, Role supplierOfOffer,
-			Role customerOfOffer, Inquiry inquiryOfOffer, double price) {
+	public Offer(String offerID, String subPart, String prod,
+			String customerid, String inquiryid, int price) {
 		super();
 		this.offerID = offerID;
-		this.part = part;
-		this.supplierOfOffer = supplierOfOffer;
-		this.customerOfOffer = customerOfOffer;
-		this.inquiryOfOffer = inquiryOfOffer;
+		this.partName = subPart;
+		this.supplierOfOffer = prod;
+		this.customerOfOffer = customerid;
+		this.inquiryOfOffer = inquiryid;
 		this.price = price;
 	}
 
@@ -52,75 +52,73 @@ public class Offer {
 	}
 
 	/**
-	 * @return the part
+	 * @return the partName
 	 */
-	public Part getPart() {
-		return part;
+	public String getPartName() {
+		return partName;
 	}
 
 	/**
-	 * @param part the part to set
+	 * @param partName the partName to set
 	 */
-	public void setPart(Part part) {
-		this.part = part;
+	public void setPartName(String partName) {
+		this.partName = partName;
 	}
 
 	/**
 	 * @return the supplierOfOffer
 	 */
-	public Role getSupplierOfOffer() {
+	public String getSupplierOfOffer() {
 		return supplierOfOffer;
 	}
 
 	/**
 	 * @param supplierOfOffer the supplierOfOffer to set
 	 */
-	public void setSupplierOfOffer(Role supplierOfOffer) {
+	public void setSupplierOfOffer(String supplierOfOffer) {
 		this.supplierOfOffer = supplierOfOffer;
 	}
 
 	/**
 	 * @return the customerOfOffer
 	 */
-	public Role getCustomerOfOffer() {
+	public String getCustomerOfOffer() {
 		return customerOfOffer;
 	}
 
 	/**
 	 * @param customerOfOffer the customerOfOffer to set
 	 */
-	public void setCustomerOfOffer(Role customerOfOffer) {
+	public void setCustomerOfOffer(String customerOfOffer) {
 		this.customerOfOffer = customerOfOffer;
 	}
 
 	/**
 	 * @return the inquiryOfOffer
 	 */
-	public Inquiry getInquiryOfOffer() {
+	public String getInquiryOfOffer() {
 		return inquiryOfOffer;
 	}
 
 	/**
 	 * @param inquiryOfOffer the inquiryOfOffer to set
 	 */
-	public void setInquiryOfOffer(Inquiry inquiryOfOffer) {
+	public void setInquiryOfOffer(String inquiryOfOffer) {
 		this.inquiryOfOffer = inquiryOfOffer;
 	}
 
 	/**
 	 * @return the price
 	 */
-	public double getPrice() {
+	public int getPrice() {
 		return price;
 	}
 
 	/**
 	 * @param price the price to set
 	 */
-	public void setPrice(double price) {
+	public void setPrice(int price) {
 		this.price = price;
 	}
-	
-	
-	
+
 }

@@ -6,6 +6,7 @@ import java.util.Map;
 import at.jku.ce.ue.service.InquiryOrderPlattformService;
 import at.jku.ce.ue.source.UddiInteraction;
 import at.jku.ce.ue.source.businessLogic.OrderService;
+import at.jku.ce.ue.source.entities.Database;
 
 public class OrderServiceImpl implements OrderService {
 
@@ -19,12 +20,11 @@ public class OrderServiceImpl implements OrderService {
 
 		
 		// call other plattforms
-		UddiInteraction uddi = new UddiInteraction();
-		Map<String, InquiryOrderPlattformService> plattforms = uddi.generateListofEndpoints();
+		Map<String, InquiryOrderPlattformService> serviceList = Database.getInstance().getServices(false);
 		
 		// iterate through:
-		for (String platformName : plattforms.keySet()) {
-			plattforms.get(platformName).placeOrder(customerid, producerid, partid, inquiryid, price, orderid);
+		for (String platformName : serviceList.keySet()) {
+			serviceList.get(platformName).placeOrder(customerid, producerid, partid, inquiryid, price, orderid);
 		}
 		
 	}

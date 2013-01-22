@@ -10,6 +10,8 @@ import java.util.Map;
 import java.util.Random;
 import java.util.logging.Logger;
 
+import at.jku.ce.ue.service.InquiryOrderPlattformService;
+import at.jku.ce.ue.source.UddiInteraction;
 import at.jku.ce.ue.source.businessLogic.BOMServiceUtil;
 import at.jku.ce.ue.source.businessLogic.impl.BOMServiceUtilImpl;
 
@@ -28,6 +30,8 @@ public class Database {
 	private static Database database;
 
 	private Map<String, Producer> producers;
+
+	private Map<String, InquiryOrderPlattformService> services;
 
 	private Map<String, Part> partsOnPlattform;
 
@@ -226,40 +230,43 @@ public class Database {
 
 		return customer.getId();
 	}
-	
+
 	/**
 	 * generates a random inquiryid
+	 * 
 	 * @return String
 	 */
-	public String generateInquiryId(){
+	public String generateInquiryId() {
 		Random rdm = new Random();
 		int rndm = rdm.nextInt(20000);
-									
+
 		String inquiryid = "GW01Inq" + rndm;
 		return inquiryid;
 	}
-	
+
 	/**
 	 * generates a random offer id
+	 * 
 	 * @return String
 	 */
-	public String generateOfferId(){
+	public String generateOfferId() {
 		Random rdm = new Random();
 		int rndm = rdm.nextInt(20000);
-									
-		String offerid = "GW01Offer"+ rndm;
+
+		String offerid = "GW01Offer" + rndm;
 		return offerid;
 	}
-	
+
 	/**
-	 * generates a random order id	
+	 * generates a random order id
+	 * 
 	 * @return String
 	 */
-	public String generateOrderId(){
+	public String generateOrderId() {
 		Random rdm = new Random();
 		int rndm = rdm.nextInt(20000);
-									
-		String orderid = "GW01Order"+ rndm;
+
+		String orderid = "GW01Order" + rndm;
 		return orderid;
 	}
 
@@ -310,6 +317,28 @@ public class Database {
 
 	public void setCustomersOnPlatform(Map<String, Customer> customersOnPlatform) {
 		this.customersOnPlatform = customersOnPlatform;
+	}
+
+	/**
+	 * @return the services
+	 */
+	public Map<String, InquiryOrderPlattformService> getServices(
+			boolean withUpdate) {
+		if (services == null || withUpdate) {
+			// Managing UDDI Stuff
+			
+			this.services =  new UddiInteraction().generateListofEndpoints();
+		}
+
+		return this.services;
+	}
+
+	/**
+	 * @param services
+	 *            the services to set
+	 */
+	public void setServices(Map<String, InquiryOrderPlattformService> services) {
+		this.services = services;
 	}
 
 }
