@@ -100,10 +100,9 @@
 				
 				String partName = request.getParameter("part");
 				String customerId = request.getParameter("customer");
-
-				BOMServiceUtil bomService = new BOMServiceUtilImpl();
-				List<String> subParts = bomService
-						.getAllDirectSubpartsOfPart(partName);
+				
+				PartService partService = new PartServiceImpl();
+				List<String> subParts = partService.getAllDirectSubpartsOfPart(partName);
 
 				SupplierClientServiceImpl supClientService = new SupplierClientServiceImpl();
 

@@ -12,6 +12,7 @@ import at.jku.ce.ue.log.WriteLogServiceImpl;
 import at.jku.ce.ue.service.InquiryOrderPlattformService;
 import at.jku.ce.ue.source.UddiInteraction;
 import at.jku.ce.ue.source.businessLogic.BOMServiceUtil;
+import at.jku.ce.ue.source.businessLogic.PartService;
 import at.jku.ce.ue.source.businessLogic.PriceService;
 import at.jku.ce.ue.source.entities.Database;
 import at.jku.ce.ue.source.entities.Producer;
@@ -39,10 +40,10 @@ public class PriceServiceImpl implements PriceService {
 		log.info("Platforms generated!");
 
 		int price = 0;
-		BOMServiceUtil bomService = new BOMServiceUtilImpl();
+		PartService partService = new PartServiceImpl();
 		try {
-			if (bomService.getAllDirectSubpartsOfPart(partid).size() > 0) {
-				for (String subPart : bomService
+			if (partService.getAllDirectSubpartsOfPart(partid).size() > 0) {
+				for (String subPart : partService
 						.getAllDirectSubpartsOfPart(partid)) {
 
 					int priceForPart = calcPrice(customerid, inquiryid,
