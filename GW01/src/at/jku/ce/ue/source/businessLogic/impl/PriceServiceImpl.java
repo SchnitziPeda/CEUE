@@ -195,9 +195,10 @@ public class PriceServiceImpl implements PriceService {
 		SupplierService supplService = new SupplierServiceImpl();
 		Producer prod = supplService.getProducer(producerid);
 		Map<String, Integer> parts = prod.getParts();
-		int charge;
+		int charge = 5;
 		// Aufschlag auf Preis der Subparts
-		if (parts != null) {
+
+		if (parts.get(partid) != null) {
 			charge = parts.get(partid);
 		} else {
 			charge = 333;
@@ -208,7 +209,7 @@ public class PriceServiceImpl implements PriceService {
 
 		// get foreign producers
 		Map<String, InquiryOrderPlattformService> serviceList = Database
-				.getInstance().getServices(false);
+				.getInstance().getAllServices(false);
 		int sum = 0;
 		for (String subPart : subParts) {
 			int cheapestSubPartPrice = -1;
