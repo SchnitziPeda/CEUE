@@ -9,6 +9,8 @@ package at.jku.ce.ue.client;
 import java.util.logging.Logger;
 
 import at.jku.ce.ue.log.WriteLogServiceImpl;
+import at.jku.ce.ue.source.businessLogic.PriceService;
+import at.jku.ce.ue.source.businessLogic.impl.PriceServiceImpl;
 import at.jku.ce.ue.source.clientLogic.impl.SupplierClientServiceImpl;
 
 /**
@@ -40,8 +42,8 @@ public class InquiryOrderPlattformServiceImpl implements InquiryOrderPlattformSe
         System.out.println(inquiryid);
         try {
         	
-        	SupplierClientServiceImpl supClientService = new SupplierClientServiceImpl();
-        	return supClientService.getPrice(customerid, producerid, partid, inquiryid);
+        	PriceService priceService = new PriceServiceImpl();
+        	return priceService.getPrice(customerid, producerid, partid, inquiryid);
         	
 //        	
 //            int _return = -1603630566;
