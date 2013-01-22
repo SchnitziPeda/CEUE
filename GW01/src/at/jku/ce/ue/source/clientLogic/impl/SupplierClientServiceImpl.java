@@ -11,8 +11,10 @@ import java.util.Map;
 import at.jku.ce.ue.log.WriteLogServiceImpl;
 import at.jku.ce.ue.service.InquiryOrderPlattformService;
 import at.jku.ce.ue.source.UddiInteraction;
+import at.jku.ce.ue.source.businessLogic.BOMServiceUtil;
 import at.jku.ce.ue.source.businessLogic.PriceService;
 import at.jku.ce.ue.source.businessLogic.SupplierService;
+import at.jku.ce.ue.source.businessLogic.impl.BOMServiceUtilImpl;
 import at.jku.ce.ue.source.businessLogic.impl.PartServiceImpl;
 import at.jku.ce.ue.source.businessLogic.impl.PriceServiceImpl;
 import at.jku.ce.ue.source.businessLogic.impl.SupplierServiceImpl;
@@ -193,8 +195,6 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-
 
 	@Override
 	public Map<String, Integer> getOffersForPart(String partName,
@@ -203,36 +203,38 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 
 		String inquiryId = Database.getInstance().generateInquiryId();
 
-		List<String> producersForGivenPart = this.getAllProducersForPart(partName);
-		
-		for(String prod : producersForGivenPart){
+		List<String> producersForGivenPart = this
+				.getAllProducersForPart(partName);
+
+		for (String prod : producersForGivenPart) {
 			// get price of producers:
 			PriceService priceService = new PriceServiceImpl();
-			priceChains.put(prod, priceService.getPrice(customerId, prod, partName, inquiryId));	
+			priceChains.put(prod, priceService.getPrice(customerId, prod,
+					partName, inquiryId));
 		}
-		
+
 		// System.out.println(supplyChains.size());
 
-//		// get data of foreign plattforms
-//		UddiInteraction uddi = new UddiInteraction();
-//		Map<String, InquiryOrderPlattformService> plattforms = uddi
-//				.generateListofEndpoints();
-//
-//		// iterate through all plattforms:
-//		for (String platformName : plattforms.keySet()) {
-//			// Getting all producers for parts of foreign plattforms
-//			List<String> producerForeignPlatform = plattforms.get(platformName)
-//					.getAllProducersForPart(partName);
-//			for (String prod : producerForeignPlatform) {
-//				// get prices for given product of foreign platform;
-//				int price = plattforms.get(platformName).getPrice(customerId,
-//						prod, partName, inquiryId);
-//				if (price >= 0) {
-//					// add price and producer to list
-//					supplyChains.put(prod, price);
-//				}
-//			}
-//		}
+		// // get data of foreign plattforms
+		// UddiInteraction uddi = new UddiInteraction();
+		// Map<String, InquiryOrderPlattformService> plattforms = uddi
+		// .generateListofEndpoints();
+		//
+		// // iterate through all plattforms:
+		// for (String platformName : plattforms.keySet()) {
+		// // Getting all producers for parts of foreign plattforms
+		// List<String> producerForeignPlatform = plattforms.get(platformName)
+		// .getAllProducersForPart(partName);
+		// for (String prod : producerForeignPlatform) {
+		// // get prices for given product of foreign platform;
+		// int price = plattforms.get(platformName).getPrice(customerId,
+		// prod, partName, inquiryId);
+		// if (price >= 0) {
+		// // add price and producer to list
+		// supplyChains.put(prod, price);
+		// }
+		// }
+		// }
 
 		return priceChains;
 	}
@@ -260,7 +262,6 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 
 		return allPartsByProducer;
 	}
-
 
 	@Override
 	public void saveOrders(String customerId, String partId, String[] orders,
@@ -292,17 +293,18 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 							System.out.println("Order: " + order
 									+ " Producer: " + producerName + " Price: "
 									+ price);
-							
+
 							// TODO: what do we have to save?
 							db.saveOrder(order, producerName, price);
-							
-							// TODO: 
+
+							// TODO:
 							// call placeOrder() of provided web services;
-							// if subparts exists -> log them as well 
+							// if subparts exists -> log them as well
 
 							WriteLogServiceImpl logService = new WriteLogServiceImpl();
 							logService.logOrder(customerId, producerName,
-									partId, price, db.generateInquiryId(), db.generateOfferId(), db.generateOrderId());
+									partId, price, db.generateInquiryId(),
+									db.generateOfferId(), db.generateOrderId());
 						}
 					}
 

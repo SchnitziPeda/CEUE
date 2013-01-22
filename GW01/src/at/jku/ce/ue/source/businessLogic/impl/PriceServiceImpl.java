@@ -39,8 +39,9 @@ public class PriceServiceImpl implements PriceService {
 			if (bomService.getAllDirectSubpartsOfPart(partid).size() > 0) {
 				for (String subPart : bomService
 						.getAllDirectSubpartsOfPart(partid)) {
-					price = calcPrice(customerid, inquiryid, plattforms, price,
-							subPart);
+					price += calcPrice(customerid, inquiryid, plattforms,
+							price, subPart);
+
 				}
 			} else {
 				price = calcPrice(customerid, inquiryid, plattforms, price,
@@ -67,11 +68,11 @@ public class PriceServiceImpl implements PriceService {
 		int helpprice = 0;
 		for (String platformName : plattforms.keySet()) {
 			int innerprice = 0;
-			List<String> producersForeignPlatform = plattforms.get(
-					platformName).getAllProducersForPart(subPart);
+			List<String> producersForeignPlatform = plattforms
+					.get(platformName).getAllProducersForPart(subPart);
 			for (String prod : producersForeignPlatform) {
-				innerprice = plattforms.get(platformName).getPrice(
-						customerid, prod, subPart, inquiryid);
+				innerprice = plattforms.get(platformName).getPrice(customerid,
+						prod, subPart, inquiryid);
 				if (innerprice < helpprice && innerprice > 0) { // bei
 																// allen
 																// ab
