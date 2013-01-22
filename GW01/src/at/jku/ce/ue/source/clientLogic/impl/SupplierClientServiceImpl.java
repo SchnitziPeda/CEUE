@@ -11,6 +11,7 @@ import java.util.Map;
 import at.jku.ce.ue.log.WriteLogServiceImpl;
 import at.jku.ce.ue.service.InquiryOrderPlattformService;
 import at.jku.ce.ue.source.UddiInteraction;
+import at.jku.ce.ue.source.businessLogic.PartService;
 import at.jku.ce.ue.source.businessLogic.PriceService;
 import at.jku.ce.ue.source.businessLogic.SupplierService;
 import at.jku.ce.ue.source.businessLogic.impl.PartServiceImpl;
@@ -201,6 +202,8 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 			String customerId) {
 		Map<String, Integer> priceChains = new HashMap<String, Integer>();
 
+		PartService partService = new PartServiceImpl();
+		partService.getAllParts();
 		String inquiryId = Database.getInstance().generateInquiryId();
 
 		List<String> producersForGivenPart = this.getAllProducersForPart(partName);
