@@ -131,24 +131,8 @@ public class SupplierServiceImpl implements SupplierService {
 	 * returns all producers for the given part name
 	 */
 	@Override
-	public List<String> getAllProducersForPartName(String partName) {
+	public List<String> getAllProducersForPart(String partName) {
 		List<String> producers = new LinkedList<String>();
-
-//		PartServiceImpl partService = new PartServiceImpl();
-//		List<Part> list = partService.getAllParts();
-//		for (Part part : list) {
-//			System.out.println(part.getName());
-//			if (part.getName().equals(partName)) {
-//				/*
-//				 * TODO: getOfferedBy().getName() -> returns null! instead:
-//				 * getId() is used -> doesnt work either
-//				 */
-//				if (part.getOfferedBy() != null)
-//					producers.add(part.getOfferedBy().getId());
-//				else
-//					producers.add("Producer is missing!");
-//			}
-//		}
 		
 		Map<String, Producer> producerList = getAllProducers();
 		

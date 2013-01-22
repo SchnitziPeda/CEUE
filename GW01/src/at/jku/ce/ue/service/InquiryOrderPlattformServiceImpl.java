@@ -88,7 +88,7 @@ public class InquiryOrderPlattformServiceImpl implements InquiryOrderPlattformSe
         System.out.println(partName);
         try {
         	SupplierServiceImpl supService = new SupplierServiceImpl();
-        	return supService.getAllProducersForPartName(partName);
+        	return supService.getAllProducersForPart(partName);
         } catch (java.lang.Exception ex) {
             ex.printStackTrace();
             throw new RuntimeException(ex);

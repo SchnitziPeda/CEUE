@@ -210,6 +210,7 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 			PriceService priceService = new PriceServiceImpl();
 			priceChains.put(prod, priceService.getPrice(customerId, prod, partName, inquiryId));	
 		}
+		
 		// System.out.println(supplyChains.size());
 
 //		// get data of foreign plattforms
