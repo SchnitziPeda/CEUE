@@ -4,6 +4,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import javax.xml.namespace.QName;
 
@@ -13,6 +14,7 @@ import at.jku.ce.ue.uddi.UddiApp;
 
 public class UddiInteraction {
 	
+	private static Logger log = Logger.getLogger("UddiInteraction");
 	
 	private static final String QNameURL = "http://ue.ce.jku.at/";
 	private static final String QNameName = "InquiryOrderPlattformServiceService";
@@ -74,7 +76,7 @@ public class UddiInteraction {
 					}
 				}				
 			} catch (Exception e){
-				System.out.println("error");
+				log.severe("UDDI Error: InquyirOrderPlattformService could not be created");
 			}
 		}
 
