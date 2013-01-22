@@ -95,51 +95,45 @@
 		<%
 			if (request.getParameter("part") != null
 					&& request.getParameter("customer") != null) {
-				String partId = request.getParameter("part");
+				
+				// TODO: create offer id to save to database 
+				
+				String partName = request.getParameter("part");
 				String customerId = request.getParameter("customer");
 
 				BOMServiceUtil bomService = new BOMServiceUtilImpl();
 				List<String> subParts = bomService
-						.getAllDirectSubpartsOfPart(partId);
+						.getAllDirectSubpartsOfPart(partName);
 
 				SupplierClientServiceImpl supClientService = new SupplierClientServiceImpl();
 
 				try {
 
 					Map<String, Integer> supplyChains = supClientService
-							.getSupplyChainForPart(partId, customerId);
+							.getOffersForPart(partName, customerId);
 					Iterator entries = supplyChains.entrySet().iterator();
 					if (supplyChains.size() > 0) {
 		%>
 		<div class="control-group">
-			Your have selected: <b> 
 			<%
- 				out.println(partId);
- 			%>
-			</b> <br> Direct sub-parts of that:
-			<ul>
-				<%
-					if(subParts.size() > 0){
-						for (String s : subParts) {
-
-				%><li>
-					<%
-						out.println(s + " ");
-					%>
-				</li>
-				<%
-						}
-					} else {
-						out.println("<i>No further available!</i>");
+				if(subParts.size() > 0){
+					out.println("Your selected part<b> "+partName+"</b> contains the following subparts:");
+					out.println("<ul>");
+					for(String s : subParts){
+						out.println("<li>"+s+"</li>");
 					}
-				%>
-			</ul>
+					out.println("</ul>");
+				} else{
+					out.println("No further sub-parts available!");
+				} 
+					
+ 			%>
 		</div>
 		<div class="control-group">
 			<form method="post" action="saveOrder.jsp" name="saveOrder">
 				<input type="hidden" name="customerId"
 					value="<%out.println(customerId);%>"> <input type="hidden"
-					name="partId" value="<%out.println(partId);%>">
+					name="partId" value="<%out.println(partName);%>">
 				<table class="table">
 					<tr>
 						<td><b>Select chain:</b></td>

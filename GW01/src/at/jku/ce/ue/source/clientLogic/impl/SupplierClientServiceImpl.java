@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import at.jku.ce.ue.log.WriteLogServiceImpl;
 import at.jku.ce.ue.service.InquiryOrderPlattformService;
@@ -212,12 +211,12 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 	}
 
 	@Override
-	public Map<String, Integer> getSupplyChainForPart(String partName,
+	public Map<String, Integer> getOffersForPart(String partName,
 			String customerId) {
 		Map<String, Integer> supplyChains = new HashMap<String, Integer>();
 
-		// TODO
-		String inquiryId = "123";
+		// generates an inquiryid
+		String inquiryId = Database.getInstance().generateInquiryId();
 
 		// get data of own plattform
 		// get producers for part first:
@@ -329,6 +328,9 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 							// TODO: what do we have to save?
 							db.saveOrder(order, producerName, price);
 							
+							// TODO: 
+							// call placeOrder() of provided web services;
+							// if subparts exists -> log them as well 
 
 							WriteLogServiceImpl logService = new WriteLogServiceImpl();
 							logService.logOrder(customerId, producerName,

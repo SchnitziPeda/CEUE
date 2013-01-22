@@ -71,8 +71,8 @@
 				</div>
 			</div>
 		</form>
-		<% 
-		if (request.getParameter("submit") != null
+		<%
+			if (request.getParameter("submit") != null
 					&& request.getParameter("part") != null) {
 				String partId = request.getParameter("part");
 
@@ -82,13 +82,12 @@
 				SupplierClientServiceImpl supClientService = new SupplierClientServiceImpl();
 				
 				Map<String, Integer> supplyChains = supClientService
-						.getSupplyChainForPart(partId, customerId);
+						.getOffersForPart(partId, customerId);
 				Iterator entries = supplyChains.entrySet().iterator();
 				while (entries.hasNext()) {
 					Map.Entry pairs = (Map.Entry) entries.next();
 				}
-
-				%>
+		%>
 
 	</div>
 </body>

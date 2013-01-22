@@ -16,7 +16,6 @@ public class Producer extends Role {
 	
 	private Map<String, Integer> parts;
 	private String plattform;
-	private String level;
 	
 	/**
 	 * @param roleId
@@ -25,7 +24,6 @@ public class Producer extends Role {
 	public Producer(String roleId, String name) {
 		super(roleId, true, name);
 		this.parts = new HashMap<String, Integer>();
-		this.level = "1";
 	}
 	
 	public boolean addNewProduct(String name, int price){
@@ -35,19 +33,6 @@ public class Producer extends Role {
 		return true;
 	}
 	
-	/**
-	 * @return the level
-	 */
-	public String getLevel() {
-		return level;
-	}
-
-	/**
-	 * @param level the level to set
-	 */
-	public void setLevel(String level) {
-		this.level = level;
-	}
 
 	/**
 	 * @return the id

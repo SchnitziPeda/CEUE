@@ -107,7 +107,7 @@ public class InquiryOrderPlattformServiceImpl implements InquiryOrderPlattformSe
         System.out.println(orderid);
         try {
         	
-        	
+        	// TODO: log given orders
         	
         	
         } catch (java.lang.Exception ex) {
