@@ -334,7 +334,7 @@ public class UddiApp {
 											if (!wsdlFile.endsWith("?wsdl"))
 												wsdlFile = wsdlFile + "?wsdl";
 
-											System.out.println("publisherName: "+publisherName+" "+wsdlFile);
+//											System.out.println("publisherName: "+publisherName+" "+wsdlFile);
 											endpoints.put(publisherName,
 													wsdlFile);
 										}

@@ -44,7 +44,7 @@ public class BOMServiceUtilImpl implements BOMServiceUtil {
 		
 		if(subProductList == null){
 			log.severe("DirectSubProducts of part "+superPart+" is null!");
-		}
+		} 
 		
 		return subProductList;
 	}

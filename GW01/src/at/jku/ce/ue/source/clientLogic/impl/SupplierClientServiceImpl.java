@@ -4,10 +4,10 @@
 package at.jku.ce.ue.source.clientLogic.impl;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import at.jku.ce.ue.log.WriteLogServiceImpl;
 import at.jku.ce.ue.service.InquiryOrderPlattformService;
@@ -217,7 +217,7 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 		Map<String, Integer> supplyChains = new HashMap<String, Integer>();
 
 		// TODO
-		String inquiryId = "GW01Inq"+Math.random()*10000;
+		String inquiryId = "123";
 
 		// get data of own plattform
 		// get producers for part first:
@@ -325,14 +325,19 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 							System.out.println("Order: " + order
 									+ " Producer: " + producerName + " Price: "
 									+ price);
+							
 							// TODO: what do we have to save?
 							db.saveOrder(order, producerName, price);
 
 							// save order as log in monitoring database
-							String inquiryid = "GW01Inq"+Math.random()*10000;
-							// TODO:
-							String offerid = "GW01_offerid";
-							String orderid = "GW01_orderid";
+							Random rdm = new Random();
+							int rndm = rdm.nextInt();
+							if(rndm<0)
+								rndm = rndm*-1;
+														
+							String inquiryid = "GW01Inq" + rndm;
+							String offerid = "GW01Offer"+ rndm;
+							String orderid = "GW01Order"+ rndm;
 
 							WriteLogServiceImpl logService = new WriteLogServiceImpl();
 							logService.logOrder(customerId, producerName,

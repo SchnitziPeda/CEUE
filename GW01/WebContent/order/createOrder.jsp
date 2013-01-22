@@ -111,24 +111,26 @@
 					Iterator entries = supplyChains.entrySet().iterator();
 					if (supplyChains.size() > 0) {
 		%>
-		Available supply chains:
-		<%
-			out.println(supplyChains.size());
-		%>
 		<div class="control-group">
-			Your have selected: <b> <%
- 	out.println(partId);
- %>
+			Your have selected: <b> 
+			<%
+ 				out.println(partId);
+ 			%>
 			</b> <br> Direct sub-parts of that:
 			<ul>
 				<%
-					for (String s : subParts) {
+					if(subParts.size() > 0){
+						for (String s : subParts) {
+
 				%><li>
 					<%
 						out.println(s + " ");
 					%>
 				</li>
 				<%
+						}
+					} else {
+						out.println("<i>No further available!</i>");
 					}
 				%>
 			</ul>
@@ -140,9 +142,9 @@
 					name="partId" value="<%out.println(partId);%>">
 				<table class="table">
 					<tr>
-						<td>Select chain</td>
-						<td>Producer</td>
-						<td>Price</td>
+						<td><b>Select chain:</b></td>
+						<td><b>Producer</b></td>
+						<td><b>Price</b></td>
 					</tr>
 					<%
 						// create supply chains here
