@@ -6,6 +6,7 @@ package at.jku.ce.ue.source.businessLogic.impl;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import at.jku.ce.ue.log.WriteLogServiceImpl;
 import at.jku.ce.ue.service.InquiryOrderPlattformService;
@@ -21,6 +22,8 @@ import at.jku.ce.ue.source.entities.Producer;
  */
 public class PriceServiceImpl implements PriceService {
 
+	private static Logger log = Logger.getLogger("PriceServiceImpl");
+
 	@Override
 	public int getPrice(String customerid, String producerid, String partid,
 			String inquiryid) {
@@ -33,14 +36,22 @@ public class PriceServiceImpl implements PriceService {
 		Map<String, InquiryOrderPlattformService> plattforms = uddi
 				.generateListofEndpoints();
 
+		log.info("Platforms generated!");
+
 		int price = 0;
 		BOMServiceUtil bomService = new BOMServiceUtilImpl();
 		try {
 			if (bomService.getAllDirectSubpartsOfPart(partid).size() > 0) {
 				for (String subPart : bomService
 						.getAllDirectSubpartsOfPart(partid)) {
-					price += calcPrice(customerid, inquiryid, plattforms,
-							price, subPart);
+
+					int priceForPart = calcPrice(customerid, inquiryid,
+							plattforms, price, subPart);
+
+					log.severe("PRICECALC: " + customerid + " " + plattforms
+							+ " " + price + " " + subPart + " " + priceForPart);
+
+					price += priceForPart;
 
 				}
 			} else {
@@ -65,25 +76,26 @@ public class PriceServiceImpl implements PriceService {
 	private int calcPrice(String customerid, String inquiryid,
 			Map<String, InquiryOrderPlattformService> plattforms, int price,
 			String subPart) {
+
 		int helpprice = 0;
+
 		for (String platformName : plattforms.keySet()) {
+
 			int innerprice = 0;
+
 			List<String> producersForeignPlatform = plattforms
 					.get(platformName).getAllProducersForPart(subPart);
+
 			for (String prod : producersForeignPlatform) {
+
 				innerprice = plattforms.get(platformName).getPrice(customerid,
 						prod, subPart, inquiryid);
-				if (innerprice < helpprice && innerprice > 0) { // bei
-																// allen
-																// ab
-																// dem
-																// zweiten
+
+				if (innerprice < helpprice && innerprice > 0) {
+					// bei allen ab dem zweiten
 					helpprice = innerprice;
-				} else if (helpprice == 0 && innerprice > 0) { // beim
-																// ersten
-																// durchlauf
-																// dieser
-																// code
+				} else if (helpprice == 0 && innerprice > 0) { 
+					// bei ersten durchlauf dieser code
 					helpprice = innerprice;
 				}
 			}

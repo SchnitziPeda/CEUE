@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import at.jku.ce.ue.log.WriteLogServiceImpl;
 import at.jku.ce.ue.service.InquiryOrderPlattformService;
@@ -31,6 +32,8 @@ import at.jku.ce.ue.source.entities.Producer;
  */
 public class SupplierClientServiceImpl implements SupplierClientService {
 
+	private static Logger log = Logger.getLogger("SupplierClientServiceImpl");
+	
 	private String inquiryId;
 
 	@Override
@@ -208,6 +211,7 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 				.getAllProducersForPart(partName);
 
 		for (String prod : producersForGivenPart) {
+			log.info("get price of producers "+prod);
 			// get price of producers:
 			PriceService priceService = new PriceServiceImpl();
 			priceChains.put(prod, priceService.getPrice(customerId, prod,

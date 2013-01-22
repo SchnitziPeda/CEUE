@@ -8,6 +8,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import at.jku.ce.ue.service.InquiryOrderPlattformService;
+
 /**
  * @author Schnitzi
  *
@@ -16,6 +18,7 @@ public class Producer extends Role {
 	
 	private Map<String, Integer> parts;
 	private String plattform;
+	private InquiryOrderPlattformService producerService;
 	
 	/**
 	 * @param roleId
@@ -87,6 +90,20 @@ public class Producer extends Role {
 	 */
 	public void setPlattform(String plattform) {
 		this.plattform = plattform;
+	}
+
+	/**
+	 * @return the producerService
+	 */
+	public InquiryOrderPlattformService getProducerService() {
+		return producerService;
+	}
+
+	/**
+	 * @param producerService the producerService to set
+	 */
+	public void setProducerService(InquiryOrderPlattformService producerService) {
+		this.producerService = producerService;
 	}
 	
 }

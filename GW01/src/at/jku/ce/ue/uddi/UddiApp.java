@@ -94,6 +94,7 @@ public class UddiApp {
 
 	/**
 	 * check if service & plattform is already registered
+	 * 
 	 * @param namestring
 	 * @return
 	 * @throws DispositionReportFaultMessage
@@ -118,13 +119,13 @@ public class UddiApp {
 		else
 			return null;
 	}
-	
+
 	/**
 	 * deletes own business
 	 */
-	public void deleteService(){
-		
-		String businessKey = null; 
+	public void deleteService() {
+
+		String businessKey = null;
 		FindBusiness fb = new FindBusiness();
 		Name name = new Name();
 		name.setValue(userName);
@@ -137,8 +138,9 @@ public class UddiApp {
 					&& bl.getBusinessInfos().getBusinessInfo().size() > 0
 					&& bl.getBusinessInfos().getBusinessInfo().get(0).getName()
 							.size() > 0)
-				businessKey = bl.getBusinessInfos().getBusinessInfo().get(0).getBusinessKey();
-				
+				businessKey = bl.getBusinessInfos().getBusinessInfo().get(0)
+						.getBusinessKey();
+
 			DeleteBusiness db = new DeleteBusiness();
 			db.getBusinessKey().add(businessKey);
 
@@ -146,7 +148,7 @@ public class UddiApp {
 			publish.deleteBusiness(db);
 			System.out.println("business deleted");
 			System.out.println(businessKey);
-			
+
 		} catch (DispositionReportFaultMessage e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -155,9 +157,10 @@ public class UddiApp {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * geth Auth
+	 * 
 	 * @return
 	 * @throws DispositionReportFaultMessage
 	 * @throws RemoteException
@@ -172,6 +175,7 @@ public class UddiApp {
 
 	/**
 	 * publish plattform and check if already registered
+	 * 
 	 * @return
 	 * @throws DispositionReportFaultMessage
 	 * @throws RemoteException
@@ -296,7 +300,7 @@ public class UddiApp {
 
 					if (publisherName.matches("gruppe\\s+[0-9]*\\s+publisher")) {
 						// System.out.println(""+bl.getBusinessInfos().getBusinessInfo().get(i).getName().get(0).getValue());
-//						System.out.println(publisherName);
+						// System.out.println(publisherName);
 
 						if (bl.getBusinessInfos().getBusinessInfo().get(i)
 								.getServiceInfos() != null
@@ -329,12 +333,17 @@ public class UddiApp {
 											.getAccessPoint();
 									String wsdlFile = ap.getValue();
 
-									if (!wsdlFile.contains("localhost") && !wsdlFile.contains("GW01")) {
+									if ((!wsdlFile.contains("localhost")
+											&& !wsdlFile.contains("GW01"))
+											&& (wsdlFile.contains("GW23"))) {
 										if (!wsdlFile.contains("8090")) {
 											if (!wsdlFile.endsWith("?wsdl"))
 												wsdlFile = wsdlFile + "?wsdl";
 
-											System.out.println("publisherName: "+publisherName+" "+wsdlFile);
+											System.out
+													.println("publisherName: "
+															+ publisherName
+															+ " " + wsdlFile);
 											endpoints.put(publisherName,
 													wsdlFile);
 										}
@@ -343,7 +352,7 @@ public class UddiApp {
 							}
 						}
 					} // else
-					// System.out.println("wrong " + publisherName);
+						// System.out.println("wrong " + publisherName);
 				}
 
 			}
