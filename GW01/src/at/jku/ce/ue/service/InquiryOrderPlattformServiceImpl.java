@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import at.jku.ce.ue.source.businessLogic.SupplierService;
+import at.jku.ce.ue.source.businessLogic.impl.OrderServiceImpl;
 import at.jku.ce.ue.source.businessLogic.impl.PartServiceImpl;
 import at.jku.ce.ue.source.businessLogic.impl.SupplierServiceImpl;
 
@@ -107,7 +108,11 @@ public class InquiryOrderPlattformServiceImpl implements InquiryOrderPlattformSe
         System.out.println(orderid);
         try {
         	
-        	// TODO: log given orders ? 
+        	// TODO: kaufen des ausgewählten teiles 
+        	// durchlaufen aller teile und zu jedem server eine placeOrder hinsenden
+        	OrderServiceImpl orderService = new OrderServiceImpl();
+        	orderService.placeOrder(customerid, producerid, partid, inquiryid, price, orderid);
+        	
         	
         	
         } catch (java.lang.Exception ex) {
