@@ -37,7 +37,7 @@ public class BOMServiceImpl implements BOMService {
         try {
         	
         	PartServiceImpl partService = new PartServiceImpl();
-        	return partService.getDirectSubPartsOf(arg0);
+        	return partService.getAllDirectSubpartsOfPart(arg0);
         	
         	
 //            java.util.List<java.lang.String> _return = new java.util.ArrayList<java.lang.String>();

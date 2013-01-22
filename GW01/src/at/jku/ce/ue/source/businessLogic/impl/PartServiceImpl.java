@@ -59,7 +59,7 @@ public class PartServiceImpl implements PartService {
 	}
 
 	@Override
-	public List<String> getDirectSubPartsOf(String partId) {
+	public List<String> getAllDirectSubpartsOfPart(String partId) {
 		List<Part> allParts = this.getAllParts();
 		Part part = null;
 		for (Part p : allParts) {
@@ -68,10 +68,9 @@ public class PartServiceImpl implements PartService {
 			}
 		}
 		List<String> subParts = new LinkedList<String>();
-		for(Part p: part.getSubParts()){
+		for (Part p : part.getSubParts()) {
 			subParts.add(p.getName());
 		}
-		
 
 		return subParts;
 	}
