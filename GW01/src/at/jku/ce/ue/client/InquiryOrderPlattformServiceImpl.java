@@ -8,6 +8,7 @@ package at.jku.ce.ue.client;
 
 import java.util.logging.Logger;
 
+import at.jku.ce.ue.log.WriteLogServiceImpl;
 import at.jku.ce.ue.source.clientLogic.impl.SupplierClientServiceImpl;
 
 /**
@@ -114,6 +115,10 @@ public class InquiryOrderPlattformServiceImpl implements InquiryOrderPlattformSe
         System.out.println(price);
         System.out.println(orderid);
         try {
+        	
+        	// place orders ? 
+        	
+        	
         } catch (java.lang.Exception ex) {
             ex.printStackTrace();
             throw new RuntimeException(ex);
