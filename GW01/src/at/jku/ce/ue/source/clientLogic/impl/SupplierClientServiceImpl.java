@@ -60,6 +60,7 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 				if (!storedPoducers.containsKey(name)) {
 					Producer prod = new Producer(name, name);
 					prod.setPlattform(plattformName);
+//					prod.setProducerService(producerService);
 					storedPoducers.put(name, prod);
 				}
 			}
@@ -214,8 +215,11 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 			log.info("get price of producers "+prod);
 			// get price of producers:
 			PriceService priceService = new PriceServiceImpl();
-			priceChains.put(prod, priceService.getPrice(customerId, prod,
-					partName, inquiryId));
+			
+			int price = priceService.getPrice(customerId, prod,
+					partName, inquiryId);
+			log.severe("Price for prod "+prod+" product: "+partName+" --> "+price);
+			priceChains.put(prod, price);
 		}
 
 		// System.out.println(supplyChains.size());

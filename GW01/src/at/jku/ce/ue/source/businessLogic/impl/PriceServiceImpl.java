@@ -56,13 +56,16 @@ public class PriceServiceImpl implements PriceService {
 
 				}
 			} else {
+				log.severe("NoSubParts PRICECALC: " + customerid + " " + plattforms
+						+ " " + price + " " + partid + " " + price);
 				price = calcPrice(customerid, inquiryid, plattforms, price,
 						partid);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		
+		logService.logOffer(customerid, producerid, partid, price, inquiryid, Database.getInstance().generateOfferId());
 		return price;
 	}
 
@@ -86,16 +89,18 @@ public class PriceServiceImpl implements PriceService {
 
 			List<String> producersForeignPlatform = plattforms
 					.get(platformName).getAllProducersForPart(subPart);
-
+			
 			for (String prod : producersForeignPlatform) {
-
+				
 				innerprice = plattforms.get(platformName).getPrice(customerid,
 						prod, subPart, inquiryid);
-
+				log.info("InnerPrice after call getPrice: "+innerprice);
 				if (innerprice < helpprice && innerprice > 0) {
+					log.info(innerprice+"<"+ helpprice+" &&"+ innerprice +"> 0");
 					// bei allen ab dem zweiten
 					helpprice = innerprice;
 				} else if (helpprice == 0 && innerprice > 0) { 
+					log.info(innerprice+"== 0 && "+ innerprice +"> 0");
 					// bei ersten durchlauf dieser code
 					helpprice = innerprice;
 				}
