@@ -27,6 +27,8 @@ import at.jku.ce.ue.source.entities.Producer;
  */
 public class SupplierClientServiceImpl implements SupplierClientService {
 
+	private String inquiryId;
+
 	@Override
 	public Map<String, Producer> getAllProducers() {
 
@@ -123,25 +125,6 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 		// get own producers
 		SupplierServiceImpl supService = new SupplierServiceImpl();
 		for (Producer prod : supService.getAllProducers().values()) {
-			// if (prod.getLevel() != null && prod.getLevel() == "1") {
-			// // TODO:
-			// // level's
-			// // missing,
-			// // nothing
-			// // intelligent
-			// // getting
-			// // back
-			// // (all
-			// // producers
-			// // are
-			// // level
-			// // 1)
-			// for (Part part : prod.getParts()) {
-			// if (part.getName().equals(partId)) {
-			// producers.add(prod.getName());
-			// }
-			// }
-			// }
 
 			Map<String, Integer> partsOfProd = prod.getParts();
 			if (partsOfProd.containsKey(partId)) {
@@ -209,53 +192,47 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+
 
 	@Override
 	public Map<String, Integer> getOffersForPart(String partName,
 			String customerId) {
-		Map<String, Integer> supplyChains = new HashMap<String, Integer>();
+		Map<String, Integer> priceChains = new HashMap<String, Integer>();
 
-		// generates an inquiryid
 		String inquiryId = Database.getInstance().generateInquiryId();
 
-		// get data of own plattform
-		// get producers for part first:
-		SupplierService supService = new SupplierServiceImpl();
-		List<String> producers = supService
-				.getAllProducersForPartName(partName);
-
-		System.out.println("Prodcuers for part: " + partName);
-		for (String string : producers) {
-			System.out.println(string);
+		List<String> producersForGivenPart = this.getAllProducersForPart(partName);
+		
+		for(String prod : producersForGivenPart){
+			// get price of producers:
+			PriceServiceImpl priceService = new PriceServiceImpl();
+			priceChains.put(prod, priceService.getPrice(customerId, prod, partName, inquiryId));	
 		}
-
-		// get price of producers:
-		PriceServiceImpl priceService = new PriceServiceImpl();
-		supplyChains = priceService.getPriceForProducers(producers, partName);
 		// System.out.println(supplyChains.size());
 
-		// get data of foreign plattforms
-		UddiInteraction uddi = new UddiInteraction();
-		Map<String, InquiryOrderPlattformService> plattforms = uddi
-				.generateListofEndpoints();
+//		// get data of foreign plattforms
+//		UddiInteraction uddi = new UddiInteraction();
+//		Map<String, InquiryOrderPlattformService> plattforms = uddi
+//				.generateListofEndpoints();
+//
+//		// iterate through all plattforms:
+//		for (String platformName : plattforms.keySet()) {
+//			// Getting all producers for parts of foreign plattforms
+//			List<String> producerForeignPlatform = plattforms.get(platformName)
+//					.getAllProducersForPart(partName);
+//			for (String prod : producerForeignPlatform) {
+//				// get prices for given product of foreign platform;
+//				int price = plattforms.get(platformName).getPrice(customerId,
+//						prod, partName, inquiryId);
+//				if (price >= 0) {
+//					// add price and producer to list
+//					supplyChains.put(prod, price);
+//				}
+//			}
+//		}
 
-		// iterate through all plattforms:
-		for (String platformName : plattforms.keySet()) {
-			// Getting all producers for parts of foreign plattforms
-			List<String> producerForeignPlatform = plattforms.get(platformName)
-					.getAllProducersForPart(partName);
-			for (String prod : producerForeignPlatform) {
-				// get prices for given product of foreign platform;
-				int price = plattforms.get(platformName).getPrice(customerId,
-						prod, partName, inquiryId);
-				if (price >= 0) {
-					// add price and producer to list
-					supplyChains.put(prod, price);
-				}
-			}
-		}
-
-		return supplyChains;
+		return priceChains;
 	}
 
 	@Override
@@ -282,17 +259,6 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 		return allPartsByProducer;
 	}
 
-	@Override
-	public int getPrice(String customerId, String producerId, String partId,
-			String inquiryId) {
-
-		// TODO
-		inquiryId = "123";
-
-		PriceServiceImpl priceService = new PriceServiceImpl();
-		return priceService.getPrice(customerId, producerId, partId, inquiryId);
-
-	}
 
 	@Override
 	public void saveOrders(String customerId, String partId, String[] orders,

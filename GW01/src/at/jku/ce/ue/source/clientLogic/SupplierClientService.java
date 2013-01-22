@@ -31,9 +31,6 @@ public interface SupplierClientService {
 
 	public List<String> getAllPartsByProducer(String producerId);
 
-	public int getPrice(String customerId, String producerId, String partId,
-			String inquiryId);
-
 	public void saveOrders(String customerId, String partId, String[] orders,
 			String[] producers, String[] prices);
 

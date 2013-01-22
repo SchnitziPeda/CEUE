@@ -7,9 +7,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import at.jku.ce.ue.log.WriteLogServiceImpl;
+import at.jku.ce.ue.service.InquiryOrderPlattformService;
+import at.jku.ce.ue.source.UddiInteraction;
+import at.jku.ce.ue.source.businessLogic.BOMServiceUtil;
 import at.jku.ce.ue.source.businessLogic.PriceService;
 import at.jku.ce.ue.source.entities.Database;
-import at.jku.ce.ue.source.entities.Part;
 import at.jku.ce.ue.source.entities.Producer;
 
 /**
@@ -21,8 +24,42 @@ public class PriceServiceImpl implements PriceService {
 	@Override
 	public int getPrice(String customerid, String producerid, String partid,
 			String inquiryid) {
-		// TODO Auto-generated method stub
-		return 0;
+		// generates an inquiryid
+		WriteLogServiceImpl logService = new WriteLogServiceImpl();
+		logService.logInquiry(customerid, producerid, producerid, inquiryid);
+		
+		// get data of foreign plattforms
+		UddiInteraction uddi = new UddiInteraction();
+		Map<String, InquiryOrderPlattformService> plattforms = uddi
+				.generateListofEndpoints();
+
+		int price = 0;
+		BOMServiceUtil bomService = new BOMServiceUtilImpl();
+		try{
+			for(String subPart : bomService.getAllDirectSubpartsOfPart(partid)){
+				int helpprice = 0;
+				for(String platformName : plattforms.keySet()){
+					int innerprice = 0;
+					List<String> producersForeignPlatform = plattforms.get(platformName).getAllProducersForPart(subPart);
+					for(String prod : producersForeignPlatform){
+						innerprice = plattforms.get(platformName).getPrice(customerid, prod, subPart, inquiryid);
+						if (innerprice < helpprice && innerprice > 0) { // bei allen
+																		// ab dem
+																		// zweiten
+							helpprice = innerprice;
+					    } else if (helpprice == 0 && innerprice > 0){ // beim ersten durchlauf dieser code
+					    	helpprice = innerprice;
+					    }
+					}
+					
+				}
+				price += helpprice;
+			}
+		} catch (Exception e){
+			e.printStackTrace();
+		}		
+		
+		return price;
 	}
 
 	public Map<String, Integer> getPriceForProducers(List<String> producer, String partid) {
