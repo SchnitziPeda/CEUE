@@ -11,6 +11,7 @@ import java.util.Map;
 import at.jku.ce.ue.log.WriteLogServiceImpl;
 import at.jku.ce.ue.service.InquiryOrderPlattformService;
 import at.jku.ce.ue.source.UddiInteraction;
+import at.jku.ce.ue.source.businessLogic.PriceService;
 import at.jku.ce.ue.source.businessLogic.SupplierService;
 import at.jku.ce.ue.source.businessLogic.impl.PartServiceImpl;
 import at.jku.ce.ue.source.businessLogic.impl.PriceServiceImpl;
@@ -206,7 +207,7 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 		
 		for(String prod : producersForGivenPart){
 			// get price of producers:
-			PriceServiceImpl priceService = new PriceServiceImpl();
+			PriceService priceService = new PriceServiceImpl();
 			priceChains.put(prod, priceService.getPrice(customerId, prod, partName, inquiryId));	
 		}
 		// System.out.println(supplyChains.size());

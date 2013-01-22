@@ -108,11 +108,10 @@
 				SupplierClientServiceImpl supClientService = new SupplierClientServiceImpl();
 
 				try {
-
-					Map<String, Integer> supplyChains = supClientService
+					Map<String, Integer> offers = supClientService
 							.getOffersForPart(partName, customerId);
-					Iterator entries = supplyChains.entrySet().iterator();
-					if (supplyChains.size() > 0) {
+					Iterator entries = offers.entrySet().iterator();
+					if (offers.size() > 0) {
 		%>
 		<div class="control-group">
 			<%
