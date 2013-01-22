@@ -12,6 +12,7 @@ import at.jku.ce.ue.log.WriteLogServiceImpl;
 import at.jku.ce.ue.service.InquiryOrderPlattformService;
 import at.jku.ce.ue.source.UddiInteraction;
 import at.jku.ce.ue.source.businessLogic.BOMServiceUtil;
+import at.jku.ce.ue.source.businessLogic.PartService;
 import at.jku.ce.ue.source.businessLogic.PriceService;
 import at.jku.ce.ue.source.businessLogic.SupplierService;
 import at.jku.ce.ue.source.businessLogic.impl.BOMServiceUtilImpl;
