@@ -48,7 +48,7 @@
 		String supplier = request.getParameter("inputName");
 		Monitoring mon = new Monitoring();
 		ResultSet rs = mon.getCalculatedOrders(supplier);
-	%>
+		%>
 		Accumulated orders for Producer <b><% out.println(supplier);%>:</b>
 		<br>
 		<table class="table">
