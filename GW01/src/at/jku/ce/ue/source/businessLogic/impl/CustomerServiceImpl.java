@@ -3,9 +3,12 @@
  */
 package at.jku.ce.ue.source.businessLogic.impl;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import at.jku.ce.ue.source.businessLogic.CustomerService;
+import at.jku.ce.ue.source.entities.Customer;
 import at.jku.ce.ue.source.entities.Database;
 
 /**
@@ -15,6 +18,7 @@ import at.jku.ce.ue.source.entities.Database;
 public class CustomerServiceImpl implements CustomerService {
 	
 	private static Logger log = Logger.getLogger("CustomerServiceImpl");
+
 
 
 	/* (non-Javadoc)
@@ -34,5 +38,6 @@ public class CustomerServiceImpl implements CustomerService {
 		
 		return customerId;
 	}
+	
 
 }

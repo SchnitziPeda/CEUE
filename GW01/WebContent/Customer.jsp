@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Lieferantenregistrierung</title>
+<title>Register Customer</title>
 <link rel="stylesheet" type="text/css" href="bootstrap-responsive.css">
 <link rel="stylesheet" type="text/css" href="bootstrap.css">
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->

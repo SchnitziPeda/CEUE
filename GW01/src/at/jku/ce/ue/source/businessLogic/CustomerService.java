@@ -3,6 +3,10 @@
  */
 package at.jku.ce.ue.source.businessLogic;
 
+import java.util.Map;
+
+import at.jku.ce.ue.source.entities.Customer;
+
 /**
  * @author andreaspfeifer
  *
@@ -10,5 +14,4 @@ package at.jku.ce.ue.source.businessLogic;
 public interface CustomerService {
 	
 	public String addCustomer(String customerName);
-
 }

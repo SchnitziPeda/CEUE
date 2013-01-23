@@ -207,6 +207,9 @@ public class UddiApp {
 			if ((businessKey = this.publish()) != null) {
 
 				BusinessService myService = new BusinessService();
+				SaveBusiness saveBusiness = new SaveBusiness();
+				saveBusiness.setAuthInfo(getAuth());
+								
 				myService.setBusinessKey(businessKey);
 				Name myServiceName = new Name();
 				myServiceName.setValue(serviceName);
@@ -231,7 +234,7 @@ public class UddiApp {
 				templates.getBindingTemplate().add(bindingTemp);
 
 				myService.setBindingTemplates(templates);
-
+				
 				SaveService ss = new SaveService();
 				ss.getBusinessService().add(myService);
 				ss.setAuthInfo(this.getAuth());

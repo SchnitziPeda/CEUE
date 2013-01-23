@@ -3,7 +3,12 @@
 
 <%@ page language="java"
 	import="at.jku.ce.ue.source.businessLogic.impl.*"
-	import="at.jku.ce.ue.source.businessLogic.*" import="java.util.List"%>
+	import="at.jku.ce.ue.source.businessLogic.*"
+	import="java.util.List"
+	import="java.util.LinkedList"
+	import="at.jku.ce.ue.source.entities.*"
+	
+	%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -49,6 +54,7 @@
 		<%
 			SupplierService supplService = new SupplierServiceImpl();
 			List<String> prods = supplService.getAllProducerNames();
+			
 		%>
 		<form class="form-horizontal" name="selectProducer" method="post"
 			action="monitoring.jsp">
