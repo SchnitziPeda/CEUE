@@ -66,6 +66,8 @@ public class PriceServiceImpl implements PriceService {
 			int cheapestSubPartPrice = -1;
 			// Iterating through all platforms
 			for (String platformName : serviceList.keySet()) {
+				
+				System.out.println("CURRENT Plattform: "+platformName);
 
 				List<String> prods = serviceList.get(platformName)
 						.getAllProducersForPart(subPart);
