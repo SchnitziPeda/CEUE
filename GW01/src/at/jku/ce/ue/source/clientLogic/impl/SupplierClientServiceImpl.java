@@ -181,7 +181,7 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 				.getAllProducersForPart(partName);
 
 		for (String platformName : serviceList.keySet()) {
-
+			
 			List<String> prodsOnPlatform = serviceList.get(platformName)
 					.getAllProducersOnPlattform();
 			
