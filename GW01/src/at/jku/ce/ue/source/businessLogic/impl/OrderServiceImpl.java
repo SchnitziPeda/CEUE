@@ -8,7 +8,10 @@ import at.jku.ce.ue.log.WriteLogServiceImpl;
 import at.jku.ce.ue.service.InquiryOrderPlattformService;
 import at.jku.ce.ue.source.businessLogic.OrderService;
 import at.jku.ce.ue.source.businessLogic.WriteLogService;
+import at.jku.ce.ue.source.clientLogic.SupplierClientService;
+import at.jku.ce.ue.source.clientLogic.impl.SupplierClientServiceImpl;
 import at.jku.ce.ue.source.entities.Database;
+import at.jku.ce.ue.source.entities.Offer;
 
 public class OrderServiceImpl implements OrderService {
 
@@ -18,127 +21,48 @@ public class OrderServiceImpl implements OrderService {
 	public void placeOrder(String customerid, String producerid, String partid,
 			String inquiryid, int price, String orderid) {
 
-		//
-		// Map<String, InquiryOrderPlattformService> services = db
-		// .getAllServices(false);
-		//
-		// // all Services
-		// for (String platform : services.keySet()) {
-		//
-		// List<String> producersOnPlatform = services.get(platform)
-		// .getAllProducersForPart(partid);
-		//
-		// // producer exists on platform?
-		// if (producersOnPlatform.contains(producerid)) {
-		//
-		// // place order for subPart
-		// services.get(platform).placeOrder(customerid, producerid, partid,
-		// inquiryid,
-		// price, orderid);
-		//
-		// // Order accepted
-		// log.info("Order accepted on GW01! Thanks for your purchase :)");
-		//
-		// WriteLogServiceImpl logService = new WriteLogServiceImpl();
-		// logService.logOrder(customerid, producerid, partid, price,
-		// inquiryid, orderid, "OfferToGW01");
-		//
-		// } else {
-		// log.severe("Order for part '" + partid + "' of producer '"
-		// + producerid
-		// + "' on platform GW01 not successful! Producer "
-		// + producerid + " not on platform GW01.");
-		// }
-		// }
-
 		Database db = Database.getInstance();
 		Map<String, List<String>> partsOnPlatform = db.getPartHierarchy();
-
-		Map<String, InquiryOrderPlattformService> services = db
+		SupplierClientService clientService = new SupplierClientServiceImpl();
+		Map<String, InquiryOrderPlattformService> serviceList = db
 				.getAllServices(false);
-		
-		int charge = 0;
 
-		// All parts offered on platform
-		if (partsOnPlatform.containsKey(partid)) {
+		List<String> subParts = partsOnPlatform.get(partid);
+		if (subParts.size() > 0) {
+			for (String subPart : subParts) {
 
-			List<String> subParts = partsOnPlatform.get(partid);
+				List<Offer> offersForSubPart = clientService.getOffersForPart(
+						subPart, producerid);
 
-			// has subParts?
-			if (subParts.size() > 0) {
-				
-				int sum = 0;
-				for (String subPart : subParts) {
-					System.out.println("SUBPART: "+subPart);
-					int cheapestSubPartPrice = -1;
-					// Iterating through all platforms
-					for (String platformName : services.keySet()) {
-						
-						System.out.println("CURRENT Plattform: "+platformName);
-
-						List<String> prods = services.get(platformName)
-								.getAllProducersForPart(subPart);
-
-						int temp = -1;
-						for (String prodOfSubPart : prods) {
-							temp = services.get(platformName).getPrice(customerid, prodOfSubPart, subPart, inquiryid);
-							if (cheapestSubPartPrice == -1) {
-								cheapestSubPartPrice = temp;
-							}
-							if (temp <= cheapestSubPartPrice && temp >= 0) {
-								cheapestSubPartPrice = temp;
-							}
-							System.out.println("Platform: "+platformName+" Producer: "+prodOfSubPart+" Part: "+subPart+" cheapest price: "+cheapestSubPartPrice+" Unser Preis: "+temp);
-						}
+				int cheapestPrice = 0;
+				Offer cheapestOffer = null;
+				if (offersForSubPart.size() > 0) {
+					cheapestPrice = offersForSubPart.get(0).getPrice();
+				}
+				for (Offer o : offersForSubPart) {
+					if (cheapestPrice > o.getPrice()) {
+						cheapestPrice = o.getPrice();
+						cheapestOffer = o;
 					}
-					sum += cheapestSubPartPrice;
-				}
 
-				price = sum + charge;
-				System.out.println("Current price: "+price);
-				
-				
 				}
+				log.info(cheapestOffer.toString());
+				String cheapestOrderId = db.generateOrderId();
+				InquiryOrderPlattformService cheapestPlatform = serviceList
+						.get(cheapestOffer.getPlatformName());
+				cheapestPlatform.placeOrder(cheapestOffer.getCustomerOfOffer(),
+						cheapestOffer.getSupplierOfOffer(),
+						cheapestOffer.getPartName(),
+						cheapestOffer.getInquiryOfOffer(),
+						cheapestOffer.getPrice(), cheapestOrderId);
 			}
-
-			// Order accepted
-			System.out
-					.println("Order accepted on GW01! Thanks for your purchase :)");
-
-			WriteLogServiceImpl logService = new WriteLogServiceImpl();
-			logService.logOrder(customerid, producerid, partid, price, inquiryid, orderid, "OfferToGW01");
-		} else {
-			log.severe("Order for part '"
-					+ partid
-					+ "' of producer '"
-					+ producerid
-					+ "' on platform GW01 not successful! Part not on platform GW01.");
 		}
+		WriteLogServiceImpl logService = new WriteLogServiceImpl();
+		logService.logOrder(customerid, producerid, partid, price, inquiryid,
+				orderid, "OfferToGW01");
 
+		// Order accepted
+		System.out
+				.println("Order successfully completed on GW01! Thanks for your purchase!");
 	}
 }
-
-//				// Iterate all subparts
-//				for (String subPart : subParts) {
-//
-//					// all Services
-//					for (InquiryOrderPlattformService inqService : services
-//							.values()) {
-//
-//						List<String> prodsOnPlatform = inqService
-//								.getAllProducersForPart(subPart);
-//						
-//						// has producer?
-//						if (prodsOnPlatform.contains(producerid)) {
-//
-//							log.info("GW01 places Order: " + orderid + " "
-//									+ customerid + " " + producerid + " "
-//									+ subPart + " " + inquiryid + " " + price
-//									+ " " + orderid);
-//
-//							// place order for subPart
-//							inqService.placeOrder(customerid, producerid,
-//									subPart, inquiryid, price, orderid);
-//
-//						}
-//					}
