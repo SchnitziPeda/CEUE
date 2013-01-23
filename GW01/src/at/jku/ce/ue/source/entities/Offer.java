@@ -15,6 +15,8 @@ public class Offer {
 	private String supplierOfOffer;
 	private String customerOfOffer;
 	private String inquiryOfOffer;
+	private String platformName;
+
 	
 	private int price;
 
@@ -27,7 +29,7 @@ public class Offer {
 	 * @param price
 	 */
 	public Offer(String offerID, String subPart, String prod,
-			String customerid, String inquiryid, int price) {
+			String customerid, String inquiryid, int price, String platformName) {
 		super();
 		this.offerID = offerID;
 		this.partName = subPart;
@@ -35,6 +37,7 @@ public class Offer {
 		this.customerOfOffer = customerid;
 		this.inquiryOfOffer = inquiryid;
 		this.price = price;
+		this.setPlatformName(platformName);
 	}
 
 	/**
@@ -130,6 +133,20 @@ public class Offer {
 	 */
 	public void setPrice(int price) {
 		this.price = price;
+	}
+
+	/**
+	 * @return the platformName
+	 */
+	public String getPlatformName() {
+		return platformName;
+	}
+
+	/**
+	 * @param platformName the platformName to set
+	 */
+	public void setPlatformName(String platformName) {
+		this.platformName = platformName;
 	}
 
 }

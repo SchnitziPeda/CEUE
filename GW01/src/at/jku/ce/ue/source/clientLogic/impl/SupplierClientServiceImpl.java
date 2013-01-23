@@ -19,6 +19,7 @@ import at.jku.ce.ue.source.clientLogic.SupplierClientService;
 import at.jku.ce.ue.source.entities.Customer;
 import at.jku.ce.ue.source.entities.Database;
 import at.jku.ce.ue.source.entities.Offer;
+import at.jku.ce.ue.source.entities.Order;
 import at.jku.ce.ue.source.entities.Producer;
 
 /**
@@ -182,31 +183,33 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 				.getAllProducersForPart(partName);
 
 		for (String platformName : serviceList.keySet()) {
-			
+
 			List<String> prodsOnPlatform = serviceList.get(platformName)
 					.getAllProducersOnPlattform();
-			
+
 			for (String prod : prodList) {
 
 				if (prodsOnPlatform.contains(prod)) {
 
-					log.info("PRODUCER: " + prod+ " PlATTFORM: "+platformName);
+					log.info("PRODUCER: " + prod + " PlATTFORM: "
+							+ platformName);
 					int price;
-					if(platformName.contains("gruppe 1 publisher")){
+					if (platformName.contains("gruppe 1 publisher")) {
 						PriceService priceService = new PriceServiceImpl();
-						price = priceService.getPrice(customerId, prod, partName, inquiryId);
+						price = priceService.getPrice(customerId, prod,
+								partName, inquiryId);
 					} else {
 						price = serviceList.get(platformName).getPrice(
-								customerId, prod, partName, inquiryId);	
+								customerId, prod, partName, inquiryId);
 					}
-					
+
 					String offerID = Database.getInstance().generateOfferId();
 					Offer offer = new Offer(offerID, partName, prod,
-							customerId, inquiryId, price);
+							customerId, inquiryId, price, platformName);
 					log.info(offer.toString());
 					listOfOffers.add(offer);
-					
-//					LOGGING
+
+					// LOGGING
 					WriteLogService logService = new WriteLogServiceImpl();
 					logService.logOffer(customerId, prod, partName, price,
 							inquiryId, offerID);
@@ -244,59 +247,17 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 	}
 
 	@Override
-	public void saveOrders(String customerId, String partId, String[] orders,
-			String[] producers, String[] prices) {
+	public void saveOrders(String customerId, String partId,
+			List<Offer> selectedOfferList) {
 		Database db = Database.getInstance();
-
-		// assemble data for orders to be saved
-		for (int i = 0; i < orders.length; i++) {
-			int pos = orders[i].indexOf("#");
-			String numberOfOrder = orders[i].substring(pos + 1);
-			// System.out.println(orders[i]+numberOfOrder);
-
-			for (int j = 0; j < producers.length; j++) {
-				int p = producers[j].indexOf("#");
-				String number = producers[j].substring(p + 1);
-				// System.out.println(producers[j]+number);
-
-				if (numberOfOrder.equals(number)) {
-					for (int k = 0; k < prices.length; k++) {
-						int po = prices[k].indexOf("#");
-						String numb = prices[k].substring(po + 1);
-
-						if (number.equals(numb)) {
-							int price = Integer.parseInt(prices[k].substring(0,
-									po));
-							String producerName = producers[j].substring(0, p);
-							// TODO:
-							// if producerName in liste mit gespeicherten
-							// wsdlFiles+Producers -> call webServce & place
-							// order
-							String order = orders[i].substring(0, pos);
-
-							System.out.println("Order: " + order
-									+ " Producer: " + producerName + " Price: "
-									+ price);
-
-							// TODO: what do we have to save?
-							db.saveOrder(order, producerName, price);
-
-							// TODO:
-							// call placeOrder() of provided web services;
-							// if subparts exists -> log them as well
-
-							WriteLogServiceImpl logService = new WriteLogServiceImpl();
-							logService.logOrder(customerId, producerName,
-									partId, price, db.generateInquiryId(),
-									db.generateOfferId(), db.generateOrderId());
-						}
-					}
-
-				}
-
-			}
+		Map<String, InquiryOrderPlattformService> serviceList = db
+				.getAllServices(false);
+		for (Offer o : selectedOfferList) {
+			String orderid = db.generateOrderId();
+			serviceList.get(o.getPlatformName()).placeOrder(
+					o.getCustomerOfOffer(), o.getSupplierOfOffer(),
+					o.getPartName(), o.getInquiryOfOffer(), o.getPrice(),
+					orderid);
 		}
-
 	}
-
 }

@@ -7,7 +7,7 @@
 	import="at.jku.ce.ue.source.businessLogic.impl.*"
 	import="at.jku.ce.ue.source.businessLogic.*"
 	import="at.jku.ce.ue.source.entities.*"%>
-	
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -84,7 +84,7 @@
 									+ pd.toString() + "</option>");
 						}
 						out.print("</select>");
-					%>		 
+					%>
 				</div>
 			</div>
 			<div class="control-group">
@@ -95,17 +95,18 @@
 		</form>
 
 		<%
-		out.println("SELECTED PART: "+request.getParameter("part"));
+			out.println("SELECTED PART: " + request.getParameter("part"));
 			if (request.getParameter("part") != null
 					&& request.getParameter("customer") != null) {
-				
+
 				// TODO: create offer id to save to database 
-				
+
 				String partName = request.getParameter("part");
 				String customerId = request.getParameter("customer");
-				
+
 				PartService partService = new PartServiceImpl();
-				List<String> subParts = partService.getAllDirectSubpartsOfPart(partName);
+				List<String> subParts = partService
+						.getAllDirectSubpartsOfPart(partName);
 
 				SupplierClientServiceImpl supClientService = new SupplierClientServiceImpl();
 
@@ -114,21 +115,22 @@
 							.getOffersForPart(partName, customerId);
 					System.out.println(listOfOffers.toString());
 					if (listOfOffers.size() > 0) {
+						
 		%>
 		<div class="control-group">
 			<%
-				if(subParts.size() > 0){
-					out.println("Your selected part<b> "+partName+"</b> contains the following subparts:");
-					out.println("<ul>");
-					for(String s : subParts){
-						out.println("<li>"+s+"</li>");
-					}
-					out.println("</ul>");
-				} else{
-					out.println("No further sub-parts available!");
-				} 
-					
- 			%>
+				if (subParts.size() > 0) {
+								out.println("Your selected part<b> " + partName
+										+ "</b> contains the following subparts:");
+								out.println("<ul>");
+								for (String s : subParts) {
+									out.println("<li>" + s + "</li>");
+								}
+								out.println("</ul>");
+							} else {
+								out.println("No further sub-parts available!");
+							}
+			%>
 		</div>
 		<div class="control-group">
 			<form method="post" action="saveOrder.jsp" name="saveOrder">
@@ -144,9 +146,10 @@
 					<%
 						// create supply chains here
 									int i = 0;
-									for(Offer of : listOfOffers){
+									for (Offer of : listOfOffers) {
+										application.setAttribute("offer#" + i, of);
 										out.println("<tr>");
-										out.println("<td><input type='checkbox' name='order' value='order#"
+										out.println("<td><input type='checkbox' name='order' value='offer#"
 												+ i + "' class='controls'></td>");
 										out.println("<td><input type='hidden' name='producer' value="
 												+ of.getSupplierOfOffer()
@@ -154,6 +157,12 @@
 												+ i
 												+ ">"
 												+ of.getSupplierOfOffer() + "</td>");
+										out.println("<td><input type='hidden' name='platform' value="
+												+ of.getPlatformName()
+												+ "#"
+												+ i
+												+ ">"
+												+ of.getPlatformName() + "</td>");
 										out.println("<td><input type='hidden' name='price' value="
 												+ of.getPrice()
 												+ "#"

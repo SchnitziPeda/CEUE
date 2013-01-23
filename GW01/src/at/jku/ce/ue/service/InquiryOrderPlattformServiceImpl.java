@@ -115,8 +115,6 @@ public class InquiryOrderPlattformServiceImpl implements InquiryOrderPlattformSe
         System.out.println(orderid);
         try {
         	
-        	// TODO: kaufen des ausgewählten teiles 
-        	// durchlaufen aller teile und zu jedem server eine placeOrder hinsenden
         	OrderService orderService = new OrderServiceImpl();
         	orderService.placeOrder(customerid, producerid, partid, inquiryid, price, orderid);
         	

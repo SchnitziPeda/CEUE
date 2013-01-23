@@ -5,6 +5,7 @@ import java.util.Map;
 
 import at.jku.ce.ue.source.entities.Customer;
 import at.jku.ce.ue.source.entities.Offer;
+import at.jku.ce.ue.source.entities.Order;
 import at.jku.ce.ue.source.entities.Producer;
 
 /**
@@ -32,8 +33,7 @@ public interface SupplierClientService {
 
 	public List<String> getAllPartsByProducer(String producerId);
 
-	public void saveOrders(String customerId, String partId, String[] orders,
-			String[] producers, String[] prices);
+	public void saveOrders(String customerId, String partId, List<Offer> selectedOfferList);
 
 	public List<String> getAllCustomerNames();
 
