@@ -45,48 +45,16 @@
 	<div class="moved-right">
 
 		<%
-		/**
-		 Daten, die für's Monitoring (laut Skriptum) benötigt werden:
-		 Bei einer Anfrage:
-		 - eigene kunden ID
-		 - angefragte Sub-Lieferant (Lieferanten ID)
-		 - entspr. Teilebezeichnung
-		 - Anfragennummer (über Web-service Schnittstelle)
-		 Bei Angebotslegung:
-		 - Kunden ID
-		 - eigene Lieferanten ID
-		 - Anfragenummer
-		 - Angebotsnummer
-		 - Preis
-		 Bei Bestellung: 
-		 - Kunden ID
-		 - eigene Lieferanten ID
-		 - Anfragenummer
-		 - Angebotsnummer
-		 - Preis
-		 - Bestellnummer
-		 */
-
-		/*
-		auswahl-kriterien: 
-		 eigene producerID
-		 
-		 */
 		String supplier = request.getParameter("inputName");
 		Monitoring mon = new Monitoring();
-		ResultSet rs = mon.getAllDataForProducer(supplier);
+		ResultSet rs = mon.getCalculatedOrders(supplier);
 	%>
+		Accumulated orders for Producer <b><% out.println(supplier);%>:</b>
+		<br>
 		<table class="table">
 			<tr>
-					<td>CustomerID</td>
-					<td>ProducerID</td>
-					<td>PartID</td>
-					<td>inquiryID</td>
-					<td>OfferID</td>
-					<td>Price</td>
-					<td>Street</td>
-					<td>User</td>
-					<td>Datetime</td>
+					<td><b>Customer</b></td>
+					<td><b>Price</b></td>
 				</tr>
 			<tr>
 				<%
@@ -94,14 +62,7 @@
 					while (rs.next()) {
 						output += "<tr>";
 						output += "<td>" + rs.getString("customerID") + "</td>";
-						output += "<td>" + rs.getString("producerID") + "</td>";
-						output += "<td>" + rs.getString("partID") + "</td>";
-						output += "<td>" + rs.getString("inquiryID") + "</td>";
-						output += "<td>" + rs.getString("offerID") + "</td>";
 						output += "<td>" + rs.getString("price") + "</td>";
-						output += "<td>" + rs.getString("str") + "</td>";
-						output += "<td>" + rs.getString("user") + "</td>";
-						output += "<td>" + rs.getString("datetime") + "</td>";
 						output += "</tr>";
 					}
 					out.print(output);

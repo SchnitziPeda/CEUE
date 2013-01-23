@@ -70,6 +70,25 @@ public class Monitoring {
 		return rs;
 	}
 	
+	/**
+	 * return calculated prices 
+	 * @param producerName
+	 * @return
+	 */
+	public ResultSet getCalculatedOrders(String producerName){
+		ResultSet rs = null;
+		PreparedStatement ps = null;
+		try {
+			ps = conn.prepareStatement("SELECT customerid, sum(price) as price FROM "+tableName
+					+ " WHERE producerID='"+producerName+"' GROUP BY customerID");
+			rs = ps.executeQuery();
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
+		
+		return rs; 
+	}
+	
 
 
 
