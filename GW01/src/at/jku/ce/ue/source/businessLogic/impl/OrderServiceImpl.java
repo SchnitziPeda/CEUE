@@ -12,7 +12,7 @@ public class OrderServiceImpl implements OrderService {
 	public void placeOrder(String customerid, String producerid,
 			String partid, String inquiryid, int price, String orderid) {
 		
-		
+		System.out.println("Order accepted on GW01! Thanks for your purchase :)");
 		// TODO
 		// Call other plattforms and place orders
 		Map<String, InquiryOrderPlattformService> services = Database.getInstance().getServices(false);
