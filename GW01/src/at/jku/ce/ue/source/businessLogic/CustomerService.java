@@ -14,6 +14,4 @@ import at.jku.ce.ue.source.entities.Customer;
 public interface CustomerService {
 	
 	public String addCustomer(String customerName);
-
-	public Map<String, Customer> getCustomers();
 }

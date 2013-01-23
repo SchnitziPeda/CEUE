@@ -39,13 +39,5 @@ public class CustomerServiceImpl implements CustomerService {
 		return customerId;
 	}
 	
-	/**
-	 * Returns all customers stored on current plattform 
-	 * @return
-	 */
-	public Map<String, Customer> getCustomers(){
-		Database db = Database.getInstance();
-		return db.getCustomersOnPlatform();
-	}
 
 }
