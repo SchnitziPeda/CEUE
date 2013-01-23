@@ -27,7 +27,7 @@ public class Database {
 
 	private static Logger log = Logger.getLogger("Database");
 
-	private static final int PRODUCER_COUNT = 15;
+	private static final int PRODUCER_COUNT = 5;
 
 	private static Database database;
 
@@ -106,6 +106,8 @@ public class Database {
 				partHierarchy.put(s, bomService.getAllDirectSubpartsOfPart(s));
 			}
 		}
+		
+		addPartsToProducers();
 	}
 
 	private void addPartsToProducers() {

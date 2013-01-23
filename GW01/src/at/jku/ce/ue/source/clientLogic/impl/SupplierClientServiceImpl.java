@@ -149,7 +149,7 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 		}
 
 		if (producers.size() == 0)
-			log.severe("No Producers for part " + partId + " on platform GW01!");
+			log.info("No Producers for part " + partId + " on platform GW01!");
 
 		return producers;
 	}
