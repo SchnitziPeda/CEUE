@@ -331,7 +331,7 @@ public class UddiApp {
 											.getAccessPoint();
 									String wsdlFile = ap.getValue();
 
-									if ((!wsdlFile.contains("localhost") && !wsdlFile.contains("GW01"))) {
+									if ((!wsdlFile.contains("localhost") && !wsdlFile.contains("GW01")  && !wsdlFile.contains("gr4") && !wsdlFile.contains("HL16"))) {
 										if (!wsdlFile.contains("8090")) {
 											if (!wsdlFile.endsWith("?wsdl"))
 												wsdlFile = wsdlFile + "?wsdl";
@@ -439,7 +439,7 @@ public class UddiApp {
 											.getAccessPoint();
 									String wsdlFile = ap.getValue();
 
-									if (!wsdlFile.contains("localhost")) {
+									if (!wsdlFile.contains("localhost") && !wsdlFile.contains("gr4") && !wsdlFile.contains("HL16")) {
 										if (!wsdlFile.contains("8090")) {
 											if (!wsdlFile.endsWith("?wsdl"))
 												wsdlFile = wsdlFile + "?wsdl";
