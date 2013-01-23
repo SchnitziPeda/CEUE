@@ -18,6 +18,4 @@ public interface PriceService {
 	
 	public Map<String, Integer> getPriceForProducers(List<String> producer, String partid);
 	
-	public List<Offer> getSupplyChains(String customerid, String partid, String inquiryid);
-
 }

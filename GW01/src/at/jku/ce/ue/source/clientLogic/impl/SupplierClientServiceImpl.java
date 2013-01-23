@@ -26,7 +26,7 @@ import at.jku.ce.ue.source.entities.Producer;
 public class SupplierClientServiceImpl implements SupplierClientService {
 
 	private static Logger log = Logger.getLogger("SupplierClientServiceImpl");
-	
+
 	private String inquiryId;
 
 	@Override
@@ -35,8 +35,9 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 		Map<String, Producer> storedPoducers = db.getProducers();
 		List<Producer> producers = new LinkedList<Producer>();
 
-		Map<String, InquiryOrderPlattformService> serviceList = db.getServices(false);
-		
+		Map<String, InquiryOrderPlattformService> serviceList = db
+				.getServices(false);
+
 		// Iterating through all platforms
 		for (String plattformName : serviceList.keySet()) {
 			// Getting all producers of other platforms
@@ -49,7 +50,7 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 				if (!storedPoducers.containsKey(name)) {
 					Producer prod = new Producer(name, name);
 					prod.setPlattform(plattformName);
-//					prod.setProducerService(producerService);
+					// prod.setProducerService(producerService);
 					storedPoducers.put(name, prod);
 				}
 			}
@@ -70,8 +71,9 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 		}
 
 		// data of foreign plattforms:
-		Map<String, InquiryOrderPlattformService> serviceList = Database.getInstance().getServices(false);
-		
+		Map<String, InquiryOrderPlattformService> serviceList = Database
+				.getInstance().getServices(false);
+
 		// Iterating through all platforms
 		for (String plattformName : serviceList.keySet()) {
 			// Getting all producers of other platforms
@@ -116,7 +118,7 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 
 	@Override
 	public List<String> getAllProducersForPart(String partId) {
-		
+
 		List<String> producers = new LinkedList<String>();
 
 		// get own producers
@@ -129,10 +131,10 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 			}
 		}
 
-		
 		// get foreign producers
-		Map<String, InquiryOrderPlattformService> serviceList = Database.getInstance().getServices(false);
-		
+		Map<String, InquiryOrderPlattformService> serviceList = Database
+				.getInstance().getServices(false);
+
 		// Iterating through all platforms
 		for (String plattformName : serviceList.keySet()) {
 			// Getting all parts of other platforms
@@ -145,6 +147,9 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 				producers.add(name);
 			}
 		}
+
+		if (producers.size() == 0)
+			log.severe("No Producers for part " + partId + " on platform GW01!");
 
 		return producers;
 	}
@@ -162,36 +167,48 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 	}
 
 	@Override
-	public List<Offer> getOffersForPart(String partName,
-			String customerId) {
+	public List<Offer> getOffersForPart(String partName, String customerId) {
 		List<Offer> listOfOffers = new LinkedList<Offer>();
 
 		String inquiryId = Database.getInstance().generateInquiryId();
-		
+
 		Map<String, InquiryOrderPlattformService> serviceList = Database
 				.getInstance().getAllServices(false);
-		
+
+		SupplierClientService supClientService = new SupplierClientServiceImpl();
+		List<String> prodList = supClientService
+				.getAllProducersForPart(partName);
+
 		for (String platformName : serviceList.keySet()) {
-			SupplierClientService supClientService = new SupplierClientServiceImpl();
-			List<String> prodList = supClientService.getAllProducersForPart(partName);
-			for (String prod : prodList) {
-				log.info("PRODUCER: "+prod);
-				int price = serviceList.get(platformName).getPrice(customerId,
-						prod, partName, inquiryId);
-				
-				String offerID = Database.getInstance().generateOfferId();
-				Offer offer = new Offer(offerID, partName, prod, customerId, inquiryId, price);
-				log.info(offer.toString());
-				listOfOffers.add(offer);
-				WriteLogService logService = new WriteLogServiceImpl();
-				logService.logOffer(customerId, prod, partName, price, inquiryId, offerID);
-			}
-				
+
+			List<String> prodsOnPlatform = serviceList.get(platformName)
+					.getAllProducersOnPlattform();
 			
+			for (String prod : prodList) {
+
+				if (prodsOnPlatform.contains(prod)) {
+
+					log.info("PRODUCER: " + prod);
+					int price = serviceList.get(platformName).getPrice(
+							customerId, prod, partName, inquiryId);
+
+					String offerID = Database.getInstance().generateOfferId();
+					Offer offer = new Offer(offerID, partName, prod,
+							customerId, inquiryId, price);
+					log.info(offer.toString());
+					listOfOffers.add(offer);
+					
+					// LOGGING
+					WriteLogService logService = new WriteLogServiceImpl();
+					logService.logOffer(customerId, prod, partName, price,
+							inquiryId, offerID);
+				}
+
+			}
+
 		}
 
-		
-			return listOfOffers;		
+		return listOfOffers;
 	}
 
 	@Override
@@ -203,8 +220,9 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 		allPartsByProducer = partService.getAllPartsByProducer(producerId);
 
 		// get foreign data:
-		Map<String, InquiryOrderPlattformService> serviceList = Database.getInstance().getServices(false);
-		
+		Map<String, InquiryOrderPlattformService> serviceList = Database
+				.getInstance().getServices(false);
+
 		// iterate through:
 		for (String platformName : serviceList.keySet()) {
 			List<String> parts = serviceList.get(platformName)

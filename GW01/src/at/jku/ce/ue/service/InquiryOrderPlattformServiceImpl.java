@@ -9,6 +9,7 @@ package at.jku.ce.ue.service;
 import java.util.List;
 import java.util.logging.Logger;
 
+import at.jku.ce.ue.source.businessLogic.OrderService;
 import at.jku.ce.ue.source.businessLogic.PriceService;
 import at.jku.ce.ue.source.businessLogic.SupplierService;
 import at.jku.ce.ue.source.businessLogic.impl.OrderServiceImpl;
@@ -115,7 +116,7 @@ public class InquiryOrderPlattformServiceImpl implements InquiryOrderPlattformSe
         	
         	// TODO: kaufen des ausgewählten teiles 
         	// durchlaufen aller teile und zu jedem server eine placeOrder hinsenden
-        	OrderServiceImpl orderService = new OrderServiceImpl();
+        	OrderService orderService = new OrderServiceImpl();
         	orderService.placeOrder(customerid, producerid, partid, inquiryid, price, orderid);
         	
         	

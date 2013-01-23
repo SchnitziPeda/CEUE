@@ -15,7 +15,9 @@ public class OrderServiceImpl implements OrderService {
 		
 		// TODO
 		// Call other plattforms and place orders
-
+		Map<String, InquiryOrderPlattformService> services = Database.getInstance().getServices(false);
+		
+//		for(InquiryOrderPlattformService service : serv)
 		
 		// call other plattforms
 		Map<String, InquiryOrderPlattformService> serviceList = Database.getInstance().getServices(false);
