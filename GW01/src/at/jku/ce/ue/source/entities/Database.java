@@ -44,11 +44,14 @@ public class Database {
 	private List<Offer> offersOfPlatform;
 
 	private Map<String, List<String>> partHierarchy;
+	
+	private List<Order> ordersPlacedOnPlatform;
 
 	public Database() {
 
 		this.producers = new HashMap<String, Producer>();
 		this.customersOnPlatform = new HashMap<String, Customer>();
+		this.ordersPlacedOnPlatform = new LinkedList<Order>();
 
 		fillWithData();
 
@@ -296,6 +299,20 @@ public class Database {
 	 */
 	public void setPartHierarchy(Map<String, List<String>> partHierarchy) {
 		this.partHierarchy = partHierarchy;
+	}
+
+	/**
+	 * @return the ordersPlacedOnPlatform
+	 */
+	public List<Order> getOrdersPlacedOnPlatform() {
+		return ordersPlacedOnPlatform;
+	}
+
+	/**
+	 * @param ordersPlacedOnPlatform the ordersPlacedOnPlatform to set
+	 */
+	public void setOrdersPlacedOnPlatform(List<Order> ordersPlacedOnPlatform) {
+		this.ordersPlacedOnPlatform = ordersPlacedOnPlatform;
 	}
 
 }
