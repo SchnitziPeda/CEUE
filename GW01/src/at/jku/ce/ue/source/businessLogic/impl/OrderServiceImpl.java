@@ -28,7 +28,6 @@ public class OrderServiceImpl implements OrderService {
 				.getAllServices(false);
 		System.out.println("----------2----------");
 
-
 		List<String> subParts = partsOnPlatform.get(partid);
 		if (subParts.size() > 0) {
 			for (String subPart : subParts) {
@@ -39,17 +38,15 @@ public class OrderServiceImpl implements OrderService {
 
 				int cheapestPrice = 0;
 				Offer cheapestOffer = null;
-				if (offersForSubPart.size() > 0) {
-					cheapestPrice = offersForSubPart.get(0).getPrice();
-				}
+
 				for (Offer o : offersForSubPart) {
-					if (cheapestPrice > o.getPrice()) {
+					if (cheapestPrice > o.getPrice() || cheapestOffer == null) {
 						cheapestPrice = o.getPrice();
 						cheapestOffer = o;
 					}
-
 				}
-				log.info(cheapestOffer.toString());
+				// log.info(cheapestOffer.toString());
+
 				String cheapestOrderId = db.generateOrderId();
 				InquiryOrderPlattformService cheapestPlatform = serviceList
 						.get(cheapestOffer.getPlatformName());

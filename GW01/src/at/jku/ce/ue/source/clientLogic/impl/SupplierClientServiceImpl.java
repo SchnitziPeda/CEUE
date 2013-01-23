@@ -11,7 +11,9 @@ import java.util.logging.Logger;
 import at.jku.ce.ue.log.WriteLogService;
 import at.jku.ce.ue.log.WriteLogServiceImpl;
 import at.jku.ce.ue.service.InquiryOrderPlattformService;
+import at.jku.ce.ue.source.businessLogic.OrderService;
 import at.jku.ce.ue.source.businessLogic.PriceService;
+import at.jku.ce.ue.source.businessLogic.impl.OrderServiceImpl;
 import at.jku.ce.ue.source.businessLogic.impl.PartServiceImpl;
 import at.jku.ce.ue.source.businessLogic.impl.PriceServiceImpl;
 import at.jku.ce.ue.source.businessLogic.impl.SupplierServiceImpl;
@@ -251,13 +253,18 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 			List<Offer> selectedOfferList) {
 		Database db = Database.getInstance();
 		Map<String, InquiryOrderPlattformService> serviceList = db
-				.getAllServices(false);
+				.getAllServices(true);
+		for (String s : serviceList.keySet()) {
+			System.out.println(s);
+		}
 		for (Offer o : selectedOfferList) {
 			String orderid = db.generateOrderId();
+
 			System.out.println(o.getPlatformName());
 			InquiryOrderPlattformService concerningPlatform = serviceList.get(o
 					.getPlatformName());
 			System.out.println(concerningPlatform.toString());
+			// OrderService os = new OrderServiceImpl();
 			concerningPlatform.placeOrder(o.getCustomerOfOffer(),
 					o.getSupplierOfOffer(), o.getPartName(),
 					o.getInquiryOfOffer(), o.getPrice(), orderid);
