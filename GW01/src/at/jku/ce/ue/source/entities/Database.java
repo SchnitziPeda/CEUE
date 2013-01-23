@@ -41,9 +41,9 @@ public class Database {
 
 	private Map<String, Customer> customersOnPlatform;
 
-	private List<Offer> offersOfPlatform;
-	
-	private List<Offer> offersOfSupplyChain;
+//	private List<Offer> offersOfPlatform;
+//	
+//	private List<Offer> offersOfSupplyChain;
 
 	private Map<String, List<String>> partHierarchy;
 	

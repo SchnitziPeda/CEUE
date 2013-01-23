@@ -15,7 +15,5 @@ import at.jku.ce.ue.source.entities.Offer;
 public interface PriceService {
 	
 	public int getPrice(String customerid, String producerId, String partid, String inquiryid);
-	
-	public Map<String, Integer> getPriceForProducers(List<String> producer, String partid);
-	
+		
 }

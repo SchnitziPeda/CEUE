@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 import at.jku.ce.ue.log.WriteLogServiceImpl;
 import at.jku.ce.ue.service.InquiryOrderPlattformService;
 import at.jku.ce.ue.source.businessLogic.OrderService;
-import at.jku.ce.ue.source.businessLogic.WriteLogService;
 import at.jku.ce.ue.source.clientLogic.SupplierClientService;
 import at.jku.ce.ue.source.clientLogic.impl.SupplierClientServiceImpl;
 import at.jku.ce.ue.source.entities.Database;

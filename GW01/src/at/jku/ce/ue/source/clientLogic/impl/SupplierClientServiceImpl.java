@@ -21,7 +21,6 @@ import at.jku.ce.ue.source.clientLogic.SupplierClientService;
 import at.jku.ce.ue.source.entities.Customer;
 import at.jku.ce.ue.source.entities.Database;
 import at.jku.ce.ue.source.entities.Offer;
-import at.jku.ce.ue.source.entities.Order;
 import at.jku.ce.ue.source.entities.Producer;
 
 /**
@@ -166,12 +165,6 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 	}
 
 	@Override
-	public List<String> getDirectSubPartsOf(String partId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<Offer> getOffersForPart(String partName, String customerId) {
 		List<Offer> listOfOffers = new LinkedList<Offer>();
 
@@ -276,5 +269,11 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 //			System.out.println(concerningPlatform.toString());
 			// OrderService os = new OrderServiceImpl();
 		}
+	}
+
+	@Override
+	public List<String> getDirectSubPartsOf(String partId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

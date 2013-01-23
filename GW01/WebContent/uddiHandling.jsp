@@ -46,7 +46,7 @@ import="at.jku.ce.ue.uddi.*"
 		</div>
 	</div>
 	<div class="page-header">
-		<h1>ORDER</h1>
+		<h1>Uddi Interaction</h1>
 	</div>
 	<div class="centered">
 		<ul class="pager">

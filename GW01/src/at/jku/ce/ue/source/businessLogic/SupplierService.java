@@ -46,7 +46,5 @@ public interface SupplierService {
 	public String registerSupplier(String producerName, String password);
 
 	public List<String> getAllProducersForPart(String partName);
-	
-	public boolean authentificateSupplier(String supplierName);
-	
+		
 }

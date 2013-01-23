@@ -28,7 +28,6 @@ public class PriceServiceImpl implements PriceService {
 	@Override
 	public int getPrice(String customerid, String producerid, String partid,
 			String inquiryid) {
-		System.out.println("--entering GET_PRICE FUNCTION--");
 		int price = 0;
 
 		SupplierService supplService = new SupplierServiceImpl();
@@ -40,7 +39,6 @@ public class PriceServiceImpl implements PriceService {
 			Map<String, Integer> parts = prod.getParts();
 			if (parts.containsKey(partid)) {
 				// Aufschlag auf Preis der Subparts
-				System.out.println("Current charge: "+parts.get(partid));
 				charge = parts.get(partid);
 			} else {
 				log.severe("Producer " + producerid
@@ -58,16 +56,13 @@ public class PriceServiceImpl implements PriceService {
 		// get foreign producers
 		Map<String, InquiryOrderPlattformService> serviceList = Database
 				.getInstance().getAllServices(false);
-		System.out.println("LIST OF SERVICES: "+serviceList.size());
 		
 		int sum = 0;
 		for (String subPart : subParts) {
-			System.out.println("SUBPART: "+subPart);
 			int cheapestSubPartPrice = -1;
 			// Iterating through all platforms
 			for (String platformName : serviceList.keySet()) {
 				
-				System.out.println("CURRENT Plattform: "+platformName);
 
 				List<String> prods = serviceList.get(platformName)
 						.getAllProducersForPart(subPart);
@@ -81,66 +76,16 @@ public class PriceServiceImpl implements PriceService {
 					if (temp <= cheapestSubPartPrice && temp >= 0) {
 						cheapestSubPartPrice = temp;
 					}
-					System.out.println("Platform: "+platformName+" Producer: "+prodOfSubPart+" Part: "+subPart+" cheapest price: "+cheapestSubPartPrice+" Unser Preis: "+temp);
+//					System.out.println("Platform: "+platformName+" Producer: "+prodOfSubPart+" Part: "+subPart+" cheapest price: "+cheapestSubPartPrice+" Unser Preis: "+temp);
 				}
 			}
 			sum += cheapestSubPartPrice;
 		}
 
 		price = sum + charge;
-		System.out.println("Current price: "+price);
 		log.info("Current price: " + price);
 		return price;
 	}
 
-
-
-
-	public Map<String, Integer> getPriceForProducers(List<String> producer,
-			String partid) {
-		Map<String, Integer> prices = new HashMap<String, Integer>();
-
-		/*
-		 * TODO price logic for calculating end prices should go here
-		 */
-
-		Database db = Database.getInstance();
-		Map<String, Producer> producerFromDatabase = db.getProducers();
-
-		for (Producer prod : producerFromDatabase.values()) {
-
-			Map<String, Integer> partsOfProd = prod.getParts();
-
-			if (partsOfProd.containsKey(partid)) {
-				prices.put(prod.getName(), partsOfProd.get(partid));
-			}
-
-		}
-
-		return prices;
-
-		// for(Producer prod : producerFromDatabase.values()){
-		// for(String pd : producer){
-		// // check if given producer matches with database
-		// if(prod.getName().equals(pd)){
-		// // check, if producer has the given product
-		// // for(String part : prod.getParts()){
-		// // if(part.getName().equals(partid)){
-		// // // if equal, add to list
-		// // prices.put(prod.getName(), part.getPrice());
-		// // }
-		// // }
-		//
-		// List<String> partNames = prod.getPartNames();
-		//
-		// if(partNames.contains(partid)){
-		// prices.put(partid, part);
-		// }
-		//
-		// }
-		// }
-		// }
-
-	}
 
 }

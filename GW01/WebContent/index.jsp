@@ -48,13 +48,11 @@
 			<li><a href="Customer.jsp">Register as Customer</a></li>
 			<li><a href="order/createOrder.jsp">Check Offers & Order</a></li>
 			<li><a href="monitoring/index.jsp">Monitoring</a></li>
-			<hr>
-			For testing: 
+			<li><a href="ProdPartListing.jsp">Show all producers and parts on this platform</a></li>
 			<li><a href="AddProducts.jsp">Add products to a producer</a></li>
-			<li><a href="ProdPartListing.jsp">Show all producers and parts on platform</a></li>
-<!-- 			<li><a href="testPage.jsp">Testingpage</a></li> -->
-<!-- 			<li><a href="Offer.jsp">Offers</a></li> -->
-<!-- 			<li><a href="RekursionTest.jsp">Test der Rekursion</a></li> -->
+<!-- 			<hr> -->
+<!-- 			For testing:  -->
+<!-- 			<li><a href="uddiHandling.jsp">Uddi Handling</a></li> -->
 
 		</ul>
 	</div>
