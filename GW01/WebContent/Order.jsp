@@ -69,9 +69,9 @@ import="at.jku.ce.ue.uddi.*"
 					// System.out.print(Init.getUddiReg().getWsdlOfPlattform(plattformName));
 					// String plattformName = "gruppe 1 publisher";
 					UddiInteraction uddiInter = new UddiInteraction();
-					uddiInter.publishPlattformAndService();
+// 					uddiInter.publishPlattformAndService();
 // 					app.getListofEndpoints();
-// 					uddiInter.deleteService();
+					uddiInter.deleteService();
 					// uddiInter.publishPlattformAndService();
 							
 					// ListIterator iter1 = list.listIterator();
