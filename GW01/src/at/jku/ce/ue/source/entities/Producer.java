@@ -29,7 +29,7 @@ public class Producer extends Role {
 		this.parts = new HashMap<String, Integer>();
 	}
 	
-	public boolean addNewProduct(String name, int price){
+	public boolean addNewPart(String name, int price){
 		
 		parts.put(name, price);
 		

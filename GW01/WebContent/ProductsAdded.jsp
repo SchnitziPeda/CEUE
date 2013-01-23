@@ -52,21 +52,21 @@ page language="java" import="java.io.*" import="java.util.List"
 	</div>
 	<div class="moved-right">
 		<%
-			AddProductView addProductPresenter = (AddProductView) application
-					.getAttribute("addProductPresenter");
-			List<Part> parts = addProductPresenter.getPartsList();
+		List<String> addedProductsList = (List<String>)application.getAttribute("addedProductsList");
+						String producerID = (String)application.getAttribute("producerID");
 			int price;
 			boolean success;
-			for (Part p : parts) {
-				price = Integer.parseInt(request.getParameter(p.getName()));
-				p.setPrice(price);
-				success = addProductPresenter.addProductToProducer(
-						p.getOfferedBy(), p);
-
-				if (success) {
-					out.println(p.getName() + " was added!");
+			for (String p : addedProductsList) {
+				price = Integer.parseInt(request.getParameter(p));
+				
+				Producer prod = Database.getInstance().getProducer(producerID);
+				
+				prod.getParts().put(p, price);
+				
+				if (prod.getParts().containsKey(p)) {
+					out.println(p + " was added!");
 				} else {
-					out.println(p.getName() + " was not added!");
+					out.println(p + " was not added!");
 				}
 			}
 		%>

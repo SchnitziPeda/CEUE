@@ -5,9 +5,7 @@ package at.jku.ce.ue.source.businessLogic;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import at.jku.ce.ue.source.entities.Part;
 import at.jku.ce.ue.source.entities.Producer;
 
 /**
@@ -47,15 +45,6 @@ public interface SupplierService {
 	 */
 	public String registerSupplier(String producerName, String password);
 
-	/**
-	 * Adds offered parts to producer
-	 * 
-	 * @param producerId
-	 * @param parts
-	 * @return if adding succeeded
-	 */
-	public boolean addPartToProducer(Producer producer, Part part);
-	
 	public List<String> getAllProducersForPart(String partName);
 	
 	public boolean authentificateSupplier(String supplierName);

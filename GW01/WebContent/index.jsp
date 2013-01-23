@@ -54,7 +54,6 @@
 			<li><a href="ProdPartListing.jsp">Show all producers and parts on platform</a></li>
 <!-- 			<li><a href="Order.jsp">Testingpage</a></li> -->
 			<li><a href="Offer.jsp">Offers</a></li>
-			<li><a href="BOMParts.jsp">Show all BOMParts</a></li>
 			<li><a href="RekursionTest.jsp">Test der Rekursion</a></li>
 
 		</ul>

@@ -13,7 +13,9 @@ import java.util.logging.Logger;
 import at.jku.ce.ue.service.InquiryOrderPlattformService;
 import at.jku.ce.ue.source.UddiInteraction;
 import at.jku.ce.ue.source.businessLogic.BOMServiceUtil;
+import at.jku.ce.ue.source.businessLogic.PartService;
 import at.jku.ce.ue.source.businessLogic.impl.BOMServiceUtilImpl;
+import at.jku.ce.ue.source.businessLogic.impl.PartServiceImpl;
 
 /**
  * @author Schnitzi
@@ -34,12 +36,14 @@ public class Database {
 	private Map<String, InquiryOrderPlattformService> services;
 
 	private Map<String, InquiryOrderPlattformService> allServices;
-	
-	private Map<String, Part> partsOnPlattform;
+
+	private List<String> partsOnPlattform;
 
 	private Map<String, Customer> customersOnPlatform;
 
 	private List<Offer> offersOfPlatform;
+
+	private Map<String, List<String>> partHierarchy;
 
 	public Database() {
 
@@ -62,7 +66,7 @@ public class Database {
 
 		createProducers();
 
-		producePartsForProducer();
+		produceParts();
 		createCustomer();
 
 	}
@@ -84,100 +88,38 @@ public class Database {
 		}
 	}
 
-	private void producePartsForProducer() {
-
-		LinkedList<Part> parts = new LinkedList<Part>();
+	private void produceParts() {
 
 		BOMServiceUtil bomService = new BOMServiceUtilImpl();
 
-		partsOnPlattform = new HashMap<String, Part>();
+		partsOnPlattform = new LinkedList<String>();
 
 		// List of all parts
-		List<String> productList = bomService.getAllPartsOfBOM();
-		log.info("PART COUNT: " + productList.size());
-		int count = 0;
-		// Iterator through all parts and put every part and a list of it's
-		// subparts in the map
-		for (String partName : productList) {
-			Random rand = new Random();
+		partsOnPlattform = bomService.getAllPartsOfBOM();
+		log.info("PART COUNT: " + partsOnPlattform.size());
 
-			Part part = null;
-			for (Part partInList : partsOnPlattform.values()) {
-				if (partInList.getName().equals(partName)) {
-					part = partInList;
-				}
+		partHierarchy = new HashMap<String, List<String>>();
+		for (String s : partsOnPlattform) {
+			if (bomService.getAllDirectSubpartsOfPart(s) == null) {
+				partHierarchy.put(s, new LinkedList<String>());
+			} else {
+				partHierarchy.put(s, bomService.getAllDirectSubpartsOfPart(s));
 			}
-
-			if (part == null) {
-				int prodId = rand.nextInt(PRODUCER_COUNT);
-				part = new Part(count, partName, producers.get(prodId));
-				count += 1;
-				producers.get("GW01Producer" + prodId).addNewProduct(partName,
-						rand.nextInt(PART_PRICE));
-			}
-
-			// Get all subParts of actual looked part
-			List<String> subPartList = bomService
-					.getAllDirectSubpartsOfPart(partName);
-
-			// Iterate through all subParts of 'part'
-			for (String subPartName : subPartList) {
-
-				Part subPart = null;
-
-				// Check if 'subPartName' already exists as Part in this
-				// database
-				for (Part partInList : partsOnPlattform.values()) {
-
-					if (partInList.getName().equals(subPartName)) {
-						subPart = partInList;
-					}
-
-				}
-
-				if (subPart == null) {
-					int prodId = rand.nextInt(PRODUCER_COUNT);
-					subPart = new Part(count, subPartName,
-							producers.get(prodId));
-					count += 1;
-					producers.get("GW01Producer" + prodId).addNewProduct(
-							subPartName, rand.nextInt(PART_PRICE));
-				}
-
-				// Add 'subPart' as subpart of 'part'
-				if (part != null && subPart != null) {
-					part.getSubParts().add(subPart);
-				}
-			}
-
-			if (part != null)
-				partsOnPlattform.put(part.getIdString(), part);
-
 		}
-
-		printAllParts(partsOnPlattform);
-
 	}
 
-	private void printAllParts(Map<String, Part> allPartsWithSubParts) {
-
-//		for (Part part : allPartsWithSubParts.values()) {
-//			String outPut = "Part: No: " + part.getId() + part.getName();
-//			// System.out.println("Part: " + part.getName());
-//
-//			if (part.getSubParts().size() > 0) {
-//				for (Part subPart : part.getSubParts()) {
-//					// System.out.println("\t+" + subPart.getName());
-//					outPut += "\n\t+ No: " + subPart.getId()
-//							+ subPart.getName();
-//				}
-//			} else {
-//				// System.out.println("\t No more subParts");
-//				outPut += "\n\t No more subParts";
-//			}
-//			System.out.println(outPut);
-//		}
-
+	private void addPartsToProducers() {
+		int i = 0;
+		int j = 0;
+		for (Producer p : producers.values()) {
+			i = 0;
+			while (i < 5 && j < partsOnPlattform.size()) {
+				p.addNewPart(partsOnPlattform.get(j),
+						(int) (Math.random() * 100));
+				i++;
+				j++;
+			}
+		}
 	}
 
 	/**
@@ -188,9 +130,6 @@ public class Database {
 		return producers.get(producerID);
 	}
 
-	public Part getPart(String partID) {
-		return partsOnPlattform.get(partID);
-	}
 
 	public String registerProducer(String producerName, String password) {
 
@@ -298,21 +237,6 @@ public class Database {
 		this.producers = producers;
 	}
 
-	/**
-	 * @return the partsOnPlattform
-	 */
-	public Map<String, Part> getPartsOnPlattform() {
-		return partsOnPlattform;
-	}
-
-	/**
-	 * @param partsOnPlattform
-	 *            the partsOnPlattform to set
-	 */
-	public void setPartsOnPlattform(Map<String, Part> partsOnPlattform) {
-		this.partsOnPlattform = partsOnPlattform;
-	}
-
 	public Map<String, Customer> getCustomersOnPlatform() {
 		return customersOnPlatform;
 	}
@@ -328,13 +252,13 @@ public class Database {
 			boolean withUpdate) {
 		if (services == null || withUpdate) {
 			// Managing UDDI Stuff
-			
-			this.services =  new UddiInteraction().generateListofEndpoints();
+
+			this.services = new UddiInteraction().generateListofEndpoints();
 		}
 
 		return this.services;
 	}
-	
+
 	/**
 	 * @return the allServices
 	 */
@@ -342,13 +266,13 @@ public class Database {
 			boolean withUpdate) {
 		if (allServices == null || withUpdate) {
 			// Managing UDDI Stuff
-			
-			this.allServices =  new UddiInteraction().generateListOfAllEndpoints();
+
+			this.allServices = new UddiInteraction()
+					.generateListOfAllEndpoints();
 		}
 
 		return this.allServices;
 	}
-
 
 	/**
 	 * @param services
@@ -356,6 +280,20 @@ public class Database {
 	 */
 	public void setServices(Map<String, InquiryOrderPlattformService> services) {
 		this.services = services;
+	}
+
+	/**
+	 * @return the partHierarchy
+	 */
+	public Map<String, List<String>> getPartHierarchy() {
+		return partHierarchy;
+	}
+
+	/**
+	 * @param partHierarchy the partHierarchy to set
+	 */
+	public void setPartHierarchy(Map<String, List<String>> partHierarchy) {
+		this.partHierarchy = partHierarchy;
 	}
 
 }

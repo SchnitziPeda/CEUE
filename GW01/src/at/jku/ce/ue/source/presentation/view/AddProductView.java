@@ -5,7 +5,6 @@ package at.jku.ce.ue.source.presentation.view;
 
 import java.util.List;
 
-import at.jku.ce.ue.source.entities.Part;
 import at.jku.ce.ue.source.entities.Producer;
 
 /**
@@ -14,10 +13,8 @@ import at.jku.ce.ue.source.entities.Producer;
  */
 public interface AddProductView {
 
-	public boolean addProductToProducer(Producer producer, Part parts);
+	public List<String> getPartsList();
 
-	public List<Part> getPartsList();
-
-	public void setPartsList(List<Part> partsList);
+	public void setPartsList(List<String> partsList);
 
 }

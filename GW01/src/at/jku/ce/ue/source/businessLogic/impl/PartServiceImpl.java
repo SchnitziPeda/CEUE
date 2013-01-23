@@ -2,40 +2,23 @@ package at.jku.ce.ue.source.businessLogic.impl;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import at.jku.ce.ue.source.businessLogic.PartService;
 import at.jku.ce.ue.source.entities.Database;
-import at.jku.ce.ue.source.entities.Part;
 import at.jku.ce.ue.source.entities.Producer;
 
 public class PartServiceImpl implements PartService {
 
 	@Override
-	public Part getPart(String partID) {
-		return null;
-	}
-
-	@Override
-	public List<Part> getAllParts() {
+	public List<String> getAllParts() {
 		Database db = Database.getInstance();
-		LinkedList<Part> list = new LinkedList<Part>(db.getPartsOnPlattform()
-				.values());
-		return list;
-	}
-
-	@Override
-	public List<String> getAllPartKeys() {
-		// TODO Auto-generated method stub
-		return null;
+		return new LinkedList<String>(db.getPartHierarchy().keySet());
 	}
 
 	@Override
 	public List<String> getAllPartNames() {
-		List<String> list = new LinkedList<String>();
-		for (Part part : getAllParts()) {
-			list.add(part.getName());
-		}
-		return list;
+		return getAllParts();
 	}
 
 	@Override
@@ -48,9 +31,7 @@ public class PartServiceImpl implements PartService {
 		SupplierServiceImpl supService = new SupplierServiceImpl();
 		for (Producer producer : supService.getAllProducers().values()) {
 			if (producer.getName().equals(producerId)) {
-				for (String part : producer.getParts().keySet()) {
-					parts.add(part);
-				}
+				parts = new LinkedList<String>(producer.getParts().keySet());
 			}
 		}
 
@@ -59,19 +40,8 @@ public class PartServiceImpl implements PartService {
 
 	@Override
 	public List<String> getAllDirectSubpartsOfPart(String partId) {
-		List<Part> allParts = this.getAllParts();
-		Part part = null;
-		for (Part p : allParts) {
-			if (p.getName().equals(partId)) {
-				part = p;
-			}
-		}
-		List<String> subParts = new LinkedList<String>();
-		for (Part p : part.getSubParts()) {
-			subParts.add(p.getName());
-		}
-
-		return subParts;
+		Map<String, List<String>> parts = Database.getInstance().getPartHierarchy();
+		return parts.get(partId);
 	}
 
 }

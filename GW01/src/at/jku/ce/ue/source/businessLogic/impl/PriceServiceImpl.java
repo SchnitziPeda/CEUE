@@ -9,13 +9,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import at.jku.ce.ue.log.WriteLogServiceImpl;
 import at.jku.ce.ue.service.InquiryOrderPlattformService;
 import at.jku.ce.ue.source.businessLogic.PartService;
 import at.jku.ce.ue.source.businessLogic.PriceService;
 import at.jku.ce.ue.source.businessLogic.SupplierService;
-import at.jku.ce.ue.source.clientLogic.SupplierClientService;
-import at.jku.ce.ue.source.clientLogic.impl.SupplierClientServiceImpl;
 import at.jku.ce.ue.source.entities.Database;
 import at.jku.ce.ue.source.entities.Offer;
 import at.jku.ce.ue.source.entities.Producer;
@@ -194,14 +191,22 @@ public class PriceServiceImpl implements PriceService {
 
 		SupplierService supplService = new SupplierServiceImpl();
 		Producer prod = supplService.getProducer(producerid);
-		Map<String, Integer> parts = prod.getParts();
-		int charge = 5;
-		// Aufschlag auf Preis der Subparts
+		
+		int charge = 0;
 
-		if (parts.get(partid) != null) {
-			charge = parts.get(partid);
+		if (prod != null) {
+			Map<String, Integer> parts = prod.getParts();
+
+			if (parts.containsKey(partid)) {
+				// Aufschlag auf Preis der Subparts
+				charge = parts.get(partid);
+			} else {
+				log.severe("Producer " + producerid
+						+ " does not produce Part "+partid+" on Platform of group GW01!");
+			}
 		} else {
-			charge = 333;
+			log.severe("Producer " + producerid
+					+ " does not exist on Platform of group GW01!");
 		}
 
 		PartService partService = new PartServiceImpl();

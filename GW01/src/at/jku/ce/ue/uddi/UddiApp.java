@@ -14,26 +14,21 @@ import org.apache.juddi.v3.client.config.UDDIClerkManager;
 import org.apache.juddi.v3.client.config.UDDIClientContainer;
 import org.apache.juddi.v3.client.transport.Transport;
 import org.uddi.api_v3.AccessPoint;
-import org.uddi.api_v3.AuthToken;
 import org.uddi.api_v3.BindingTemplate;
 import org.uddi.api_v3.BindingTemplates;
 import org.uddi.api_v3.BusinessEntity;
 import org.uddi.api_v3.BusinessList;
 import org.uddi.api_v3.BusinessService;
 import org.uddi.api_v3.DeleteBusiness;
-import org.uddi.api_v3.DeleteService;
 import org.uddi.api_v3.Description;
 import org.uddi.api_v3.FindBusiness;
 import org.uddi.api_v3.FindQualifiers;
-import org.uddi.api_v3.FindService;
-import org.uddi.api_v3.FindTModel;
 import org.uddi.api_v3.GetAuthToken;
 import org.uddi.api_v3.GetServiceDetail;
 import org.uddi.api_v3.Name;
 import org.uddi.api_v3.SaveBusiness;
 import org.uddi.api_v3.SaveService;
 import org.uddi.api_v3.ServiceDetail;
-import org.uddi.api_v3.ServiceList;
 import org.uddi.v3_service.DispositionReportFaultMessage;
 import org.uddi.v3_service.UDDIInquiryPortType;
 import org.uddi.v3_service.UDDIPublicationPortType;
@@ -333,9 +328,7 @@ public class UddiApp {
 											.getAccessPoint();
 									String wsdlFile = ap.getValue();
 
-									if ((!wsdlFile.contains("localhost")
-											&& !wsdlFile.contains("GW01"))
-											&& (wsdlFile.contains("GW23"))) {
+									if ((!wsdlFile.contains("localhost") && !wsdlFile.contains("GW01"))	&& (wsdlFile.contains("GW23"))) {
 										if (!wsdlFile.contains("8090")) {
 											if (!wsdlFile.endsWith("?wsdl"))
 												wsdlFile = wsdlFile + "?wsdl";

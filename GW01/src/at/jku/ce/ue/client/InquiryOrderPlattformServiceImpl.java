@@ -8,7 +8,6 @@ package at.jku.ce.ue.client;
 
 import java.util.logging.Logger;
 
-import at.jku.ce.ue.log.WriteLogServiceImpl;
 import at.jku.ce.ue.source.businessLogic.PriceService;
 import at.jku.ce.ue.source.businessLogic.impl.PriceServiceImpl;
 import at.jku.ce.ue.source.clientLogic.impl.SupplierClientServiceImpl;

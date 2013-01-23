@@ -8,20 +8,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import org.eclipse.jetty.util.log.Log;
-
 import at.jku.ce.ue.log.WriteLogService;
 import at.jku.ce.ue.log.WriteLogServiceImpl;
 import at.jku.ce.ue.service.InquiryOrderPlattformService;
-import at.jku.ce.ue.source.businessLogic.PriceService;
 import at.jku.ce.ue.source.businessLogic.impl.PartServiceImpl;
-import at.jku.ce.ue.source.businessLogic.impl.PriceServiceImpl;
 import at.jku.ce.ue.source.businessLogic.impl.SupplierServiceImpl;
 import at.jku.ce.ue.source.clientLogic.SupplierClientService;
 import at.jku.ce.ue.source.entities.Customer;
 import at.jku.ce.ue.source.entities.Database;
 import at.jku.ce.ue.source.entities.Offer;
-import at.jku.ce.ue.source.entities.Part;
 import at.jku.ce.ue.source.entities.Producer;
 
 /**
@@ -157,36 +152,7 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 	@Override
 	public List<String> getAllPartNames() {
 		Database db = Database.getInstance();
-		List<String> storedParts = new LinkedList<String>();
-		Map<String, Part> ownParts = db.getPartsOnPlattform();
-
-		// adding own parts to list
-		for (String key : ownParts.keySet()) {
-			Part partname = ownParts.get(key);
-			storedParts.add(partname.getName());
-		}
-
-		// // adding foreign parts to list
-		// // Managing UDDI Stuff
-		// UddiInteraction uddi = new UddiInteraction();
-		// Map<String, InquiryOrderPlattformService> plattforms =
-		// uddi.generateListofEndpoints();
-		//
-		// // Iterating through all platforms
-		// for (String plattformName : plattforms.keySet()) {
-		// // Getting all parts of other platforms
-		// List<String> parts =
-		// plattforms.get(plattformName).getAllPartsOnPlattform();
-		//
-		// // Iterating through all parts of platform 'plattform'
-		// for (String name : parts) {
-		// // add parts to current list
-		// storedParts.add(name);
-		// }
-		// }
-
-		return storedParts;
-
+		return new LinkedList<String>(db.getPartHierarchy().keySet());
 	}
 
 	@Override

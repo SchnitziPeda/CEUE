@@ -11,7 +11,6 @@ import java.util.logging.Logger;
 
 import at.jku.ce.ue.source.businessLogic.SupplierService;
 import at.jku.ce.ue.source.entities.Database;
-import at.jku.ce.ue.source.entities.Part;
 import at.jku.ce.ue.source.entities.Producer;
 
 /**
@@ -97,34 +96,6 @@ public class SupplierServiceImpl implements SupplierService {
 				return false;
 		}
 		return false;
-	}
-
-	@Override
-	public boolean addPartToProducer(Producer producer, Part part) {
-
-		Database db = Database.getInstance();
-
-		if (producer == null) {
-			log.severe("Producer not found!");
-			return false;
-		}
-
-		if (producer.getId().equals("") && producer.getId().equals("-1")) {
-			log.severe("ProducerID is not valid!");
-			return false;
-		}
-
-		List<String> partNames = producer.getPartNames();
-
-		if (partNames.contains(part.getName())) {
-			log.severe("Part with name: " + part.getName()
-					+ " is already in List!");
-			return false;
-		} else {
-			producer.getParts().put(part.getName(), part.getPrice());
-		}
-
-		return true;
 	}
 
 	/**

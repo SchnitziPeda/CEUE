@@ -66,15 +66,13 @@ page language="java" import="java.io.*" import="java.util.List"
 			List<String> partNames = Arrays.asList(request
 					.getParameterValues("parts"));
 
-			List<Part> partsList = new LinkedList<Part>();
+			List<String> partsList = new LinkedList<String>();
 
 			for (String p : partNames) {
-				partsList
-						.add(new Part(p, supplService.getProducer(producerID)));
+				partsList.add(p);
 			}
-
-			addProductPresenter.setPartsList(partsList);
-			application.setAttribute("addProductPresenter", addProductPresenter);
+			application.setAttribute("producerID", producerID);
+			application.setAttribute("addedProductsList", partsList);
 			// 						List<String> storedParts = new LinkedList<String>();
 			// 						String[] parts = request.getParameterValues("parts");
 			// 						for (int i = 0; i < parts.length; i++) {

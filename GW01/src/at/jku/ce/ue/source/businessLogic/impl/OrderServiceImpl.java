@@ -1,10 +1,8 @@
 package at.jku.ce.ue.source.businessLogic.impl;
 
-import java.util.List;
 import java.util.Map;
 
 import at.jku.ce.ue.service.InquiryOrderPlattformService;
-import at.jku.ce.ue.source.UddiInteraction;
 import at.jku.ce.ue.source.businessLogic.OrderService;
 import at.jku.ce.ue.source.entities.Database;
 
