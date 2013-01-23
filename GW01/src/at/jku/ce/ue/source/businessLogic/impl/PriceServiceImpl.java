@@ -74,22 +74,14 @@ public class PriceServiceImpl implements PriceService {
 
 				int temp = -1;
 				for (String prodOfSubPart : prods) {
-//					if(platformName.contains("gruppe 1 publisher")){
-//						PriceService priceService = new PriceServiceImpl();
-////						temp = priceService.getPrice(customerid, prodOfSubPart, partid, inquiryid);
-//						temp = priceService.getPrice(customerid, prodOfSubPart, subPart, inquiryid);
-//					} else {
-//						temp = serviceList.get(platformName).getPrice(customerid,
-//								prodOfSubPart, partid, inquiryid);
-						temp = serviceList.get(platformName).getPrice(customerid, prodOfSubPart, subPart, inquiryid);
-//					}
+					temp = serviceList.get(platformName).getPrice(customerid, prodOfSubPart, subPart, inquiryid);
 					if (cheapestSubPartPrice == -1) {
 						cheapestSubPartPrice = temp;
 					}
 					if (temp <= cheapestSubPartPrice && temp >= 0) {
 						cheapestSubPartPrice = temp;
 					}
-					System.out.println("Platform: "+platformName+" Producer: "+prodOfSubPart+" Part: "+subPart+" cheapest price: "+cheapestSubPartPrice);
+					System.out.println("Platform: "+platformName+" Producer: "+prodOfSubPart+" Part: "+subPart+" cheapest price: "+cheapestSubPartPrice+" Unser Preis: "+temp);
 				}
 			}
 			sum += cheapestSubPartPrice;
@@ -101,53 +93,8 @@ public class PriceServiceImpl implements PriceService {
 		return price;
 	}
 
-	/**
-	 * @param priceChains
-	 * @param customerid
-	 * @param inquiryid
-	 * @param serviceList
-	 * @param plattforms
-	 * @param price
-	 * @param subPart
-	 * @return
-	 */
-	private int calcPrice(String customerid, String inquiryid,
-			Map<String, InquiryOrderPlattformService> serviceList, String prod,
-			int price, int helpprice, int innerprice, String subPart) {
 
-		return price;
-	}
 
-	/**
-	 * @param priceChains
-	 * @param customerid
-	 * @param inquiryid
-	 * @param plattforms
-	 * @param price
-	 * @param subPart
-	 * @return
-	 */
-	private int calcPriceNoSubparts(Map<String, Integer> priceChains,
-			String customerid, String inquiryid,
-			Map<String, InquiryOrderPlattformService> plattforms, int price,
-			String subPart) {
-
-		for (String platformName : plattforms.keySet()) {
-
-			List<String> producersForeignPlatform = plattforms
-					.get(platformName).getAllProducersForPart(subPart);
-
-			for (String prod : producersForeignPlatform) {
-
-				price = plattforms.get(platformName).getPrice(customerid, prod,
-						subPart, inquiryid);
-				priceChains.put(prod, price);
-
-			}
-
-		}
-		return price;
-	}
 
 	public Map<String, Integer> getPriceForProducers(List<String> producer,
 			String partid) {

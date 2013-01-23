@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import at.jku.ce.ue.log.WriteLogService;
 import at.jku.ce.ue.log.WriteLogServiceImpl;
 import at.jku.ce.ue.service.InquiryOrderPlattformService;
 import at.jku.ce.ue.source.businessLogic.PriceService;
@@ -205,10 +206,10 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 					log.info(offer.toString());
 					listOfOffers.add(offer);
 					
-					// LOGGING
-//					WriteLogService logService = new WriteLogServiceImpl();
-//					logService.logOffer(customerId, prod, partName, price,
-//							inquiryId, offerID);
+//					LOGGING
+					WriteLogService logService = new WriteLogServiceImpl();
+					logService.logOffer(customerId, prod, partName, price,
+							inquiryId, offerID);
 				}
 
 			}

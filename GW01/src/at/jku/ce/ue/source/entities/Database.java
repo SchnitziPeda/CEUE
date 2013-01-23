@@ -117,7 +117,7 @@ public class Database {
 			i = 0;
 			while (i < 5 && j < partsOnPlattform.size()) {
 				p.addNewPart(partsOnPlattform.get(j),
-						(int) (Math.random() * 100));
+						(int) ((Math.random() * 100)+1));
 				i++;
 				j++;
 			}
