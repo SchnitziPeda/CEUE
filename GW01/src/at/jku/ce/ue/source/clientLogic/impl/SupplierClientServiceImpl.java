@@ -250,7 +250,7 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 
 	@Override
 	public void saveOrders(String customerId, String partId,
-			List<Offer> selectedOfferList) {
+			List<Offer> selectedOfferList) throws Exception {
 		Database db = Database.getInstance();
 		Map<String, InquiryOrderPlattformService> serviceList = db
 				.getAllServices(true);
@@ -261,13 +261,20 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 			String orderid = db.generateOrderId();
 
 			System.out.println(o.getPlatformName());
-			InquiryOrderPlattformService concerningPlatform = serviceList.get(o
-					.getPlatformName());
-			System.out.println(concerningPlatform.toString());
+			if (o.getPlatformName().contains("gruppe 1 publisher")) {
+				OrderService orderService = new OrderServiceImpl();
+				orderService.placeOrder(o.getCustomerOfOffer(),
+						o.getSupplierOfOffer(), o.getPartName(),
+						o.getInquiryOfOffer(), o.getPrice(), orderid);
+			} else {
+				InquiryOrderPlattformService concerningPlatform = serviceList
+						.get(o.getPlatformName());
+				concerningPlatform.placeOrder(o.getCustomerOfOffer(),
+						o.getSupplierOfOffer(), o.getPartName(),
+						o.getInquiryOfOffer(), o.getPrice(), orderid);
+			}
+//			System.out.println(concerningPlatform.toString());
 			// OrderService os = new OrderServiceImpl();
-			concerningPlatform.placeOrder(o.getCustomerOfOffer(),
-					o.getSupplierOfOffer(), o.getPartName(),
-					o.getInquiryOfOffer(), o.getPrice(), orderid);
 		}
 	}
 }

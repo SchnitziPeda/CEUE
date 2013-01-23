@@ -19,7 +19,7 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public void placeOrder(String customerid, String producerid, String partid,
-			String inquiryid, int price, String orderid) {
+			String inquiryid, int price, String orderid) throws Exception {
 		System.out.println("----------1----------");
 		Database db = Database.getInstance();
 		Map<String, List<String>> partsOnPlatform = db.getPartHierarchy();

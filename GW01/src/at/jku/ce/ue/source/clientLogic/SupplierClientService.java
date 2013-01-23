@@ -33,7 +33,7 @@ public interface SupplierClientService {
 
 	public List<String> getAllPartsByProducer(String producerId);
 
-	public void saveOrders(String customerId, String partId, List<Offer> selectedOfferList);
+	public void saveOrders(String customerId, String partId, List<Offer> selectedOfferList) throws Exception;
 
 	public List<String> getAllCustomerNames();
 

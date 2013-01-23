@@ -12,7 +12,6 @@ import java.util.List;
  */
 public class Customer extends Role {
 
-	private List<Inquiry> inquiries;
 	
 	/**
 	 * @param roleId
@@ -21,21 +20,6 @@ public class Customer extends Role {
 	 */
 	public Customer(String roleId, String name) {
 		super(roleId, false, name);
-		this.inquiries = new LinkedList<Inquiry>();
-	}
-
-	/**
-	 * @return the inquiries
-	 */
-	public List<Inquiry> getInquiries() {
-		return inquiries;
-	}
-
-	/**
-	 * @param inquiries the inquiries to set
-	 */
-	public void setInquiries(List<Inquiry> inquiries) {
-		this.inquiries = inquiries;
 	}
 	
 }
