@@ -41,7 +41,7 @@ public class InquiryOrderPlattformServiceImpl implements InquiryOrderPlattformSe
         System.out.println(producerid);
         System.out.println(partid);
         System.out.println(inquiryid);
-        try {
+        try {      	
             int _return = 818061312;
             return _return;
         } catch (java.lang.Exception ex) {
