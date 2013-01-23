@@ -257,7 +257,7 @@ public class UddiApp {
 	}
 
 	/**
-	 * returns list of all plattforms and corresponding wsdl files
+	 * return list of endpoints excluding us
 	 * 
 	 * @return
 	 */
@@ -331,7 +331,7 @@ public class UddiApp {
 											.getAccessPoint();
 									String wsdlFile = ap.getValue();
 
-									if ((!wsdlFile.contains("localhost") && !wsdlFile.contains("GW01"))	&& (wsdlFile.contains("GW23"))) {
+									if ((!wsdlFile.contains("localhost") && !wsdlFile.contains("GW01"))) {
 										if (!wsdlFile.contains("8090")) {
 											if (!wsdlFile.endsWith("?wsdl"))
 												wsdlFile = wsdlFile + "?wsdl";
@@ -366,7 +366,7 @@ public class UddiApp {
 	}
 	
 	/**
-	 * get endpoints with us
+	 * get list of endpoints including us
 	 * @return
 	 */
 	public Map<String, String> getListOfAllEndpoints() {
@@ -439,7 +439,7 @@ public class UddiApp {
 											.getAccessPoint();
 									String wsdlFile = ap.getValue();
 
-									if ((!wsdlFile.contains("localhost")) && (wsdlFile.contains("GW23") || wsdlFile.contains("GW01"))) {
+									if (!wsdlFile.contains("localhost")) {
 										if (!wsdlFile.contains("8090")) {
 											if (!wsdlFile.endsWith("?wsdl"))
 												wsdlFile = wsdlFile + "?wsdl";

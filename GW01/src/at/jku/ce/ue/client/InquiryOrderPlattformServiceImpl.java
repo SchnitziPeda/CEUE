@@ -48,9 +48,6 @@ public class InquiryOrderPlattformServiceImpl implements
 			return priceService.getPrice(customerid, producerid, partid,
 					inquiryid);
 
-			//
-			// int _return = -1603630566;
-			// return _return;
 		} catch (java.lang.Exception ex) {
 			ex.printStackTrace();
 			throw new RuntimeException(ex);

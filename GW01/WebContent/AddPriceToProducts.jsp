@@ -7,11 +7,9 @@
 <%@
 page language="java" import="java.io.*" import="java.util.List"
 	import="java.util.LinkedList" import="java.util.Arrays"
-	import="at.jku.ce.ue.source.RegisterSupplier"
 	import="at.jku.ce.ue.source.presentation.presenter.*"
 	import="at.jku.ce.ue.source.presentation.view.*"
 	import="at.jku.ce.ue.source.entities.*"
-	import="at.jku.ce.ue.source.RegisterSupplier"
 	import="at.jku.ce.ue.source.businessLogic.impl.*"
 	import="at.jku.ce.ue.source.businessLogic.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
@@ -73,19 +71,6 @@ page language="java" import="java.io.*" import="java.util.List"
 			}
 			application.setAttribute("producerID", producerID);
 			application.setAttribute("addedProductsList", partsList);
-			// 						List<String> storedParts = new LinkedList<String>();
-			// 						String[] parts = request.getParameterValues("parts");
-			// 						for (int i = 0; i < parts.length; i++) {
-			// 							storedParts.add(parts[i]);
-			// 						}
-
-			// 						boolean success = addProductPresenter.addProductToProducer(
-			// 								producerID, partNames);
-			// 						if (success) {
-			// 							out.println("IT WORKED!");
-			// 						} else {
-			// 							out.println("Your parts were not added!");
-			// 						}
 		%>
 		<form class="form-horizontal" name="supplierData" method="post"
 			action="ProductsAdded.jsp">
@@ -94,8 +79,8 @@ page language="java" import="java.io.*" import="java.util.List"
 			%>
 			<div class="control-group">
 				<label class="control-label" for="inputName"> <%
- 	out.print(p);
- %>
+ 				out.print(p);
+ 				%>:
 				</label>
 				<div class="controls">
 					<input type="number" name="<%out.print(p);%>"
@@ -105,6 +90,9 @@ page language="java" import="java.io.*" import="java.util.List"
 			<%
 				}
 			%>
+			<div class="control-group">
+			<i>Every time a part of yours is ordered, we will charge you 20&euro;.</i>
+			</div>
 			<div class="control-group">
 				<div class="controls">
 					<button type="submit" class="btn">Submit</button>

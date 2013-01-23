@@ -25,12 +25,12 @@ public class OrderServiceImpl implements OrderService {
 		SupplierClientService clientService = new SupplierClientServiceImpl();
 		Map<String, InquiryOrderPlattformService> serviceList = db
 				.getAllServices(false);
-		System.out.println("----------2----------");
+//		System.out.println("----------2----------");
 
 		List<String> subParts = partsOnPlatform.get(partid);
 		if (subParts.size() > 0) {
 			for (String subPart : subParts) {
-				System.out.println("----------3----------");
+//				System.out.println("----------3----------");
 
 				List<Offer> offersForSubPart = clientService.getOffersForPart(
 						subPart, producerid);

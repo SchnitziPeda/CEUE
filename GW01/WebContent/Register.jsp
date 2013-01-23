@@ -5,15 +5,8 @@
 	pageEncoding="ISO-8859-1"%>
 <%@
 page language="java" import="java.io.*"
-	import="javax.xml.parsers.DocumentBuilderFactory"
-	import="javax.xml.parsers.DocumentBuilder"
-	import="javax.xml.transform.Transformer"
-	import="javax.xml.transform.TransformerFactory"
-	import="javax.xml.transform.stream.StreamResult"
-	import="javax.xml.transform.dom.DOMSource"
-	import="org.w3c.dom.Document" import="org.w3c.dom.NodeList"
-	import="org.w3c.dom.Node" import="org.w3c.dom.Element"
-	import="at.jku.ce.ue.source.RegisterSupplier"%>
+	import="at.jku.ce.ue.source.RegisterSupplier"
+	%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -78,12 +71,6 @@ page language="java" import="java.io.*"
 					Supplier:</label>
 				<div class="controls">
 					<input type="text" name="inputAdress" placeholder="Adress">
-				</div>
-			</div>
-			<div class="control-group">
-				<label class="control-label" for="inputParts">Offered Parts:</label>
-				<div class="controls">
-					<input type="text" id="inputPart" placeholder="Part1">
 				</div>
 			</div>
 			<div class="control-group">

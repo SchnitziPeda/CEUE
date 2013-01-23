@@ -169,6 +169,7 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 		List<Offer> listOfOffers = new LinkedList<Offer>();
 
 		String inquiryId = Database.getInstance().generateInquiryId();
+		WriteLogService logService = new WriteLogServiceImpl();
 
 		Map<String, InquiryOrderPlattformService> serviceList = Database
 				.getInstance().getAllServices(false);
@@ -189,6 +190,11 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 					log.info("PRODUCER: " + prod + " PlATTFORM: "
 							+ platformName);
 					int price;
+					
+					// LOGGING
+					logService.logInquiry(customerId, prod, partName, inquiryId);
+
+					
 					if (platformName.contains("gruppe 1 publisher")) {
 						PriceService priceService = new PriceServiceImpl();
 						price = priceService.getPrice(customerId, prod,
@@ -204,10 +210,6 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 					log.info(offer.toString());
 					listOfOffers.add(offer);
 
-					// LOGGING
-					WriteLogService logService = new WriteLogServiceImpl();
-					logService.logOffer(customerId, prod, partName, price,
-							inquiryId, offerID);
 				}
 
 			}

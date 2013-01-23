@@ -56,14 +56,12 @@
 					producerPassword);
  
 			if (!respond.equals("-1")) {
-				out.println("IT WORKED! Your ID: " + respond);
+				out.println("Thank you for your registration.<br>");
+				out.println("You're registered with the following name: "+producerName);
 			} else {
-				out.println("Your registration did not work!");
+				out.println("Your registration did not work. <br> We are sorry, it seems you're already registered.<br>");
+				out.println("You still can go <a href='Register.jsp'>back</a> and try again.");
 			}
-
-			out.println(producerName);
-			out.println(producerPassword);
-			out.println(producerAdress);
 		%>
 
 	</div>

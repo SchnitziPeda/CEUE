@@ -39,11 +39,6 @@ public class BOMServiceImpl implements BOMService {
         	PartServiceImpl partService = new PartServiceImpl();
         	return partService.getAllDirectSubpartsOfPart(arg0);
         	
-        	
-//            java.util.List<java.lang.String> _return = new java.util.ArrayList<java.lang.String>();
-//            java.lang.String _returnVal1 = "_returnVal1875170331";
-//            _return.add(_returnVal1);
-//            return _return;
         } catch (java.lang.Exception ex) {
             ex.printStackTrace();
             throw new RuntimeException(ex);
@@ -73,11 +68,7 @@ public class BOMServiceImpl implements BOMService {
         	
         	PartServiceImpl partService = new PartServiceImpl();
         	return partService.getAllPartNames();
-//        	
-//            java.util.List<java.lang.String> _return = new java.util.ArrayList<java.lang.String>();
-//            java.lang.String _returnVal1 = "_returnVal-790490089";
-//            _return.add(_returnVal1);
-//            return _return;
+
         } catch (java.lang.Exception ex) {
             ex.printStackTrace();
             throw new RuntimeException(ex);

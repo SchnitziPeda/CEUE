@@ -3,18 +3,17 @@
  */
 package at.jku.ce.ue.source.businessLogic.impl;
 
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import at.jku.ce.ue.log.WriteLogService;
+import at.jku.ce.ue.log.WriteLogServiceImpl;
 import at.jku.ce.ue.service.InquiryOrderPlattformService;
 import at.jku.ce.ue.source.businessLogic.PartService;
 import at.jku.ce.ue.source.businessLogic.PriceService;
 import at.jku.ce.ue.source.businessLogic.SupplierService;
 import at.jku.ce.ue.source.entities.Database;
-import at.jku.ce.ue.source.entities.Offer;
 import at.jku.ce.ue.source.entities.Producer;
 
 /**
@@ -33,13 +32,14 @@ public class PriceServiceImpl implements PriceService {
 		SupplierService supplService = new SupplierServiceImpl();
 		Producer prod = supplService.getProducer(producerid);
 		
-		int charge = 0;
+		int producerPrice = 0;
+		int platformCharge = 20;
 
 		if (prod != null) {
 			Map<String, Integer> parts = prod.getParts();
 			if (parts.containsKey(partid)) {
 				// Aufschlag auf Preis der Subparts
-				charge = parts.get(partid);
+				producerPrice = parts.get(partid);
 			} else {
 				log.severe("Producer " + producerid
 						+ " does not produce Part "+partid+" on Platform of group GW01!");
@@ -76,14 +76,19 @@ public class PriceServiceImpl implements PriceService {
 					if (temp <= cheapestSubPartPrice && temp >= 0) {
 						cheapestSubPartPrice = temp;
 					}
-//					System.out.println("Platform: "+platformName+" Producer: "+prodOfSubPart+" Part: "+subPart+" cheapest price: "+cheapestSubPartPrice+" Unser Preis: "+temp);
+					System.out.println("Platform: "+platformName+" Producer: "+prodOfSubPart+" Part: "+subPart+" cheapest price: "+cheapestSubPartPrice+" Unser Preis: "+temp);
 				}
 			}
 			sum += cheapestSubPartPrice;
 		}
 
-		price = sum + charge;
+		price = (sum + producerPrice)+platformCharge;
 		log.info("Current price: " + price);
+		
+		// LOGGING
+		WriteLogService logService = new WriteLogServiceImpl();
+		logService.logOffer(customerid, producerid, partid, price, inquiryid, Database.getInstance().generateOfferId());
+
 		return price;
 	}
 

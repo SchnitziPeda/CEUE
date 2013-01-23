@@ -23,8 +23,6 @@ import at.jku.ce.ue.source.businessLogic.impl.PartServiceImpl;
  */
 public class Database {
 
-	private static final int PART_PRICE = 1000;
-
 	private static Logger log = Logger.getLogger("Database");
 
 	private static final int PRODUCER_COUNT = 5;
@@ -216,17 +214,6 @@ public class Database {
 
 		String orderid = "GW01Order" + rndm;
 		return orderid;
-	}
-
-	/**
-	 * saves a given order
-	 * 
-	 * @param order
-	 * @param producer
-	 * @param price
-	 */
-	public void saveOrder(String order, String producer, int price) {
-		// TODO
 	}
 
 	/**

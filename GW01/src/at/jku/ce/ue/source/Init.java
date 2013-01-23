@@ -18,13 +18,5 @@ public class Init {
 		Init.db = db;
 	}
 
-//	public static UddiRegistration getUddiReg() {
-//		return uddiReg;
-//	}
-//
-//	public static void setUddiReg(UddiRegistration uddiReg) {
-//		Init.uddiReg = uddiReg;
-//	}
-//
 
 }

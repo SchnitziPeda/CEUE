@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Gruppe 1 Plattform</title>
+<title>Gruppe 1 Platform</title>
 <link rel="stylesheet" type="text/css" href="bootstrap-responsive.css">
 <link rel="stylesheet" type="text/css" href="bootstrap.css">
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -38,6 +38,7 @@
 	</div>
 
 	<%
+	try{
 		// Initialize all stuff:
 		Init initialize = new Init();
 	%>
@@ -56,5 +57,15 @@
 
 		</ul>
 	</div>
+	<%
+	} catch (Exception e){
+		%>
+		<div class="moved-right">
+		We're sorry, but currently are no services available.<br>
+		Please come back again later. 
+		</div>
+		<%
+	}
+	%>
 </body>
 </html>

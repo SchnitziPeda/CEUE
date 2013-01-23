@@ -55,7 +55,7 @@ page language="java" import="java.io.*" import="java.util.List"
 		List<String> addedProductsList = (List<String>)application.getAttribute("addedProductsList");
 						String producerID = (String)application.getAttribute("producerID");
 			int price;
-			boolean success;
+			boolean success=false;
 			for (String p : addedProductsList) {
 				price = Integer.parseInt(request.getParameter(p));
 				
@@ -64,10 +64,19 @@ page language="java" import="java.io.*" import="java.util.List"
 				prod.getParts().put(p, price);
 				
 				if (prod.getParts().containsKey(p)) {
-					out.println(p + " was added!");
+					success = true;
+// 					out.println(p + " was added!<br>");
 				} else {
-					out.println(p + " was not added!");
+					success = false;
+// 					out.println(p + " was not added!");
 				}
+			}
+			if(success){
+				out.println("Everything has been successfully been added.<br>");
+				out.println("You can go <a href='index.jsp'>back</a> now.");
+			} else {
+				out.println("We're sorry, an error occured.<br> Please try again.");
+				out.println("You can go <a href='index.jsp'>back</a> now.");
 			}
 		%>
 

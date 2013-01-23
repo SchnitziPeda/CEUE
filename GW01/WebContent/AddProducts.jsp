@@ -5,20 +5,12 @@
 	pageEncoding="ISO-8859-1"%>
 <%@
 page language="java" import="java.io.*"
-	import="javax.xml.parsers.DocumentBuilderFactory"
-	import="javax.xml.parsers.DocumentBuilder"
-	import="javax.xml.transform.Transformer"
-	import="javax.xml.transform.TransformerFactory"
-	import="javax.xml.transform.stream.StreamResult"
-	import="javax.xml.transform.dom.DOMSource"
+
 	import="at.jku.ce.ue.source.*" import="at.jku.ce.ue.source.entities.*"
 	import="at.jku.ce.ue.service.*"
 	import="at.jku.ce.ue.source.businessLogic.impl.*"
 	import="java.util.List" import="java.util.ListIterator"
-	import="at.jku.ce.ue.uddi.*"
 	import="at.jku.ce.ue.source.businessLogic.*"
-	import="org.w3c.dom.Document" import="org.w3c.dom.NodeList"
-	import="org.w3c.dom.Node" import="org.w3c.dom.Element"
 	import="at.jku.ce.ue.source.RegisterSupplier"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -86,7 +78,7 @@ page language="java" import="java.io.*"
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label" for="inputParts">Parts</label>
+				<label class="control-label" for="inputParts">Parts:</label>
 				<div class="controls">
 					<%
 						out.print("<select name='parts' size='10' multiple>");

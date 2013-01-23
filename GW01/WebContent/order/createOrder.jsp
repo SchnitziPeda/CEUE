@@ -53,12 +53,6 @@
 			List<String> parts = supClient.getAllPartNames();
 			List<String> customers = supClient.getAllCustomerNames();
 
-			/*
-			display further menu
-			select producer
-			show prices (supply chain)
-			finally create and send order
-			 */
 		%>
 		<form class="form-horizontal" name="selectSupplychain" method="post"
 			action="createOrder.jsp">
@@ -75,7 +69,7 @@
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label" for="part">Part</label>
+				<label class="control-label" for="part">Part:</label>
 				<div class="controls">
 					<%
 						out.print("<select name='part'>");
@@ -95,11 +89,8 @@
 		</form>
 
 		<%
-			out.println("SELECTED PART: " + request.getParameter("part"));
 			if (request.getParameter("part") != null
 					&& request.getParameter("customer") != null) {
-
-				// TODO: create offer id to save to database 
 
 				String partName = request.getParameter("part");
 				String customerId = request.getParameter("customer");
@@ -141,6 +132,7 @@
 					<tr>
 						<td><b>Select chain:</b></td>
 						<td><b>Producer</b></td>
+						<td><b>Platform</b></td>
 						<td><b>Price</b></td>
 					</tr>
 					<%
