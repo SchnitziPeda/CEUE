@@ -95,6 +95,7 @@
 		</form>
 
 		<%
+		out.println("SELECTED PART: "+request.getParameter("part"));
 			if (request.getParameter("part") != null
 					&& request.getParameter("customer") != null) {
 				

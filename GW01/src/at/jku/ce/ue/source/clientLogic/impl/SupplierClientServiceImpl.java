@@ -8,10 +8,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import at.jku.ce.ue.log.WriteLogService;
 import at.jku.ce.ue.log.WriteLogServiceImpl;
 import at.jku.ce.ue.service.InquiryOrderPlattformService;
+import at.jku.ce.ue.source.businessLogic.PriceService;
 import at.jku.ce.ue.source.businessLogic.impl.PartServiceImpl;
+import at.jku.ce.ue.source.businessLogic.impl.PriceServiceImpl;
 import at.jku.ce.ue.source.businessLogic.impl.SupplierServiceImpl;
 import at.jku.ce.ue.source.clientLogic.SupplierClientService;
 import at.jku.ce.ue.source.entities.Customer;
@@ -188,10 +189,16 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 
 				if (prodsOnPlatform.contains(prod)) {
 
-					log.info("PRODUCER: " + prod);
-					int price = serviceList.get(platformName).getPrice(
-							customerId, prod, partName, inquiryId);
-
+					log.info("PRODUCER: " + prod+ " PlATTFORM: "+platformName);
+					int price;
+					if(platformName.contains("gruppe 1 publisher")){
+						PriceService priceService = new PriceServiceImpl();
+						price = priceService.getPrice(customerId, prod, partName, inquiryId);
+					} else {
+						price = serviceList.get(platformName).getPrice(
+								customerId, prod, partName, inquiryId);	
+					}
+					
 					String offerID = Database.getInstance().generateOfferId();
 					Offer offer = new Offer(offerID, partName, prod,
 							customerId, inquiryId, price);
@@ -199,9 +206,9 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 					listOfOffers.add(offer);
 					
 					// LOGGING
-					WriteLogService logService = new WriteLogServiceImpl();
-					logService.logOffer(customerId, prod, partName, price,
-							inquiryId, offerID);
+//					WriteLogService logService = new WriteLogServiceImpl();
+//					logService.logOffer(customerId, prod, partName, price,
+//							inquiryId, offerID);
 				}
 
 			}

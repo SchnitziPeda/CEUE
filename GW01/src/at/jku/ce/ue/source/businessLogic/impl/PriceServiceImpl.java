@@ -28,6 +28,7 @@ public class PriceServiceImpl implements PriceService {
 	@Override
 	public int getPrice(String customerid, String producerid, String partid,
 			String inquiryid) {
+		System.out.println("--entering GET_PRICE FUNCTION--");
 		int price = 0;
 
 		SupplierService supplService = new SupplierServiceImpl();
@@ -37,9 +38,9 @@ public class PriceServiceImpl implements PriceService {
 
 		if (prod != null) {
 			Map<String, Integer> parts = prod.getParts();
-
 			if (parts.containsKey(partid)) {
 				// Aufschlag auf Preis der Subparts
+				System.out.println("Current charge: "+parts.get(partid));
 				charge = parts.get(partid);
 			} else {
 				log.severe("Producer " + producerid
@@ -52,12 +53,16 @@ public class PriceServiceImpl implements PriceService {
 
 		PartService partService = new PartServiceImpl();
 		List<String> subParts = partService.getAllDirectSubpartsOfPart(partid);
+		System.out.println("size of subparts: "+subParts.size());
 
 		// get foreign producers
 		Map<String, InquiryOrderPlattformService> serviceList = Database
 				.getInstance().getAllServices(false);
+		System.out.println("LIST OF SERVICES: "+serviceList.size());
+		
 		int sum = 0;
 		for (String subPart : subParts) {
+			System.out.println("SUBPART: "+subPart);
 			int cheapestSubPartPrice = -1;
 			// Iterating through all platforms
 			for (String platformName : serviceList.keySet()) {
@@ -67,19 +72,29 @@ public class PriceServiceImpl implements PriceService {
 
 				int temp = -1;
 				for (String prodOfSubPart : prods) {
-					temp = serviceList.get(platformName).getPrice(customerid,
-							prodOfSubPart, partid, inquiryid);
+//					if(platformName.contains("gruppe 1 publisher")){
+//						PriceService priceService = new PriceServiceImpl();
+////						temp = priceService.getPrice(customerid, prodOfSubPart, partid, inquiryid);
+//						temp = priceService.getPrice(customerid, prodOfSubPart, subPart, inquiryid);
+//					} else {
+//						temp = serviceList.get(platformName).getPrice(customerid,
+//								prodOfSubPart, partid, inquiryid);
+						temp = serviceList.get(platformName).getPrice(customerid, prodOfSubPart, subPart, inquiryid);
+//					}
 					if (cheapestSubPartPrice == -1) {
 						cheapestSubPartPrice = temp;
 					}
 					if (temp <= cheapestSubPartPrice && temp >= 0) {
 						cheapestSubPartPrice = temp;
 					}
+					System.out.println("Platform: "+platformName+" Producer: "+prodOfSubPart+" Part: "+subPart+" cheapest price: "+cheapestSubPartPrice);
 				}
 			}
 			sum += cheapestSubPartPrice;
 		}
+
 		price = sum + charge;
+		System.out.println("Current price: "+price);
 		log.info("Current price: " + price);
 		return price;
 	}
