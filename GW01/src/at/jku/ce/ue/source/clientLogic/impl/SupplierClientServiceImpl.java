@@ -254,10 +254,13 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 				.getAllServices(false);
 		for (Offer o : selectedOfferList) {
 			String orderid = db.generateOrderId();
-			serviceList.get(o.getPlatformName()).placeOrder(
-					o.getCustomerOfOffer(), o.getSupplierOfOffer(),
-					o.getPartName(), o.getInquiryOfOffer(), o.getPrice(),
-					orderid);
+			System.out.println(o.getPlatformName());
+			InquiryOrderPlattformService concerningPlatform = serviceList.get(o
+					.getPlatformName());
+			System.out.println(concerningPlatform.toString());
+			concerningPlatform.placeOrder(o.getCustomerOfOffer(),
+					o.getSupplierOfOffer(), o.getPartName(),
+					o.getInquiryOfOffer(), o.getPrice(), orderid);
 		}
 	}
 }
