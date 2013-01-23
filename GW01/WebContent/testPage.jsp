@@ -71,7 +71,7 @@ import="at.jku.ce.ue.uddi.*"
 					UddiInteraction uddiInter = new UddiInteraction();
 // 					uddiInter.publishPlattformAndService();
 // 					app.getListofEndpoints();
-					uddiInter.deleteService();
+// 					uddiInter.deleteService();
 					// uddiInter.publishPlattformAndService();
 							
 					// ListIterator iter1 = list.listIterator();
