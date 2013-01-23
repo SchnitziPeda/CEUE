@@ -22,6 +22,7 @@ import at.jku.ce.ue.source.businessLogic.impl.SupplierServiceImpl;
  * 2013-01-08T20:34:27.205+01:00
  * Generated source version: 2.4.9
  * 
+ * 
  */
 
 @javax.jws.WebService(
