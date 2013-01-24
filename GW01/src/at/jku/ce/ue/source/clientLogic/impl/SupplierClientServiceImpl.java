@@ -174,9 +174,7 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 		Map<String, InquiryOrderPlattformService> serviceList = Database
 				.getInstance().getAllServices(false);
 
-		SupplierClientService supClientService = new SupplierClientServiceImpl();
-		List<String> prodList = supClientService
-				.getAllProducersForPart(partName);
+		List<String> prodList = this.getAllProducersForPart(partName);
 
 		for (String platformName : serviceList.keySet()) {
 
@@ -249,9 +247,7 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 		Database db = Database.getInstance();
 		Map<String, InquiryOrderPlattformService> serviceList = db
 				.getAllServices(true);
-		for (String s : serviceList.keySet()) {
-//			System.out.println(s);
-		}
+
 		for (Offer o : selectedOfferList) {
 			String orderid = db.generateOrderId();
 
