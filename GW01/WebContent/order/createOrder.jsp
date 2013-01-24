@@ -53,6 +53,10 @@
 			List<String> parts = supClient.getAllPartNames();
 			List<String> customers = supClient.getAllCustomerNames();
 
+			SupplierService supplService = new SupplierServiceImpl();
+			List<String> prods = supplService.getAllProducerNames();
+			customers.addAll(prods);
+			
 		%>
 		<form class="form-horizontal" name="selectSupplychain" method="post"
 			action="createOrder.jsp">
