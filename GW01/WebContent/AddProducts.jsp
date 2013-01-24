@@ -11,7 +11,7 @@ page language="java" import="java.io.*"
 	import="at.jku.ce.ue.source.businessLogic.impl.*"
 	import="java.util.List" import="java.util.ListIterator"
 	import="at.jku.ce.ue.source.businessLogic.*"
-	import="at.jku.ce.ue.source.RegisterSupplier"%>
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>

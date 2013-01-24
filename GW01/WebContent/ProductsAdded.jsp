@@ -6,7 +6,6 @@
 <%@
 page language="java" import="java.io.*" import="java.util.List"
 	import="java.util.LinkedList"
-	import="at.jku.ce.ue.source.RegisterSupplier"
 	import="at.jku.ce.ue.source.entities.*"
 	import="at.jku.ce.ue.source.presentation.presenter.*"
 	import="at.jku.ce.ue.source.presentation.view.*"%>
