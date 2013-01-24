@@ -195,14 +195,14 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 					logService.logInquiry(customerId, prod, partName, inquiryId);
 
 					
-					if (platformName.contains("gruppe 1 publisher")) {
-						PriceService priceService = new PriceServiceImpl();
-						price = priceService.getPrice(customerId, prod,
-								partName, inquiryId);
-					} else {
+//					if (platformName.contains("gruppe 1 publisher")) {
+//						PriceService priceService = new PriceServiceImpl();
+//						price = priceService.getPrice(customerId, prod,
+//								partName, inquiryId);
+//					} else {
 						price = serviceList.get(platformName).getPrice(
 								customerId, prod, partName, inquiryId);
-					}
+//					}
 
 					String offerID = Database.getInstance().generateOfferId();
 					Offer offer = new Offer(offerID, partName, prod,
