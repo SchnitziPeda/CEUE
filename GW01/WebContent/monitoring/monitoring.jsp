@@ -39,7 +39,7 @@
 	</div>
 	<div class="centered">
 		<ul class="pager">
-			<li class="Home"><a href="index.jsp">&larr; Home</a></li>
+			<li class="Home"><a href="../index.jsp">&larr; Home</a></li>
 		</ul>
 	</div>
 	<div class="moved-right">
