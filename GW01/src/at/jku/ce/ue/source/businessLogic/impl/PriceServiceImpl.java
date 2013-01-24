@@ -62,7 +62,6 @@ public class PriceServiceImpl implements PriceService {
 			// Iterating through all platforms
 			for (String platformName : serviceList.keySet()) {
 				
-
 				List<String> prods = serviceList.get(platformName)
 						.getAllProducersForPart(subPart);
 
