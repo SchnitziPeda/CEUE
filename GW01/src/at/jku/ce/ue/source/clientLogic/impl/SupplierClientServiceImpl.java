@@ -174,16 +174,11 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 		Map<String, InquiryOrderPlattformService> serviceList = Database
 				.getInstance().getAllServices(false);
 
-//		List<String> prodList = this.getAllProducersForPart(partName);
 
 		for (String platformName : serviceList.keySet()) {
 
-//			List<String> prodsOnPlatform = serviceList.get(platformName)
-//					.getAllProducersOnPlattform();
-			
 			List<String> prodsOnPlatform = serviceList.get(platformName).getAllProducersForPart(partName);
 
-//			for (String prod : prodList) {
 			for (String prod : prodsOnPlatform){
 
 				if (prodsOnPlatform.contains(prod)) {
