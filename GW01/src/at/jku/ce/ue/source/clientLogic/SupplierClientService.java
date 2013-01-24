@@ -26,8 +26,6 @@ public interface SupplierClientService {
 
 	public List<String> getAllPartNames();
 
-	public List<String> getDirectSubPartsOf(String partId);
-
 	public List<Offer> getOffersForPart(String partId,
 			String customerId);
 

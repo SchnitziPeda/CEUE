@@ -174,6 +174,7 @@
 						out.println("Sorry, currently are no supply chains available.");
 					}
 				} catch (Exception e) {
+					e.printStackTrace();
 					out.println("Sorry, currently are no supply chains available.");
 				}
 			}

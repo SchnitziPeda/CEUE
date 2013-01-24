@@ -331,7 +331,9 @@ public class UddiApp {
 											.getAccessPoint();
 									String wsdlFile = ap.getValue();
 
-									if ((!wsdlFile.contains("localhost") && !wsdlFile.contains("GW01")  && !wsdlFile.contains("gr4") && !wsdlFile.contains("HL16"))) {
+									if ((!wsdlFile.contains("localhost") && !wsdlFile.contains("GW01")  && !wsdlFile.contains("gr4") && !wsdlFile.contains("HL16") && !wsdlFile.contains("HL07"))
+											&& (wsdlFile.contains("GW23") || wsdlFile.contains("GR14") || wsdlFile.contains("HL02") || wsdlFile.contains("HL10") ||
+											wsdlFile.contains("GW11") || wsdlFile.contains("GW21"))) {
 										if (!wsdlFile.contains("8090")) {
 											if (!wsdlFile.endsWith("?wsdl"))
 												wsdlFile = wsdlFile + "?wsdl";
@@ -439,7 +441,9 @@ public class UddiApp {
 											.getAccessPoint();
 									String wsdlFile = ap.getValue();
 
-									if (!wsdlFile.contains("localhost") && !wsdlFile.contains("gr4") && !wsdlFile.contains("HL16")) {
+									if ((!wsdlFile.contains("localhost") && !wsdlFile.contains("gr4") && !wsdlFile.contains("HL16") && !wsdlFile.contains("HL07"))
+											&& (wsdlFile.contains("GW23") || wsdlFile.contains("GR14") || wsdlFile.contains("HL02") || wsdlFile.contains("HL10") ||
+													wsdlFile.contains("GW11") || wsdlFile.contains("GW21"))) {
 										if (!wsdlFile.contains("8090")) {
 											if (!wsdlFile.endsWith("?wsdl"))
 												wsdlFile = wsdlFile + "?wsdl";

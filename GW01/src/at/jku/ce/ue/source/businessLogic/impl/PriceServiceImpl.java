@@ -33,7 +33,6 @@ public class PriceServiceImpl implements PriceService {
 		Producer prod = supplService.getProducer(producerid);
 		
 		int producerPrice = 0;
-		int platformCharge = 20;
 
 		if (prod != null) {
 			Map<String, Integer> parts = prod.getParts();
@@ -76,13 +75,13 @@ public class PriceServiceImpl implements PriceService {
 					if (temp <= cheapestSubPartPrice && temp >= 0) {
 						cheapestSubPartPrice = temp;
 					}
-					System.out.println("Platform: "+platformName+" Producer: "+prodOfSubPart+" Part: "+subPart+" cheapest price: "+cheapestSubPartPrice+" Unser Preis: "+temp);
+//					System.out.println("Platform: "+platformName+" Producer: "+prodOfSubPart+" Part: "+subPart+" cheapest price: "+cheapestSubPartPrice+" Unser Preis: "+temp);
 				}
 			}
 			sum += cheapestSubPartPrice;
 		}
 
-		price = (sum + producerPrice)+platformCharge;
+		price = sum + producerPrice;
 		log.info("Current price: " + price);
 		
 		// LOGGING

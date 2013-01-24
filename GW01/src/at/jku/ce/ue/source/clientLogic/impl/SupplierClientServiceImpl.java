@@ -144,7 +144,7 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 			// Getting all parts of other platforms
 			List<String> prods = serviceList.get(plattformName)
 					.getAllProducersForPart(partId);
-
+			
 			// Iterating through all parts of platform 'plattform'
 			for (String name : prods) {
 				// add parts to current list
@@ -250,12 +250,12 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 		Map<String, InquiryOrderPlattformService> serviceList = db
 				.getAllServices(true);
 		for (String s : serviceList.keySet()) {
-			System.out.println(s);
+//			System.out.println(s);
 		}
 		for (Offer o : selectedOfferList) {
 			String orderid = db.generateOrderId();
 
-			System.out.println(o.getPlatformName());
+//			System.out.println(o.getPlatformName());
 			if (o.getPlatformName().contains("gruppe 1 publisher")) {
 				OrderService orderService = new OrderServiceImpl();
 				orderService.placeOrder(o.getCustomerOfOffer(),
@@ -273,9 +273,5 @@ public class SupplierClientServiceImpl implements SupplierClientService {
 		}
 	}
 
-	@Override
-	public List<String> getDirectSubPartsOf(String partId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 }

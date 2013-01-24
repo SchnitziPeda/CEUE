@@ -19,18 +19,15 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public void placeOrder(String customerid, String producerid, String partid,
 			String inquiryid, int price, String orderid) throws Exception {
-		System.out.println("----------1----------");
 		Database db = Database.getInstance();
 		Map<String, List<String>> partsOnPlatform = db.getPartHierarchy();
 		SupplierClientService clientService = new SupplierClientServiceImpl();
 		Map<String, InquiryOrderPlattformService> serviceList = db
 				.getAllServices(false);
-//		System.out.println("----------2----------");
 
 		List<String> subParts = partsOnPlatform.get(partid);
 		if (subParts.size() > 0) {
 			for (String subPart : subParts) {
-//				System.out.println("----------3----------");
 
 				List<Offer> offersForSubPart = clientService.getOffersForPart(
 						subPart, producerid);
@@ -61,7 +58,6 @@ public class OrderServiceImpl implements OrderService {
 				orderid, "OfferToGW01");
 
 		// Order accepted
-		System.out
-				.println("Order successfully completed on GW01! Thanks for your purchase!");
+		log.info("Order successfully completed on GW01! Thanks for your purchase!");
 	}
 }

@@ -62,7 +62,7 @@
 		%>
 		<div class="moved-right">
 		We're sorry, but currently are no services available.<br>
-		Please come back again later. 
+		Please try again later. 
 		</div>
 		<%
 	}
