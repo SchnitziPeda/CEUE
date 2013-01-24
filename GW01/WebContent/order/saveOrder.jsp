@@ -65,13 +65,11 @@
 					SupplierClientServiceImpl supClient = new SupplierClientServiceImpl();
 					supClient.saveOrders(customerId, partId, selectedOfferList);
 
-					out.println("Your order will now be saved. Thanks for ordering!");
-					out.println(customerId + " " + partId);
+					out.println("Your order will now be saved. Thanks for ordering with us!");
 					for (Offer o : selectedOfferList) {
 		%>
 		<br>
 		<%
-			out.println(o.toString());
 					}
 				}
 			} else {
